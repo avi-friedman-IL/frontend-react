@@ -1,0 +1,88 @@
+@use '../base/vars' as *;
+
+.app-header {
+    grid-area: app-header;
+    display: grid;
+    align-content: space-between;
+    justify-items: center;
+
+    padding: .5rem;
+    background-color: $bgc-app-header;
+
+    .app-nav {
+        display: grid;
+        gap: .5rem;
+
+        svg {
+            display: grid;
+            width: 1.2rem;
+            height: 1.2rem;
+            stroke: $gray1;
+            fill: $gray1;
+        }
+
+        a {
+            padding: .5rem;
+            border-radius: 50%;
+            transition: .5s;
+
+            &.active {
+                background-color: $bgc-app-header-hover;
+
+                svg {
+                    fill: #25D366;
+                    stroke: #25D366;
+                }
+            }
+
+            &:hover {
+                background-color: $bgc-app-header-hover;
+            }
+        }
+
+    }
+
+    .user-info {
+        display: grid;
+        gap: .5rem;
+        position: relative;
+
+        text-align: center;
+
+        span {
+            display: grid;
+            justify-items: center;
+            align-items: center;
+            cursor: pointer;
+            transition: .5s;
+
+            &:hover {
+                background-color: $bgc-app-header-hover;
+            }
+
+
+
+
+        }
+
+        .language-list {
+            display: grid;
+            position: absolute;
+            bottom: 3rem;
+            background-color: white;
+            border-radius: .5rem;
+            box-shadow: 0 0 1rem rgba(0, 0, 0, .1);
+
+            li {
+                padding: .5rem;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $bgc-app-header;
+                }
+            }
+
+        }
+    }
+
+}

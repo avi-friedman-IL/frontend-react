@@ -1,0 +1,15 @@
+.script-preview {
+    display: grid;
+    height: 100%;
+    padding: 1rem;
+    gap: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ededed;
+
+    cursor: pointer;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+    }
+}

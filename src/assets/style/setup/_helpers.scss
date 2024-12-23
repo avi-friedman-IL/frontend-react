@@ -1,0 +1,36 @@
+@use '../base/vars' as *;
+
+.img-url,
+.img-url-from-me {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+}
+
+svg {
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+input:focus {
+    outline: none;
+}
+
+.btn {
+    width: max-content;
+    height: max-content;
+    padding: .5rem 1rem;
+    font-size: 1rem;
+    color: $grin;
+    background-color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+    transition: all .3s;
+
+    &:hover {
+        background-color: #25D366;
+        color: #fff;
+    }
+
+}

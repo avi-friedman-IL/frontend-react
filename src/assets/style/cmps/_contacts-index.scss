@@ -1,0 +1,14 @@
+@use '../base/vars' as *;
+.contacts-index {
+    grid-area: contacts-index;
+    display: grid;
+    align-content: start;
+    
+    border-inline-end: 1px solid #e0e0e0;
+
+    background-color: white;
+    h3 {
+        padding: .5rem;
+        // color: $gray;
+    }
+}

@@ -1,0 +1,19 @@
+[
+   {
+      "category": "money",
+      "items": [
+         {
+            "title": "אין לי כסף",
+            "content": "lorem ipsum dolor sit amet consectetur adipiscing elit"
+         },
+         {
+            "title": "זה סכום מאוד גדול",
+            "content": "lorem ipsum dolor sit amet consectetur adipiscing elit"
+         },
+         {
+            "title": "תרמתי כבר במקום אחר, אני תורם רק ל...",
+            "content": "lorem ipsum dolor sit amet consectetur adipiscing elit"
+         }
+      ]
+   }
+]

@@ -1,0 +1,37 @@
+/* base  */
+@use 'base/vars';
+@use 'base/base';
+@use 'base/layout';
+
+/* setup */
+@use 'setup/helpers';
+
+/* pages */
+@use 'pages/home-page';
+@use 'pages/script-index';
+@use 'pages/script-edit';
+@use 'pages/script-details';
+@use 'pages/chat-index';
+@use 'pages/members-index';
+
+
+/* components */
+@use 'cmps/user-msg';
+@use 'cmps/app-header';
+@use 'cmps/login-with-google';
+@use 'cmps/script-list';
+@use 'cmps/script-preview';
+@use 'cmps/contacts-index';
+@use 'cmps/contacts-list';
+@use 'cmps/contacts-preview';
+@use 'cmps/chat-list';
+@use 'cmps/chat-preview';
+@use 'cmps/chat-icons'; 
+@use 'cmps/chat-action';
+@use 'cmps/chat-input';
+@use 'cmps/members-list';
+@use 'cmps/members-preview';
+@use 'cmps/icon-picker';  
+@use 'cmps/icons-details';  
+
+

@@ -1,0 +1,15 @@
+{
+   "Money": "כסף",
+   "Hesitating": "מתלבט",
+   "Send me material/credit": "שלח לי חומר/אשראי",
+   "Another time/not now": "בפעם אחרת/לא עכשיו",
+
+   "chats": "שיחות",
+   "daysOfWeek": ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"],
+   "today": "היום",
+   "typing...": "מקליד...",
+   "Type a message...": "הקלד הודעה...",
+   "logout": "התנתקות",
+   " Hi! The app is running. For security reasons, currently login is via Google only.": "שלום! האפליקציה בהרצה. מטעמי אבטחה, כרגע התחברות נעשית רק דרך גוגל.",
+   "To start a chat, go to contacts and add friends.": "כדי להתחיל שיחה, עבור לאנשי קשר והוסף חברים."
+}

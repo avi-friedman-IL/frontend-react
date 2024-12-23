@@ -1,0 +1,15 @@
+@use "../base/vars" as *;
+
+.chat-index {
+    grid-area: chat-index;
+    display: grid;
+    grid-template-columns: minmax(250px, 25%) (1fr);
+    grid-template-rows: 1fr max-content;
+    grid-template-areas: 
+    "contacts-index chat-list"
+    "contacts-index chat-input";
+    ;
+    
+    background-color: #efe9e0;
+    color: $color-primary;
+}

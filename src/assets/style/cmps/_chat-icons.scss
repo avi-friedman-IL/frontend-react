@@ -1,0 +1,21 @@
+@use '../base/vars' as *;
+
+.chat-icons {
+    position: absolute;
+    bottom: -1.2rem;
+
+    display: grid;
+    grid-auto-flow: column;
+    gap: .3rem;
+
+    padding: .1rem;
+    border-radius: .5rem;
+    background-color: white;
+    cursor: pointer;
+
+    svg {
+        display: grid;
+        color: $grin;
+    }
+}
+

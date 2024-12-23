@@ -1,0 +1,32 @@
+@use '../base/vars' as *;
+
+.chat-preview,
+.chat-preview-from-me {
+    align-self: start;
+    display: grid;
+    gap: .3rem;
+
+    position: relative;
+
+    width: max-content;
+    padding: .5rem;
+    padding-inline: 1rem;
+    border-radius: .5rem;
+
+    background-color: #e0e0e0;
+    box-shadow: 0 1px 0px rgba(0, 0, 0, 0.08),
+        0 1px 0px rgba(0, 0, 0, 0.08);
+
+    .msg {
+        display: grid;
+    }
+
+    .msg-info {
+        font-size: .65rem;
+    }
+}
+
+.chat-preview-from-me {
+    justify-self: end;
+    background-color: rgb(34 201 96 / 30%);
+}

@@ -1,0 +1,14 @@
+.login-with-google {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+
+    .nsm7Bb-HzV7m-LgbsSe {
+        border: none;
+        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+        transition: all .3s;
+        &:hover {
+          box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+        }
+    }
+}

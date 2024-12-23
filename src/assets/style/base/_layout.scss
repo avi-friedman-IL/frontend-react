@@ -1,0 +1,10 @@
+.main-layout {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    grid-template-areas:
+        'app-header chat-index'
+        'app-header chat-index'
+        'app-header chat-index'
+    ;
+    height: 100vh;
+}
