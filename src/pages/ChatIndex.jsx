@@ -17,7 +17,7 @@ import {
    UPDATE_CHAT,
 } from '../store/reducers/chat.reducer'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
-import { loadUsers, updateLoggedUser } from '../store/actions/user.actions'
+import { updateLoggedUser } from '../store/actions/user.actions'
 
 export function ChatIndex() {
    const user = useSelector(state => state.userModule.user)
@@ -26,8 +26,6 @@ export function ChatIndex() {
    const filterBy = useSelector(state => state.chatModule.filterBy)
    const isLoading = useSelector(state => state.chatModule.isLoading)
 
-   // console.log('user:', user)
-
    const dispatch = useDispatch()
 
    useEffect(() => {
@@ -35,39 +33,29 @@ export function ChatIndex() {
    }, [chats.length, filterBy])
 
    useEffect(() => {
-      socketService.setup()
       if (!filterBy.toUserId) return
+      socketService.setup()
 
       socketService.on('chat-add', onChatAdd)
+      socketService.on('chat-update', onChatUpdate)
+      socketService.on('chat-remove', onRemoveFromStore)
       return () => {
          socketService.off('chat-add', onChatAdd)
+         socketService.off('chat-update', onChatUpdate)
+         socketService.off('chat-remove', onRemoveFromStore)
          socketService.terminate()
       }
    }, [filterBy])
 
-   useEffect(() => {
-      if (!socketService.isConnected()) socketService.setup()
-
-      socketService.on('chat-update', onChatUpdate)
-      socketService.on('chat-remove', onRemoveFromStore)
-      return () => {
-         socketService.off('chat-update', onChatUpdate)
-         socketService.off('chat-remove', onRemoveFromStore)
-      }
-   }, [])
-
    async function load() {
       if (isLoading) return
-      // if (!filterBy.toUserId) return
+      if (!filterBy.toUserId) return
       try {
          const [chats, allChats] = await Promise.all([
             loadChats(filterBy),
             loadAllChats(),
-            loadUsers(),
          ])
-         // await loadChats(filterBy)
-         // await loadAllChats()
-         await isRead(chats)
+         isRead(chats)
       } catch (err) {
          console.log('Cannot load chats', err)
       }
@@ -101,8 +89,6 @@ export function ChatIndex() {
    }
 
    async function onChatAdd(newChat) {
-      if (newChat.fromUserId === user._id) return
-
       const chatExists = chats.some(chat => chat._id === newChat._id)
       if (!chatExists) {
          dispatch({ type: ADD_CHAT, chat: newChat })

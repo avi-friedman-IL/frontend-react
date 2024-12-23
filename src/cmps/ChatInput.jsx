@@ -3,17 +3,22 @@ import { addChat } from '../store/actions/chat.actions'
 import { LuSendHorizonal } from 'react-icons/lu'
 import { socketService } from '../services/socket.service'
 import { t } from 'i18next'
+import { useDispatch } from 'react-redux'
+import { ADD_CHAT } from '../store/reducers/chat.reducer'
 
 export function ChatInput({ toUserId, user }) {
+   const dispatch = useDispatch()
+
    const [msg, setMsg] = useState('')
    const typingTimeout = useRef(null)
 
-
    useEffect(() => {
-      if (!socketService.isConnected()) {
-         socketService.setup()
-      }
+      if (!socketService.isConnected()) socketService.setup()
+
       return () => {
+         if (typingTimeout.current) {
+            clearTimeout(typingTimeout.current)
+         }
          socketService.terminate()
       }
    }, [])
@@ -50,8 +55,9 @@ export function ChatInput({ toUserId, user }) {
          }
          if (socketService.isConnected()) {
             socketService.emit('offTyping')
+            socketService.emit('chat-add', chat)
          }
-         await addChat(chat)
+         // await addChat(chat)
          setMsg('')
       } catch (err) {
          console.log('Cannot send message', err)
@@ -71,9 +77,14 @@ export function ChatInput({ toUserId, user }) {
          )}
          {toUserId && msg && (
             <button className='send-btn' onClick={onSend}>
-               <LuSendHorizonal style={{
-                  rotate: localStorage.getItem('language') === 'he' ? '180deg' : '0deg',
-               }} />
+               <LuSendHorizonal
+                  style={{
+                     rotate:
+                        localStorage.getItem('language') === 'he'
+                           ? '180deg'
+                           : '0deg',
+                  }}
+               />
             </button>
          )}
       </div>
