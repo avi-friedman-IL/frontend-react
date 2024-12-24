@@ -1,10 +1,13 @@
 .script-list {
     display: grid;
     gap: 1rem;
-    // grid-auto-flow: column;
     grid-template-columns: minmax(300px, 400px) minmax(300px, 400px);
     grid-template-rows: max-content max-content;
     margin: auto auto;
+    padding: 1rem;
 
+    height: 100%;
+    overflow: auto;
 
+    scrollbar-width: none;
 }

@@ -73,11 +73,7 @@ export async function updateChat(chat) {
 }
 
 export async function setFilter(filterBy) {
-   try {
-      store.dispatch({ type: SET_FILTER, filterBy })
-   } catch (err) {
-      console.log('Cannot set filter', err)
-   }
+   store.dispatch({ type: SET_FILTER, filterBy })
 }
 
 // Command Creators:

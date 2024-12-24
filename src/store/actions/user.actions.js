@@ -59,7 +59,7 @@ export async function login(credentials) {
          type: SET_USER,
          user,
       })
-      // socketService.login(user._id)
+      socketService.login(user._id)
 
       return user
    } catch (err) {
@@ -75,7 +75,7 @@ export async function loginWithGoogle(credential) {
          type: SET_USER,
          user,
       })
-      // socketService.login(user._id)
+      socketService.login(user._id)
       return user
    } catch (err) {
       console.log('Cannot login with google', err)
@@ -90,7 +90,7 @@ export async function signup(credentials) {
          type: SET_USER,
          user,
       })
-      // socketService.login(user._id)
+      socketService.login(user._id)
       return user
    } catch (err) {
       console.log('Cannot signup', err)

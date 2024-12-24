@@ -36,7 +36,7 @@ export const socketService = {
    },
    on(eventName, cb) {
       socket.on(eventName, cb)
-      console.log('socketService - on:', eventName)
+      // console.log('socketService - on:', eventName)
    },
    off(eventName, cb) {
       if (!socket) return

@@ -9,6 +9,8 @@ export function ChatList({ chats, user, users, onRemove, onUpdate }) {
          endOfMessagesRef.current.scrollIntoView({ behavior: 'smooth' })
       }
    }, [chats])
+
+   // if (!chats.length) return
    return (
       <ul className='chat-list'>
          {chats.map((chat, idx) => (

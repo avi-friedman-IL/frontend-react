@@ -17,7 +17,6 @@ import {
    UPDATE_CHAT,
 } from '../store/reducers/chat.reducer'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
-import { updateLoggedUser } from '../store/actions/user.actions'
 
 export function ChatIndex() {
    const user = useSelector(state => state.userModule.user)
@@ -29,16 +28,18 @@ export function ChatIndex() {
    const dispatch = useDispatch()
 
    useEffect(() => {
+      // if (!filterBy.fromUserId === user._id) return
       load()
-   }, [chats.length, filterBy])
+   }, [chats.length, filterBy?.toUserId, filterBy?.toGroupId])
 
    useEffect(() => {
-      if (!filterBy.toUserId) return
-      socketService.setup()
+      // if (!filterBy.fromUserId === user._id) return
+      if (!socketService.isConnected()) socketService.setup()
 
       socketService.on('chat-add', onChatAdd)
       socketService.on('chat-update', onChatUpdate)
       socketService.on('chat-remove', onRemoveFromStore)
+      console.log('filterBy:', filterBy)
       return () => {
          socketService.off('chat-add', onChatAdd)
          socketService.off('chat-update', onChatUpdate)
@@ -49,30 +50,17 @@ export function ChatIndex() {
 
    async function load() {
       if (isLoading) return
-      if (!filterBy.toUserId) return
+      if (!filterBy.toUserId && !filterBy.toGroupId) return
       try {
-         const [chats, allChats] = await Promise.all([
-            loadChats(filterBy),
-            loadAllChats(),
-         ])
-         isRead(chats)
+         // const [chats, allChats] = await Promise.all([
+         //    loadAllChats(),
+         //    loadChats(filterBy),
+         // ])
+         // await isRead(chats)
+         await loadChats(filterBy)
       } catch (err) {
          console.log('Cannot load chats', err)
       }
-   }
-
-   async function sortContacts() {
-      if (!user?.contacts) return
-      const sortedContacts = user?.contacts.sort((a, b) => {
-         const chatA = chats.find(chat => chat.fromUserId === a._id)
-         const chatB = chats.find(chat => chat.fromUserId === b._id)
-         if (!chatA && !chatB) return 0
-         if (!chatA) return 1
-         if (!chatB) return -1
-         return chatB.createdAt - chatA.createdAt
-      })
-      const updatedUser = { ...user, contacts: sortedContacts }
-      await updateLoggedUser(updatedUser)
    }
 
    async function isRead(chats) {
@@ -89,8 +77,12 @@ export function ChatIndex() {
    }
 
    async function onChatAdd(newChat) {
-      const chatExists = chats.some(chat => chat._id === newChat._id)
-      if (!chatExists) {
+      // if (!newChat.fromUserId === user._id) return
+      // const chatExists = chats.some(chat => chat._id === newChat._id)
+      // if (!chatExists) {
+         // dispatch({ type: ADD_CHAT, chat: newChat })
+      // }
+      if (newChat.toUserId === user._id || newChat.fromUserId === user._id || newChat.toGroupId === filterBy.toGroupId) {
          dispatch({ type: ADD_CHAT, chat: newChat })
       }
    }
@@ -124,7 +116,8 @@ export function ChatIndex() {
       }
    }
 
-   if (!chats || !users) return
+
+   if (!chats || !users || !filterBy) return
    return (
       <section className='chat-index'>
          <ChatList
@@ -135,7 +128,7 @@ export function ChatIndex() {
             onUpdate={onUpdate}
          />
          <ContactsIndex />
-         <ChatInput toUserId={filterBy.toUserId} user={user} />
+         <ChatInput toUserId={filterBy.toUserId} toGroupId={filterBy.toGroupId} user={user} />
       </section>
    )
 }

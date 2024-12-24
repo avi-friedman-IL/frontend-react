@@ -36,6 +36,8 @@
     }
 
     .typing {
+        grid-row: 2;
+        grid-column: 1 / -1;
         color: $grin;
     }
 }

@@ -1,3 +1,5 @@
+import { userService } from "../../services/user"
+
 export const SET_CHAT = 'SET_CHAT'
 export const REMOVE_CHAT = 'REMOVE_CHAT'
 export const ADD_CHAT = 'ADD_CHAT'
@@ -9,7 +11,7 @@ export const SET_ALL_CHATS = 'SET_ALL_CHATS'
 const initialState = {
    chats: [],
    allChats: [],
-   filterBy: {},
+   filterBy: {fromUserId: userService.getLoggedinUser()?._id},
    isLoading: false,
 }
 
