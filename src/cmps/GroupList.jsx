@@ -14,7 +14,6 @@ export function GroupList({
    }
    return (
       <>
-         <h3>{t('groups')}</h3>
          <ul className='contacts-list'>
             {groups &&
                groups.map((group, idx) => (

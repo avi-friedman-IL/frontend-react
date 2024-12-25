@@ -1,0 +1,26 @@
+.create-group {
+    position: absolute;
+    top: 1rem;
+    right: 30%;
+   
+    display: grid;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: white;
+    z-index: 100;
+    border-radius: 5px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+
+    input {
+        width: 100%;
+        padding: .5rem;
+        border: none;
+        border-bottom: 1px solid #e0e0e0;
+        font-size: 1rem;
+
+        &:focus {
+            outline: none;
+            border-bottom: 1px solid #007bff;
+        }
+    }
+}

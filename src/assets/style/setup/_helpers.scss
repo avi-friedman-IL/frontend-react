@@ -8,6 +8,7 @@
 }
 
 svg {
+    display: grid;
     width: 1.2rem;
     height: 1.2rem;
 }
@@ -32,5 +33,23 @@ input:focus {
         background-color: #25D366;
         color: #fff;
     }
-
 }
+
+.btn2 {
+    width: max-content;
+    height: max-content;
+    padding: .5rem;
+    font-size: 1rem;
+    // background-color: #fff;
+    // color: $grin;
+    border-radius: 5px;
+    cursor: pointer;
+    // box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+    transition: all .3s;
+
+    &:hover {
+        background-color: $bgc-app-header-hover;
+        color: #fff;
+    }
+}
+

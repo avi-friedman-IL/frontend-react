@@ -23,6 +23,15 @@
         background-color: $bgc-chat-preview-hover;
     }
 
+    .img-url {
+        svg {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            fill: $gray1;
+        }
+    }
+
     .unread-msgs {
         display: grid;
         justify-content: center;

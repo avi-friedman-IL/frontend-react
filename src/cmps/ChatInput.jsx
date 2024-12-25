@@ -15,7 +15,7 @@ export function ChatInput({ toUserId, toGroupId, user }) {
          if (typingTimeout.current) {
             clearTimeout(typingTimeout.current)
          }
-         socketService.terminate()
+         // socketService.terminate()
       }
    }, [])
 

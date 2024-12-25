@@ -15,7 +15,6 @@ export function ContactsList({
    }
    return (
       <ul className='contacts-list'>
-         <h3>{t('chats')}</h3>
          {contacts.map(contact => (
             <li
                className={`contacts-preview ${

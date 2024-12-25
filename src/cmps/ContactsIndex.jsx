@@ -1,10 +1,13 @@
 import { useSelector } from 'react-redux'
 import { ContactsList } from './ContactsList'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { setFilter } from '../store/actions/chat.actions'
 import { loadUsers } from '../store/actions/user.actions'
 import { CreateGroup } from './CreateGroup.jsx'
 import { GroupList } from './GroupList.jsx'
+import { t } from 'i18next'
+import { RiChatNewLine } from 'react-icons/ri'
+import { Tooltip } from './Tooltip.jsx'
 
 export function ContactsIndex() {
    const user = useSelector(state => state.userModule.user)
@@ -14,6 +17,10 @@ export function ContactsIndex() {
    const [toUserId, setToUserId] = useState(contacts?.[0]?._id)
    const [toGroupId, setToGroupId] = useState(null)
    const [isOpen, setIsOpen] = useState(false)
+   const [isTooltipOpen, setIsTooltipOpen] = useState(false)
+   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 })
+
+   const timeoutRef = useRef(null)
 
    useEffect(() => {
       toUserId &&
@@ -37,12 +44,21 @@ export function ContactsIndex() {
       }
    }
 
+   function handleMouseEnter(ev) {
+      timeoutRef.current = setTimeout(() => {
+         setIsTooltipOpen(true)
+      }, 500)
+      setTooltipPos({ x: ev.pageX + 10, y: ev.pageY + 10 })
+   }
+
+   function handleMouseLeave() {
+      clearTimeout(timeoutRef.current)
+      setIsTooltipOpen(false)
+   }
+
    if (!contacts) return
    return (
       <section className='contacts-index'>
-         <button className='btn' onClick={() => setIsOpen(true)}>
-            Create a group
-         </button>
          {isOpen && (
             <CreateGroup
                user={user}
@@ -51,6 +67,18 @@ export function ContactsIndex() {
                setIsOpen={setIsOpen}
             />
          )}
+         <div className='list-header'>
+            <h3>{t('groups')}</h3>
+            <button
+               className='btn2'
+               onClick={() => setIsOpen(true)}
+               onMouseEnter={handleMouseEnter}
+               onMouseLeave={handleMouseLeave}>
+               <RiChatNewLine />
+            </button>
+            {isTooltipOpen && <Tooltip position={tooltipPos} text={t('create group')}/>}
+         </div>
+
          <GroupList
             groups={user.groups}
             toGroupId={toGroupId}
@@ -58,6 +86,9 @@ export function ContactsIndex() {
             setToGroupId={setToGroupId}
             userId={user._id}
          />
+         <div className='list-header'>
+            <h3>{t('chats')}</h3>
+         </div>
          <ContactsList
             contacts={contacts}
             toUserId={toUserId}

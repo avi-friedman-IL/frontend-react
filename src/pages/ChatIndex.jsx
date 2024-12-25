@@ -34,29 +34,24 @@ export function ChatIndex() {
 
    useEffect(() => {
       // if (!filterBy.fromUserId === user._id) return
-      if (!socketService.isConnected()) socketService.setup()
+      // if (!socketService.isConnected()) socketService.setup()
 
       socketService.on('chat-add', onChatAdd)
       socketService.on('chat-update', onChatUpdate)
       socketService.on('chat-remove', onRemoveFromStore)
-      console.log('filterBy:', filterBy)
+      // console.log('filterBy:', filterBy)
       return () => {
          socketService.off('chat-add', onChatAdd)
          socketService.off('chat-update', onChatUpdate)
          socketService.off('chat-remove', onRemoveFromStore)
-         socketService.terminate()
+         // socketService.terminate()
       }
-   }, [filterBy])
+   }, [])
 
    async function load() {
       if (isLoading) return
       if (!filterBy.toUserId && !filterBy.toGroupId) return
       try {
-         // const [chats, allChats] = await Promise.all([
-         //    loadAllChats(),
-         //    loadChats(filterBy),
-         // ])
-         // await isRead(chats)
          await loadChats(filterBy)
       } catch (err) {
          console.log('Cannot load chats', err)
@@ -78,12 +73,16 @@ export function ChatIndex() {
 
    async function onChatAdd(newChat) {
       // if (!newChat.fromUserId === user._id) return
-      // const chatExists = chats.some(chat => chat._id === newChat._id)
-      // if (!chatExists) {
+      if (
+         newChat.toUserId === user._id && newChat.fromUserId === filterBy.toUserId ||
+         newChat.fromUserId === user._id && newChat.toUserId === filterBy.toUserId ||
+         newChat.toGroupId === filterBy.toGroupId
+      ) {
          // dispatch({ type: ADD_CHAT, chat: newChat })
-      // }
-      if (newChat.toUserId === user._id || newChat.fromUserId === user._id || newChat.toGroupId === filterBy.toGroupId) {
-         dispatch({ type: ADD_CHAT, chat: newChat })
+         const chatExists = chats.some(chat => chat._id === newChat._id)
+         if (!chatExists) {
+            dispatch({ type: ADD_CHAT, chat: newChat })
+         }
       }
    }
 
@@ -116,7 +115,6 @@ export function ChatIndex() {
       }
    }
 
-
    if (!chats || !users || !filterBy) return
    return (
       <section className='chat-index'>
@@ -128,7 +126,11 @@ export function ChatIndex() {
             onUpdate={onUpdate}
          />
          <ContactsIndex />
-         <ChatInput toUserId={filterBy.toUserId} toGroupId={filterBy.toGroupId} user={user} />
+         <ChatInput
+            toUserId={filterBy.toUserId}
+            toGroupId={filterBy.toGroupId}
+            user={user}
+         />
       </section>
    )
 }
