@@ -21,7 +21,7 @@ export function ContactsPreview({ contact, userId }) {
    }, [allChats?.length])
 
    useEffect(() => {
-      socketService.setup()
+      if (!socketService.isConnected()) socketService.setup()
       socketService.on('typing', onTyping)
       socketService.on('offTyping', offTyping)
       return () => {

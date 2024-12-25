@@ -10,7 +10,7 @@ export function GroupPreview({ group, userId }) {
    const [theMemberTyping, setTheMemberTyping] = useState(null)
 
    useEffect(() => {
-      socketService.setup()
+      if (!socketService.isConnected()) socketService.setup()
       socketService.on('typing', onTyping)
       socketService.on('offTyping', offTyping)
       return () => {
