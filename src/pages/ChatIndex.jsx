@@ -46,7 +46,7 @@ export function ChatIndex() {
          socketService.off('chat-remove', onRemoveFromStore)
          // socketService.terminate()
       }
-   }, [])
+   }, [filterBy])
 
    async function load() {
       if (isLoading) return
