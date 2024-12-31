@@ -1,3 +1,4 @@
+import { chatService } from "../../services/chat"
 import { userService } from "../../services/user"
 
 export const SET_CHAT = 'SET_CHAT'
@@ -11,8 +12,9 @@ export const SET_ALL_CHATS = 'SET_ALL_CHATS'
 const initialState = {
    chats: [],
    allChats: [],
-   filterBy: {fromUserId: userService.getLoggedinUser()?._id},
+   filterBy: {},
    isLoading: false,
+   lastChat: null,
 }
 
 export function chatReducer(state = initialState, action) {

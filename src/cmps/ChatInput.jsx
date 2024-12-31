@@ -4,13 +4,11 @@ import { socketService } from '../services/socket.service'
 import { t } from 'i18next'
 
 export function ChatInput({ toUserId, toGroupId, user }) {
-
    const [msg, setMsg] = useState('')
    const typingTimeout = useRef(null)
 
    useEffect(() => {
       if (!socketService.isConnected()) socketService.setup()
-
       return () => {
          if (typingTimeout.current) {
             clearTimeout(typingTimeout.current)
@@ -30,7 +28,11 @@ export function ChatInput({ toUserId, toGroupId, user }) {
          clearTimeout(typingTimeout.current)
       }
       if (socketService.isConnected()) {
-         socketService.emit('typing', { toUserId, fromUserId: user._id, toGroupId })
+         socketService.emit('typing', {
+            toUserId,
+            fromUserId: user._id,
+            toGroupId,
+         })
 
          typingTimeout.current = setTimeout(() => {
             socketService.emit('offTyping')

@@ -16,6 +16,7 @@ export function GroupPreview({ group, userId }) {
       return () => {
          socketService.off('typing', onTyping)
          socketService.off('offTyping', offTyping)
+         // socketService.terminate()
       }
    }, [dataTyping])
 

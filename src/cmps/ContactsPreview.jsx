@@ -1,24 +1,10 @@
 import { useEffect } from 'react'
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
 import { socketService } from '../services/socket.service'
 import { t } from 'i18next'
 
-export function ContactsPreview({ contact, userId }) {
-   const allChats = useSelector(state => state.chatModule.allChats)
-   const typing = useSelector(state => state.userModule.typing)
-   const [newMsgs, setNewMsgs] = useState([])
+export function ContactsPreview({ contact, userId, allChats, filterBy }) {
    const [dataTyping, setDataTyping] = useState(null)
-
-   useEffect(() => {
-      const unreadMsgs = allChats.filter(
-         chat =>
-            chat.fromUserId === contact._id &&
-            chat.toUserId === userId &&
-            !chat.isRead
-      )
-      setNewMsgs(unreadMsgs)
-   }, [allChats?.length])
 
    useEffect(() => {
       if (!socketService.isConnected()) socketService.setup()
@@ -27,6 +13,7 @@ export function ContactsPreview({ contact, userId }) {
       return () => {
          socketService.off('typing', onTyping)
          socketService.off('offTyping', offTyping)
+         // socketService.terminate()
       }
    }, [dataTyping])
 
@@ -40,17 +27,17 @@ export function ContactsPreview({ contact, userId }) {
       setDataTyping(null)
    }
 
-   const isTyping = dataTyping?.fromUserId === contact._id && dataTyping?.toUserId === userId
-
+   const isTyping =
+      dataTyping?.fromUserId === contact._id && dataTyping?.toUserId === userId
    // const isTyping =
    //    typing?.fromUserId === contact._id && typing?.toUserId === userId
    return (
       <>
          <img className='img-url' src={contact.imgUrl} alt={contact.fullname} />
          <p>{contact.fullname}</p>
-         {newMsgs?.length > 0 && (
+         {/* {newMsgs?.length > 0 && (
             <span className='unread-msgs'>{newMsgs.length}</span>
-         )}
+         )} */}
          {isTyping && <span className='typing'>{t('typing...')}</span>}
       </>
    )

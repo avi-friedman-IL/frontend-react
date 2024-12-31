@@ -19,6 +19,7 @@ const baseUrl = process.env.NODE_ENV === 'production' ? '' : '//localhost:3030'
 export const socketService = {
    setup() {
       // console.log('Setting up socket...')
+      if (socket) return
       socket = io(baseUrl, {
          transports: ['websocket', 'polling'],
          reconnectionAttempts: 5,
@@ -36,7 +37,10 @@ export const socketService = {
    },
    on(eventName, cb) {
       socket.on(eventName, cb)
-      // console.log('socketService - on:', eventName)
+      // if (!socket) this.setup()
+      //    socket.off(eventName, cb) // מסיר מאזין קיים
+      //    socket.on(eventName, cb) // מוסיף מאזין חדש
+      //    console.log('socketService - on:', eventName)
    },
    off(eventName, cb) {
       if (!socket) return
@@ -51,8 +55,16 @@ export const socketService = {
    },
    login(userId) {
       // console.log('Logging in user:', userId)
+
+      // if (!socket) this.setup()
+      // if (!socket.userId) {
+      //    socket.emit(SOCKET_EMIT_LOGIN, userId)
+      // }
       if (!socket) this.setup()
+      if (socket.userId && socket.userId === userId) return // כבר מחובר
+      socket.userId = userId // שומר את ה-userId ברמת הסוקט
       socket.emit(SOCKET_EMIT_LOGIN, userId)
+      console.log('Logging in user:', userId)
    },
    logout() {
       // console.log('Logging out user')
@@ -60,12 +72,17 @@ export const socketService = {
    },
    terminate() {
       if (socket) {
-         // console.log('Terminating socket connection')
-         socket.disconnect()
+         // // console.log('Terminating socket connection')
+         // socket.disconnect()
+         // socket = null
+         console.log('Terminating socket connection')
+         socket.removeAllListeners() // מסיר מאזינים פעילים
+         socket.disconnect() // ניתוק החיבור
          socket = null
       }
    },
    getSocketId() {
+      console.log('Getting socket id:', socket ? socket.id : null)
       return socket ? socket.id : null
    },
    isConnected() {

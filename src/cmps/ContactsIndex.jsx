@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { ContactsList } from './ContactsList'
 import { useEffect, useRef, useState } from 'react'
-import { setFilter } from '../store/actions/chat.actions'
+import { loadAllChats, setFilter } from '../store/actions/chat.actions'
 import { loadUsers } from '../store/actions/user.actions'
 import { CreateGroup } from './CreateGroup.jsx'
 import { GroupList } from './GroupList.jsx'
@@ -13,6 +13,9 @@ export function ContactsIndex() {
    const user = useSelector(state => state.userModule.user)
    const users = useSelector(state => state.userModule.users)
    const contacts = useSelector(state => state.userModule.user.contacts)
+   const filterBy = useSelector(state => state.chatModule.filterBy)
+   const allChats = useSelector(state => state.chatModule.allChats)
+   const lastChat = useSelector(state => state.chatModule.lastChat)
 
    const [toUserId, setToUserId] = useState(contacts?.[0]?._id)
    const [toGroupId, setToGroupId] = useState(null)
@@ -38,7 +41,7 @@ export function ContactsIndex() {
 
    async function load() {
       try {
-         await loadUsers()
+        if(!user.length) await loadUsers()
       } catch (err) {
          console.log('Cannot load users', err)
       }
@@ -56,14 +59,14 @@ export function ContactsIndex() {
       setIsTooltipOpen(false)
    }
 
-   if (!contacts) return
+   // if (!contacts) return
    return (
       <section className='contacts-index'>
          {isOpen && (
             <CreateGroup
                user={user}
                users={users}
-               contacts={contacts}
+               contacts={users}
                setIsOpen={setIsOpen}
             />
          )}
@@ -76,7 +79,9 @@ export function ContactsIndex() {
                onMouseLeave={handleMouseLeave}>
                <RiChatNewLine />
             </button>
-            {isTooltipOpen && <Tooltip position={tooltipPos} text={t('create group')}/>}
+            {isTooltipOpen && (
+               <Tooltip position={tooltipPos} text={t('create group')} />
+            )}
          </div>
 
          <GroupList
@@ -90,11 +95,14 @@ export function ContactsIndex() {
             <h3>{t('chats')}</h3>
          </div>
          <ContactsList
-            contacts={contacts}
+            contacts={users}
+            // contacts={contacts}
             toUserId={toUserId}
             setToGroupId={setToGroupId}
             setToUserId={setToUserId}
             userId={user._id}
+            allChats={allChats}
+            filterBy={filterBy}
          />
       </section>
    )

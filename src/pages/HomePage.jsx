@@ -1,11 +1,24 @@
 import { useSelector } from 'react-redux'
 import { LoginWithGoogle } from '../cmps/LoginWithGoogle'
-import { logout } from '../store/actions/user.actions'
+import { loadUsers, logout } from '../store/actions/user.actions'
 import { IoChatbubbleEllipsesOutline } from 'react-icons/io5'
 import { t } from 'i18next'
+import { useEffect } from 'react'
 
 export function HomePage() {
    const user = useSelector(state => state.userModule.user)
+
+   useEffect(() => {
+      load()
+   }, [])
+
+   async function load() {
+      try {
+         await loadUsers()
+      } catch (err) {
+         console.log('HomePage: err in load', err)
+      }
+   }
 
    async function onLogout() {
       try {

@@ -17,6 +17,7 @@ import {
    UPDATE_CHAT,
 } from '../store/reducers/chat.reducer'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
+import { loadUsers, updateUser } from '../store/actions/user.actions'
 
 export function ChatIndex() {
    const user = useSelector(state => state.userModule.user)
@@ -28,31 +29,31 @@ export function ChatIndex() {
    const dispatch = useDispatch()
 
    useEffect(() => {
-      // if (!filterBy.fromUserId === user._id) return
       load()
    }, [chats.length, filterBy?.toUserId, filterBy?.toGroupId])
 
    useEffect(() => {
-      // if (!filterBy.fromUserId === user._id) return
-      // if (!socketService.isConnected()) socketService.setup()
-
+      if (!socketService.isConnected()) {
+         socketService.setup()
+      }
+      // socketService.getSocketId()
       socketService.on('chat-add', onChatAdd)
       socketService.on('chat-update', onChatUpdate)
       socketService.on('chat-remove', onRemoveFromStore)
-      // console.log('filterBy:', filterBy)
       return () => {
          socketService.off('chat-add', onChatAdd)
          socketService.off('chat-update', onChatUpdate)
          socketService.off('chat-remove', onRemoveFromStore)
-         // socketService.terminate()
+         // socketService.logout()
       }
-   }, [filterBy])
+   }, [filterBy?.toUserId, filterBy?.toGroupId])
 
    async function load() {
       if (isLoading) return
       if (!filterBy.toUserId && !filterBy.toGroupId) return
       try {
          await loadChats(filterBy)
+         await loadUsers()
       } catch (err) {
          console.log('Cannot load chats', err)
       }
@@ -72,18 +73,7 @@ export function ChatIndex() {
    }
 
    async function onChatAdd(newChat) {
-      // if (!newChat.fromUserId === user._id) return
-      if (
-         newChat.toUserId === user._id && newChat.fromUserId === filterBy.toUserId ||
-         newChat.fromUserId === user._id && newChat.toUserId === filterBy.toUserId ||
-         newChat.toGroupId === filterBy.toGroupId
-      ) {
-         // dispatch({ type: ADD_CHAT, chat: newChat })
-         const chatExists = chats.some(chat => chat._id === newChat._id)
-         if (!chatExists) {
-            dispatch({ type: ADD_CHAT, chat: newChat })
-         }
-      }
+      dispatch({ type: ADD_CHAT, chat: newChat })
    }
 
    async function onChatUpdate(chat) {

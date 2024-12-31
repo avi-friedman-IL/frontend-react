@@ -40,12 +40,11 @@ async function update(user) {
 
 async function googleLogin(credential) {
    const user = await httpService.post('auth/google', { token: credential })
-   if (user) console.log('user:', user)
+   // return user
    if (user) return saveLoggedinUser(user)
 }
 
 async function login(userCred) {
-   console.log('userCred:', userCred)
    const user = await httpService.post('auth/login', userCred)
    if (user) return saveLoggedinUser(user)
 }

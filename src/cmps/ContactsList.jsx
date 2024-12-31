@@ -7,6 +7,8 @@ export function ContactsList({
    setToGroupId,
    setToUserId,
    userId,
+   allChats,
+   filterBy,
 }) {
 
    function onContactPicker(contactId) {
@@ -22,7 +24,10 @@ export function ContactsList({
                }`}
                key={contact._id}
                onClick={() => onContactPicker(contact._id)}>
-               <ContactsPreview contact={contact} userId={userId} />
+               <ContactsPreview contact={contact} userId={userId}
+                  allChats={allChats}
+                  filterBy={filterBy}
+               />
             </li>
          ))}
       </ul>

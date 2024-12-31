@@ -67,20 +67,21 @@ export function AppHeader() {
    return (
       <section className='app-header'>
          {isTooltipOpen && <Tooltip position={tooltipPos} text={tooltipText} />}
-         <nav className='app-nav'>
-            <NavLink to={'/'}>
-               <IoHomeOutline />
-            </NavLink>
-            <NavLink
-               to={'/script'}
-               onMouseEnter={ev => {
-                  setTooltipText(t('call scripts'))
-                  handleMouseEnter(ev)
-               }}
-               onMouseLeave={handleMouseLeave}>
-               <TbPhoneCalling />
-            </NavLink>
-            {user && (
+         {user && (
+            <nav className='app-nav'>
+               <NavLink to={'/'}>
+                  <IoHomeOutline />
+               </NavLink>
+               <NavLink
+                  to={'/script'}
+                  onMouseEnter={ev => {
+                     setTooltipText(t('scripts'))
+                     handleMouseEnter(ev)
+                  }}
+                  onMouseLeave={handleMouseLeave}>
+                  <TbPhoneCalling />
+               </NavLink>
+
                <NavLink
                   to={'/chat'}
                   onMouseEnter={ev => {
@@ -90,8 +91,7 @@ export function AppHeader() {
                   onMouseLeave={handleMouseLeave}>
                   <BiChat />
                </NavLink>
-            )}
-            {user && (
+
                <NavLink
                   to={'/members'}
                   onMouseEnter={ev => {
@@ -101,9 +101,8 @@ export function AppHeader() {
                   onMouseLeave={handleMouseLeave}>
                   <IoMdContacts />
                </NavLink>
-            )}
-         </nav>
-
+            </nav>
+         )}
          <div className='user-info' ref={languageRef}>
             {user && (
                <span
@@ -120,8 +119,8 @@ export function AppHeader() {
             {user && <img className='img-url' src={user.imgUrl} alt='' />}
             {isOpen && (
                <ul className='language-list' onBlur={() => setIsOpen(false)}>
-                  <li onClick={() => changeLanguage('en')}>🇺🇸</li>
-                  <li onClick={() => changeLanguage('he')}>🇮🇱</li>
+                  <li onClick={() => changeLanguage('en')}>english</li>
+                  <li onClick={() => changeLanguage('he')}>עברית</li>
                </ul>
             )}
          </div>

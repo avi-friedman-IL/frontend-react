@@ -77,7 +77,6 @@ export function CreateGroup({ user, users, contacts, setIsOpen }) {
 
    return (
       <section className='create-group' ref={createRef}>
-         <h3>Create a group</h3>
          <input type='text' placeholder={t('name of group')} onChange={handleChange} autoFocus />
          <Select
             isMulti
