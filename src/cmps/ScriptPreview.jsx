@@ -1,5 +1,3 @@
-import { Link, Outlet } from 'react-router-dom'
-
 export function ScriptPreview({ script }) {
    return (
       <section className='script-preview'>
@@ -13,9 +11,6 @@ export function ScriptPreview({ script }) {
                </li>
             ))}
          </ul>
-         <Link to={`/script/edit/${script._id}`} className='btn' onClick={(ev) => ev.stopPropagation()}>
-            Edit
-         </Link>
       </section>
    )
 }

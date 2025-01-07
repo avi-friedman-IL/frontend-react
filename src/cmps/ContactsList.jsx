@@ -1,20 +1,11 @@
-import { t } from 'i18next'
 import { ContactsPreview } from './ContactsPreview'
 
 export function ContactsList({
    contacts,
    toUserId,
-   setToGroupId,
-   setToUserId,
    userId,
-   allChats,
-   filterBy,
+   onContactPicker,
 }) {
-
-   function onContactPicker(contactId) {
-      setToGroupId(null)
-      setToUserId(contactId)
-   }
    return (
       <ul className='contacts-list'>
          {contacts.map(contact => (
@@ -24,10 +15,7 @@ export function ContactsList({
                }`}
                key={contact._id}
                onClick={() => onContactPicker(contact._id)}>
-               <ContactsPreview contact={contact} userId={userId}
-                  allChats={allChats}
-                  filterBy={filterBy}
-               />
+               <ContactsPreview contact={contact} userId={userId} />
             </li>
          ))}
       </ul>

@@ -2,10 +2,9 @@ import Modal from 'react-modal'
 import { useRef } from 'react'
 import { useState } from 'react'
 import { MdInsertEmoticon } from 'react-icons/md'
-import { IconPicker } from './IconPicker'
 import i18n from '../i18n'
 import { AiOutlineDelete } from 'react-icons/ai'
-
+import { EmojiPicker } from './EmojiPicker'
 export function ChatAction({ chat, user, onRemove, onUpdate }) {
    const [isOpen, setIsOpen] = useState(false)
    const [modalPosition, setModalPosition] = useState({ x: 0, y: 0 })
@@ -48,22 +47,25 @@ export function ChatAction({ chat, user, onRemove, onUpdate }) {
                   left: modalPosition.x,
                   right: 'auto',
                   bottom: 'auto',
-                  width: '300px',
-                  height: '300px',
-                  overflow: 'auto',
-                  backgroundColor: 'white',
-                  borderRadius: '5px',
-                  display: 'grid',
-                  padding: '10px',
+                  width: 'max-content',
+                  padding: '0',
+                  overflow: 'hidden',
+                  // height: '300px',
+                  // overflow: 'auto',
+                  // backgroundColor: 'white',
+                  // borderRadius: '5px',
+                  // display: 'grid',
+                  // padding: '10px',
                   boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.1)',
                },
             }}>
-            <IconPicker
+            {/* <IconPicker
                chat={chat}
                user={user}
                onUpdate={onUpdate}
                setIsOpen={setIsOpen}
-            />
+            /> */}
+            <EmojiPicker chat={chat} user={user} onUpdate={onUpdate} setIsOpen={setIsOpen} />
          </Modal>
       </section>
    )

@@ -10,7 +10,6 @@ import { MembersIndex } from './pages/MembersIndex'
 import { UserMsg } from './cmps/UserMsg'
 import { ChatIndex } from './pages/ChatIndex'
 import { ScriptIndex } from './pages/ScriptIndex'
-import { ScriptEdit } from './pages/ScriptEdit.jsx'
 
 import './assets/style/main.scss'
 import { ScriptDetails } from './pages/ScriptDetails.jsx'
@@ -34,17 +33,12 @@ export function RootCmp() {
             <UserMsg />
             <Routes>
                <Route path='/' element={<HomePage />} />
-               
-               <Route path='/script' element={<ScriptIndex />} >
-                  <Route path='edit' element={<ScriptEdit />} />
-                  <Route path='edit/:id' element={<ScriptEdit />} />
-                  {/* <Route path='money' element={<ScriptIndex />} />
-                  <Route path='Hesitating' element={<ScriptIndex />} />
-                  <Route path='send-me-material-credit' element={<ScriptIndex />} />
-                  <Route path='another-time-not-now' element={<ScriptIndex />} /> */}
+
+               <Route path='/script' element={<ScriptIndex />}>
+                  {/* <Route path='edit/:id' element={<ScriptEdit />} /> */}
                </Route>
                <Route path='/script/details/:id' element={<ScriptDetails />} />
-               
+
                <Route path='/chat' element={<ChatIndex />} />
                <Route path='/members' element={<MembersIndex />} />
             </Routes>

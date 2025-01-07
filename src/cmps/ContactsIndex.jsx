@@ -1,23 +1,20 @@
 import { useSelector } from 'react-redux'
 import { ContactsList } from './ContactsList'
 import { useEffect, useRef, useState } from 'react'
-import { loadAllChats, setFilter } from '../store/actions/chat.actions'
-import { loadUsers } from '../store/actions/user.actions'
+import { loadAllChats, loadChats, setFilter } from '../store/actions/chat.actions'
+import { loadUsers, updateLoggedUser, updateUser } from '../store/actions/user.actions'
 import { CreateGroup } from './CreateGroup.jsx'
 import { GroupList } from './GroupList.jsx'
 import { t } from 'i18next'
 import { RiChatNewLine } from 'react-icons/ri'
 import { Tooltip } from './Tooltip.jsx'
+import { socketService } from '../services/socket.service.js'
 
 export function ContactsIndex() {
    const user = useSelector(state => state.userModule.user)
    const users = useSelector(state => state.userModule.users)
-   const contacts = useSelector(state => state.userModule.user.contacts)
-   const filterBy = useSelector(state => state.chatModule.filterBy)
-   const allChats = useSelector(state => state.chatModule.allChats)
-   const lastChat = useSelector(state => state.chatModule.lastChat)
 
-   const [toUserId, setToUserId] = useState(contacts?.[0]?._id)
+   const [toUserId, setToUserId] = useState(null)
    const [toGroupId, setToGroupId] = useState(null)
    const [isOpen, setIsOpen] = useState(false)
    const [isTooltipOpen, setIsTooltipOpen] = useState(false)
@@ -35,13 +32,12 @@ export function ContactsIndex() {
          setFilter(
             { toUserId: null, toGroupId: toGroupId, fromUserId: user._id } || {}
          )
-
       load()
    }, [toUserId, toGroupId])
 
    async function load() {
       try {
-        if(!user.length) await loadUsers()
+        if(!users.length) await loadUsers()
       } catch (err) {
          console.log('Cannot load users', err)
       }
@@ -59,7 +55,30 @@ export function ContactsIndex() {
       setIsTooltipOpen(false)
    }
 
-   // if (!contacts) return
+   function onGroupPicker(groupId) {
+      setToUserId(null)
+      setToGroupId(groupId)
+      socketService.emit('joinGroup', groupId)
+   }
+
+   async function onContactPicker(contactId) {
+      setToGroupId(null)
+      setToUserId(contactId)
+      const contact = users.find(user => user._id === contactId)
+      const updatedContact = {
+         ...contact,
+         newMsgs: null,
+      }
+      await updateUser(updatedContact)
+   }
+
+   async function onRemoveGroup(groupId) {
+      const group = user.groups.find(group => group._id === groupId)
+      const updatedGroups = user.groups.filter(group => group.id !== groupId)
+      const updatedUser = { ...user, groups: updatedGroups }
+      await updateLoggedUser(updatedUser)
+   }
+
    return (
       <section className='contacts-index'>
          {isOpen && (
@@ -87,22 +106,18 @@ export function ContactsIndex() {
          <GroupList
             groups={user.groups}
             toGroupId={toGroupId}
-            setToUserId={setToUserId}
-            setToGroupId={setToGroupId}
+            onGroupPicker={onGroupPicker}
             userId={user._id}
+            onRemoveGroup={onRemoveGroup}
          />
          <div className='list-header'>
             <h3>{t('chats')}</h3>
          </div>
          <ContactsList
             contacts={users}
-            // contacts={contacts}
             toUserId={toUserId}
-            setToGroupId={setToGroupId}
-            setToUserId={setToUserId}
             userId={user._id}
-            allChats={allChats}
-            filterBy={filterBy}
+            onContactPicker={onContactPicker}
          />
       </section>
    )

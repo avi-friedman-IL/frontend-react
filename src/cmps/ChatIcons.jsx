@@ -1,6 +1,5 @@
 import { useRef } from 'react'
 import { useState } from 'react'
-import * as ReactIcons from 'react-icons/fc'
 import Modal from 'react-modal'
 import { IconsDetails } from './IconsDetails'
 
@@ -20,12 +19,14 @@ export function ChatIcons({ chat, users, user, onUpdate }) {
    return (
       <>
          <ul className='chat-icons'>
-            {chat.icons?.map((icon, idx) => {
-               const Icon = ReactIcons[icon.Icon]
-               // if (!Icon) return null
+            {chat.emojis?.map((emoji, idx) => {
                return (
-                  <li key={idx} ref={btnRef} onClick={onOpenModal}>
-                     <Icon />
+                  <li
+                     className='icon'
+                     key={idx}
+                     ref={btnRef}
+                     onClick={onOpenModal}>
+                     {emoji.emoji}
                   </li>
                )
             })}
@@ -52,38 +53,6 @@ export function ChatIcons({ chat, users, user, onUpdate }) {
                   boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.1)',
                },
             }}>
-            {/* <ul className='icons-details'>
-               {chat.icons?.length > 0 && chat.icons.map((icon, idx) => {
-                  const Icon = ReactIcons[icon.Icon]
-                  return (
-                     <li key={idx} onClick={handleClick}>
-                        <img
-                           className='img-url'
-                           src={
-                              users.find(user => user._id === icon.fromUserId)
-                                 ?.imgUrl
-                           }
-                           alt=''
-                        />
-                        <span>
-                           <p>
-                              {' '}
-                              {
-                                 users.find(
-                                    user => user._id === icon.fromUserId
-                                 )?.fullname
-                              }
-                           </p>
-                           <p>
-                              {user._id === icon.fromUserId &&
-                                 'Select to remove'}
-                           </p>
-                        </span>
-                        <Icon />
-                     </li>
-                  )
-               })}
-            </ul> */}
             <IconsDetails
                chat={chat}
                users={users}

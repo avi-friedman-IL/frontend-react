@@ -9,13 +9,14 @@
 /* pages */
 @use 'pages/home-page';
 @use 'pages/script-index';
-@use 'pages/script-edit';
 @use 'pages/script-details';
 @use 'pages/chat-index';
 @use 'pages/members-index';
 
 
 /* components */
+@use 'cmps/add-script';
+@use 'cmps/item-edit';
 @use 'cmps/user-msg';
 @use 'cmps/app-header';
 @use 'cmps/login-with-google';

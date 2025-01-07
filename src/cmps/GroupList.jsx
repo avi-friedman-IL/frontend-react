@@ -1,17 +1,7 @@
-import { t } from 'i18next'
+import { RiCloseLine } from 'react-icons/ri'
 import { GroupPreview } from './GroupPreview.jsx'
 
-export function GroupList({
-   groups,
-   toGroupId,
-   setToGroupId,
-   setToUserId,
-   userId,
-}) {
-   function onGroupPicker(groupId) {
-      setToUserId(null)
-      setToGroupId(groupId)
-   }
+export function GroupList({ groups, toGroupId, userId, onGroupPicker, onRemoveGroup }) {
    return (
       <>
          <ul className='contacts-list'>
@@ -24,6 +14,14 @@ export function GroupList({
                      key={idx}
                      onClick={() => onGroupPicker(group.id)}>
                      <GroupPreview group={group} userId={userId} />
+                     <button
+                        className='btn2'
+                        onClick={ev => {
+                           ev.stopPropagation()
+                           onRemoveGroup(group.id)
+                        }}>
+                        <RiCloseLine />
+                     </button>
                   </li>
                ))}
          </ul>

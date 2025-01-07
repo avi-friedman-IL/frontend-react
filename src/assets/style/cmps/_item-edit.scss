@@ -1,0 +1,74 @@
+.item-edit {
+    position: relative;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: grid;
+    gap: .5rem;
+    padding: 1rem;
+    width: 50%;
+    background-color: white;
+    // border-radius: 1rem;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1),
+        -1px -1px 2px rgba(0, 0, 0, 0.1);
+    .button-wrap {
+        
+        display: grid;
+        padding: .5rem;
+
+        .cancel-btn {
+            position: absolute;
+            top: 0;
+            right: 0;      
+            
+            &:hover {
+                background-color: transparent;
+
+                svg {
+                    fill: lightblue;
+                    stroke: lightblue;
+                }
+            }
+        }
+    }
+
+    input {
+        padding: 0.5rem;
+        border: none;
+        border-radius: 0.5rem;
+        font-family: 'Roboto', sans-serif;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #708090;
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1),
+            -1px -1px 2px rgba(0, 0, 0, 0.1);
+
+        &:focus {
+            outline: none;
+            box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1),
+                -1px -1px 2px rgba(0, 0, 0, 0.1),
+                0 0 0 2px lightblue;
+        }
+    }
+
+    textarea {
+        padding: .5rem;
+        resize: none;
+        border: none;
+        border-radius: 0.5rem;
+        font-family: 'Roboto', sans-serif;
+        font-size: 1rem;
+        color: #708090;
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1),
+            -1px -1px 2px rgba(0, 0, 0, 0.1);
+
+        &:focus {
+            outline: none;
+            box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1),
+                -1px -1px 2px rgba(0, 0, 0, 0.1),
+                0 0 0 2px lightblue;
+        }
+    }
+}

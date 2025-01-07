@@ -1,30 +1,36 @@
-import * as ReactIcons from 'react-icons/fc'
+import * as ReactIcons from 'react-icons/fa'
 
 export function IconsDetails({ chat, users, user, onUpdate, setIsOpen }) {
    function handleClick(idx) {
-      onUpdate({
-         ...chat,
-         icons: chat.icons.filter(icon => icon.fromUserId !== user._id),
-      })
+      const emojis = chat.emojis.filter((emoji, i) => i !== idx)
+      onUpdate({ ...chat, emojis })
       setIsOpen(false)
    }
    return (
       <ul className='icons-details'>
-         {chat.icons?.map((icon, idx) => {
-            const Icon = ReactIcons[icon.Icon]
-            // if(!Icon) return <></>
+         {chat.emojis?.map((emoji, idx) => {
             return (
                <li key={idx} onClick={() => handleClick(idx)}>
                   <img
                      className='img-url'
-                     src={users.find(user => user._id === icon.fromUserId)?.imgUrl}
+                     src={
+                        users.find(user => user._id === emoji.fromUserId)
+                           ?.imgUrl
+                     }
                      alt=''
                   />
                   <span>
-                     <p>{users.find(user => user._id === icon.fromUserId)?.fullname}</p>
-                     <p>{user._id === icon.fromUserId && 'Select to remove'}</p>
+                     <p>
+                        {
+                           users.find(user => user._id === emoji.fromUserId)
+                              ?.fullname
+                        }
+                     </p>
+                     <p>
+                        {user._id === emoji.fromUserId && 'Select to remove'}
+                     </p>
                   </span>
-                  <span><Icon /></span>
+                  <span>{emoji.emoji}</span>
                </li>
             )
          })}

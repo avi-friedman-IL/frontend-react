@@ -8,14 +8,15 @@
     grid-auto-flow: column;
     gap: .3rem;
 
-    padding: .1rem;
-    border-radius: .5rem;
+    // padding: .1rem;
+    border-radius: 3rem;
     background-color: white;
     cursor: pointer;
 
-    svg {
+    .icon {
         display: grid;
-        color: $grin;
+        align-self: center;
+        justify-self: center;
     }
 }
 

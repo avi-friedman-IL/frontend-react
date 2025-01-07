@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { ContactsIndex } from '../cmps/ContactsIndex'
 import {
-   loadAllChats,
    loadChats,
    removeChat,
    updateChat,
@@ -17,7 +16,7 @@ import {
    UPDATE_CHAT,
 } from '../store/reducers/chat.reducer'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
-import { loadUsers, updateUser } from '../store/actions/user.actions'
+import { updateLoggedUser, updateUser } from '../store/actions/user.actions'
 
 export function ChatIndex() {
    const user = useSelector(state => state.userModule.user)
@@ -36,15 +35,15 @@ export function ChatIndex() {
       if (!socketService.isConnected()) {
          socketService.setup()
       }
-      // socketService.getSocketId()
       socketService.on('chat-add', onChatAdd)
       socketService.on('chat-update', onChatUpdate)
       socketService.on('chat-remove', onRemoveFromStore)
+      socketService.on('updateLoggedUser', onUpdateLoggedUser)
       return () => {
          socketService.off('chat-add', onChatAdd)
          socketService.off('chat-update', onChatUpdate)
          socketService.off('chat-remove', onRemoveFromStore)
-         // socketService.logout()
+         socketService.off('updateLoggedUser', onUpdateLoggedUser)
       }
    }, [filterBy?.toUserId, filterBy?.toGroupId])
 
@@ -53,27 +52,43 @@ export function ChatIndex() {
       if (!filterBy.toUserId && !filterBy.toGroupId) return
       try {
          await loadChats(filterBy)
-         await loadUsers()
       } catch (err) {
          console.log('Cannot load chats', err)
       }
    }
 
-   async function isRead(chats) {
-      chats.forEach(async chat => {
-         if (
-            chat.toUserId === user._id &&
-            filterBy.toUserId === chat.fromUserId &&
-            !chat.isRead
-         ) {
-            const chatToRead = { ...chat, isRead: true }
-            await updateChat(chatToRead)
-         }
-      })
+   async function onChatAdd(newChat) {
+      if (
+         (newChat.fromUserId === filterBy.toUserId &&
+            newChat.toUserId === user._id) ||
+         (newChat.toUserId === filterBy.toUserId &&
+            newChat.fromUserId === user._id) ||
+         newChat.toGroupId === filterBy.toGroupId
+      ) {
+         dispatch({ type: ADD_CHAT, chat: newChat })
+      }
+      if (newChat.toGroupId) return
+      UpdateUserWithNewMsgs(newChat)
    }
 
-   async function onChatAdd(newChat) {
-      dispatch({ type: ADD_CHAT, chat: newChat })
+   async function onUpdateLoggedUser(updatedUser) {
+      if (updatedUser._id === user._id) {
+         await updateLoggedUser(updatedUser)
+      }
+   }
+
+   async function UpdateUserWithNewMsgs(newChat) {
+      const userToUpdate = users.find(user => user._id === newChat.fromUserId)
+      const updatedUser = {
+         ...userToUpdate,
+         newMsgs: userToUpdate.newMsgs
+            ? [
+                 ...userToUpdate.newMsgs,
+                 { fromUserId: newChat.fromUserId, toUserId: newChat.toUserId },
+              ]
+            : [{ fromUserId: newChat.fromUserId, toUserId: newChat.toUserId }],
+      }
+      await updateUser(updatedUser)
    }
 
    async function onChatUpdate(chat) {

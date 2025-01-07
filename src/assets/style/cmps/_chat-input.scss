@@ -1,8 +1,35 @@
 @use "../base/vars" as *;
+
 .chat-input {
     grid-area: chat-input;
     display: grid;
-    grid-template-columns: 1fr max-content;
+    grid-template-columns: max-content 1fr max-content;
+    max-width: 100%;
+
+    .modal-emoji-picker {
+       
+
+        padding: 0;
+    }
+
+    .emoji-btn {
+        display: grid;
+        align-items: center;
+        padding-inline: 1rem;
+        background-color: white;
+        cursor: pointer;
+
+        &:hover {
+            color: $grin;
+        }
+
+        svg {
+            display: grid;
+            stroke: $grin;
+        }
+
+
+    }
 
     input {
         padding: 1rem;
@@ -11,6 +38,7 @@
     .send-btn {
         padding-inline: 1rem;
         background-color: white;
+
         &:hover {
             color: $grin;
         }
@@ -19,10 +47,11 @@
             display: grid;
             // fill: $grin;
             stroke: $grin;
-            
+
             body[dir="rtl"] & {
                 transform: rotate(180deg);
             }
+
             body[dir="ltr"] & {
                 transform: rotate(0deg);
             }

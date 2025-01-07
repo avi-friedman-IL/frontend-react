@@ -7,18 +7,14 @@ const SOCKET_EMIT_LOGOUT = 'logout'
 let socket = null
 
 const baseUrl = process.env.NODE_ENV === 'production' ? '' : '//localhost:3030'
-// const baseUrl = '//localhost:3030'
 // export const socketService = createSocketService()
 // export const socketService = createDummySocketService()
 
 // for debugging from console
 // window.socketService = socketService
 
-// socketService.setup()
-
 export const socketService = {
    setup() {
-      // console.log('Setting up socket...')
       if (socket) return
       socket = io(baseUrl, {
          transports: ['websocket', 'polling'],
@@ -26,21 +22,11 @@ export const socketService = {
          reconnectionDelay: 1000,
          timeout: 20000,
       })
-      // socket.on('connect', () => {
-      //    console.log('Socket connected:', socket.id)
-      // })
-      // socket.on('disconnect', () => {
-      //    console.log('Socket disconnected')
-      // })
       const user = userService.getLoggedinUser()
       if (user) this.login(user._id)
    },
    on(eventName, cb) {
       socket.on(eventName, cb)
-      // if (!socket) this.setup()
-      //    socket.off(eventName, cb) // מסיר מאזין קיים
-      //    socket.on(eventName, cb) // מוסיף מאזין חדש
-      //    console.log('socketService - on:', eventName)
    },
    off(eventName, cb) {
       if (!socket) return
@@ -50,31 +36,19 @@ export const socketService = {
       }
    },
    emit(eventName, data) {
-      // console.log('Emitting event:', eventName, 'with data:', data)
       socket.emit(eventName, data)
    },
    login(userId) {
-      // console.log('Logging in user:', userId)
-
-      // if (!socket) this.setup()
-      // if (!socket.userId) {
-      //    socket.emit(SOCKET_EMIT_LOGIN, userId)
-      // }
       if (!socket) this.setup()
       if (socket.userId && socket.userId === userId) return // כבר מחובר
       socket.userId = userId // שומר את ה-userId ברמת הסוקט
       socket.emit(SOCKET_EMIT_LOGIN, userId)
-      console.log('Logging in user:', userId)
    },
    logout() {
-      // console.log('Logging out user')
       socket.emit(SOCKET_EMIT_LOGOUT)
    },
    terminate() {
       if (socket) {
-         // // console.log('Terminating socket connection')
-         // socket.disconnect()
-         // socket = null
          console.log('Terminating socket connection')
          socket.removeAllListeners() // מסיר מאזינים פעילים
          socket.disconnect() // ניתוק החיבור
