@@ -1,7 +1,10 @@
 import { useState } from 'react'
-import { loadScripts, updateScript } from '../store/actions/script.actions'
+import { updateScript } from '../store/actions/script.actions'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 import { IoCloseOutline } from 'react-icons/io5'
+
+import { ItemStyle } from './ItemStyle.jsx'
+import { TextEditor } from './TextEditor.jsx'
 
 export function ItemEdit({ item, setOpenItemId, currScript }) {
    const [editedItem, setEditedItem] = useState(item)
@@ -32,26 +35,30 @@ export function ItemEdit({ item, setOpenItemId, currScript }) {
 
    return (
       <section className='item-edit'>
-         <div className='button-wrap'>
-            <button
-               className='btn2 cancel-btn'
-               onClick={() => setOpenItemId(null)}>
-              <IoCloseOutline />
-            </button>
+         <div className='item-edit-btns'>
+            <IoCloseOutline
+               className='btn2'
+               onClick={() => setOpenItemId(null)}
+            />
+
+            <ItemStyle
+               item={editedItem}
+               setEditedItem={setEditedItem}
+              
+            />
          </div>
          <input
             type='text'
             value={editedItem.title}
             name='title'
             onChange={handleChange}
+            style={{ color: editedItem.style?.color }}
          />
-         <textarea
-            type='text'
-            value={editedItem.content}
-            name='content'
-            onChange={handleChange}
-            rows={5}></textarea>
-         <button className='btn' onClick={onSave}>
+         <div className='item-edit-content'>
+            <TextEditor item={editedItem} setEditedItem={setEditedItem} />
+         </div>
+
+         <button className='btn2' onClick={onSave}>
             Save
          </button>
       </section>

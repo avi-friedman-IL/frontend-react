@@ -40,16 +40,31 @@ input:focus {
     height: max-content;
     padding: .5rem;
     font-size: 1rem;
-    // background-color: #fff;
-    // color: $grin;
     border-radius: 5px;
     cursor: pointer;
-    // box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
     transition: all .3s;
+    background-color: white;
 
     &:hover {
-        background-color: $bgc-app-header-hover;
-        color: #fff;
+        background-color: $bgc-chat-preview-hover;
+        box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1), 1px 0px 3px rgba(0, 0, 0, 0.1);
+
     }
 }
 
+.btn3 {
+    width: max-content;
+    height: max-content;
+    padding: .5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all .3s;
+
+    background-color: white;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1), 1px 0px 3px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+        background-color: $bgc-chat-preview-hover;
+    }
+}

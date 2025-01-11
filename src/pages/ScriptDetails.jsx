@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
+import { BiEdit } from 'react-icons/bi'
+import { TfiBackRight } from 'react-icons/tfi'
+
 import { scriptService } from '../services/script'
 import { useSelector } from 'react-redux'
 import { loadScripts } from '../store/actions/script.actions'
-import { BiEdit } from 'react-icons/bi'
-
 import { ItemEdit } from '../cmps/ItemEdit.jsx'
+import { ScriptStyle } from '../cmps/ScriptStyle.jsx'
+import { convertToTransparent } from '../services/util.service.js'
 
 export function ScriptDetails() {
    const navigate = useNavigate()
@@ -15,10 +18,10 @@ export function ScriptDetails() {
 
    const [currScript, setCurrScript] = useState(null)
    const [openItemId, setOpenItemId] = useState(null)
+   const [selectedItemId, setSelectedItemId] = useState(null)
 
    useEffect(() => {
       loadScript()
-      console.log('currScript:')
    }, [params.id, scripts.length, openItemId])
 
    async function loadScript() {
@@ -32,24 +35,50 @@ export function ScriptDetails() {
    }
 
    return (
-      <section className='script-details'>
-         <button className='btn' onClick={() => navigate('/script')}>
-            Back
+      <section
+         className='script-details'
+         style={{
+            backgroundColor: currScript?.style?.color
+               ? convertToTransparent(currScript.style.color, 0.2)
+               : 'transparent',
+         }}>
+         <button className='btn3' onClick={() => navigate('/script')}>
+            <TfiBackRight />
          </button>
 
-         <ul className='script-details-main'>
-            <h1>{currScript?.category}</h1>
+         <ScriptStyle currScript={currScript} setCurrScript={setCurrScript} />
 
-            {currScript?.items?.map((item, idx) => (
-               <li className='item' key={idx}>
-                  <div className='details-item-btns'>
-                     <button
-                        className='btn2'
-                        onClick={() => setOpenItemId(item.id)}>
-                        <BiEdit />
-                     </button>
-                  </div>
-
+         <h1>{currScript?.category}</h1>
+         <ul
+            className='script-details-main'
+            style={{
+               gridTemplateColumns:
+                  currScript?.style?.layout === 'column'
+                     ? 'repeat(auto-fill, minmax(200px, 1fr))'
+                     : 'none',
+            }}>
+            {currScript?.items?.map(item => (
+               <li
+                  className='item'
+                  key={item.id}
+                  onClick={() => setSelectedItemId(item.id)}
+                  style={{
+                     boxShadow:
+                        selectedItemId === item.id
+                           ? `${item.style?.color} 0px 1px 2px 2px`
+                           : 'none',
+                  }}>
+                  {openItemId !== item.id && (
+                     <div className='details-item-btns'>
+                        <button
+                           className='btn2'
+                           onClick={() => setOpenItemId(item.id)}>
+                           <BiEdit
+                              style={{ fill: item.style?.color || 'black' }}
+                           />
+                        </button>
+                     </div>
+                  )}
                   {openItemId === item.id && (
                      <ItemEdit
                         item={item}
@@ -58,22 +87,17 @@ export function ScriptDetails() {
                      />
                   )}
 
-                  {/* {openItemId !== item.id && ( */}
-                     <div className='details-item'>
-                        <h2>{item.title}</h2>
-                        <p>
-                           {item.content
-                              .split(/\((.*?)\)/g)
-                              .map((part, i) =>
-                                 i % 2 === 1 ? (
-                                    <span key={i}>({part})</span>
-                                 ) : (
-                                    part
-                                 )
-                              )}
-                        </p>
+                  {openItemId !== item.id && (
+                     <div className='item-content'>
+                        <h2
+                           dangerouslySetInnerHTML={{ __html: item.title }}
+                           style={{
+                              color: item.style?.color || 'black',
+                           }}
+                        />
+                        <p dangerouslySetInnerHTML={{ __html: item.content }} />
                      </div>
-                  {/* )} */}
+                  )}
                </li>
             ))}
          </ul>
@@ -82,9 +106,15 @@ export function ScriptDetails() {
             {scripts.length &&
                scripts.map(script => (
                   <li
-                     className='btn'
+                     className='link btn3'
                      onClick={() => navigate(`/script/details/${script._id}`)}
-                     key={script._id}>
+                     key={script._id}
+                     style={{
+                        '--bg-color-link':
+                           script._id === currScript?._id
+                              ? 'rgba(210, 210, 220, 0.4)'
+                              : 'white',
+                     }}>
                      {script.category}
                   </li>
                ))}

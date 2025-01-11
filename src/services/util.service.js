@@ -166,3 +166,33 @@ function _hexToHSL(hex) {
       l: l * 100, // Lightness
    }
 }
+
+
+export function convertToTransparent(color, alpha = 1) {
+   // בדיקה אם הצבע הוא בפורמט HEX
+   if (color.startsWith('#')) {
+      const hex = color.replace('#', '')
+
+      // המרה ל-RGB
+      const bigint = parseInt(hex, 16)
+      const r = (bigint >> 16) & 255
+      const g = (bigint >> 8) & 255
+      const b = bigint & 255
+
+      return `rgba(${r}, ${g}, ${b}, ${alpha})`
+   }
+
+   // אם הצבע כבר בפורמט RGBA
+   if (color.startsWith('rgba')) {
+      return color.replace(/rgba\(([^,]+),([^,]+),([^,]+),([^,]+)\)/, `rgba($1,$2,$3,${alpha})`)
+   }
+
+   // אם הצבע בפורמט RGB
+   if (color.startsWith('rgb')) {
+      return color.replace(/rgb\(([^,]+),([^,]+),([^,]+)\)/, `rgba($1,$2,$3,${alpha})`)
+   }
+
+   // אם הצבע לא מזוהה, החזר את הצבע המקורי
+   return color
+}
+

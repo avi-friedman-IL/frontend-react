@@ -16,6 +16,7 @@
 
 /* components */
 @use 'cmps/add-script';
+@use 'cmps/script-style';
 @use 'cmps/item-edit';
 @use 'cmps/user-msg';
 @use 'cmps/app-header';
@@ -36,5 +37,6 @@
 @use 'cmps/members-preview';
 @use 'cmps/icon-picker';  
 @use 'cmps/icons-details';  
+@use 'cmps/text-editor';
 
 

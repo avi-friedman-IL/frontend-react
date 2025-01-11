@@ -21,7 +21,6 @@ async function remove(scriptId) {
 }
 
 async function save(script) {
-    console.log('script', script)
     var savedScript
     if (script._id) {
         savedScript = await httpService.put(`script/${script._id}`, script)
