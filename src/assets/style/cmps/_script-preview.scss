@@ -1,15 +1,52 @@
-.script-preview {
-    display: grid;
-    height: 100%;
-    padding: 1rem;
-    gap: 1rem;
-    border-radius: 5px;
-    border: 1px solid #ededed;
+@use '../base/vars' as *;
 
+.script-preview {
+
+    position: sticky;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+
+    display: grid;
+    grid-template-rows: 1fr 1fr 5rem;
+    gap: 1rem;
+
+    height: 100%;
+    padding: 2rem;
+    border-radius: 1.8rem;
+    border: 1px solid #8773cb40;
+
+    background-image: $bg-color-preview;
+    transition: .5s;
     cursor: pointer;
-    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+
+    svg {
+        width: 2rem;
+        height: 2rem;
+        fill: $color-text;
+        stroke: $color-text;
+    }
+
+    h1 {
+        font-size: 2.1rem;
+        font-weight: 400;
+        color: #ffffff;
+    }
+
+    p {
+        font-size: .8rem;
+        color: $color-text;
+    }
 
     &:hover {
-        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+        position: absolute;
+        top: -10px;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        background-image: $bg-color-preview-hover;
+        border: 1px solid transparent;
+        transition: .5s;
     }
 }

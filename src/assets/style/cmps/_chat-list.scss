@@ -1,17 +1,22 @@
+@use '../base/vars' as *;
+
 .chat-list {
+    position: relative;
+
     grid-area: chat-list;
     display: grid;
     align-content: start;
 
+    padding: 1rem;
     height: calc(100vh - 60.36px);
     overflow-y: auto;
-
+    scrollbar-width: none;
     .chat-container,
     .chat-container-from-me {
         display: grid;
         justify-self: end;
         grid-auto-flow: column;
-        gap: .3rem;
+        gap: .7rem;
         padding: 1rem;
 
         &:hover {
@@ -29,13 +34,13 @@
             right: -2.5rem;
             top: 50%;
             transform: translateY(-50%);
-            
+
             padding: .2rem;
             border-radius: 3rem;
             background-color: white;
-            box-shadow: 0 0 0 1px #e0e0e0;
+            box-shadow: 0 0 0 1px $bg-color-chat-preview;
             transition: .5s;
-            
+
             body[dir="ltr"] & {
                 right: auto;
                 left: -2.5rem;
@@ -55,7 +60,7 @@
         .actions {
             right: auto;
             left: -4.5rem;
-            
+
             body[dir="ltr"] & {
                 left: auto;
                 right: -4.5rem;

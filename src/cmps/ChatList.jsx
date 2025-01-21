@@ -10,7 +10,6 @@ export function ChatList({ chats, user, users, onRemove, onUpdate }) {
       }
    }, [chats])
 
-   // if (!chats.length) return
    return (
       <ul className='chat-list'>
          {chats.map((chat, idx) => (
@@ -40,6 +39,7 @@ export function ChatList({ chats, user, users, onRemove, onUpdate }) {
                )}
             </li>
          ))}
+         
          <div ref={endOfMessagesRef} />
       </ul>
    )

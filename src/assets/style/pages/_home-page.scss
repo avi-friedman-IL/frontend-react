@@ -55,6 +55,10 @@
         color: rgba(0, 0, 0, 0.1);
         z-index: -1;
 
+        img {
+           border-radius: 1rem;
+        }
+
         svg {
             fill: hsl(142.41deg 70.16% 48.63% / 58%);
             stroke: hsl(142.41deg 70.16% 48.63% / 58%);

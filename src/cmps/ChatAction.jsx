@@ -50,22 +50,15 @@ export function ChatAction({ chat, user, onRemove, onUpdate }) {
                   width: 'max-content',
                   padding: '0',
                   overflow: 'hidden',
-                  // height: '300px',
-                  // overflow: 'auto',
-                  // backgroundColor: 'white',
-                  // borderRadius: '5px',
-                  // display: 'grid',
-                  // padding: '10px',
                   boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.1)',
                },
             }}>
-            {/* <IconPicker
+            <EmojiPicker
                chat={chat}
                user={user}
                onUpdate={onUpdate}
                setIsOpen={setIsOpen}
-            /> */}
-            <EmojiPicker chat={chat} user={user} onUpdate={onUpdate} setIsOpen={setIsOpen} />
+            />
          </Modal>
       </section>
    )

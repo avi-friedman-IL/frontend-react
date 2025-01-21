@@ -5,16 +5,15 @@
     display: grid;
     align-content: start;
 
-    border-inline-end: 1px solid #e0e0e0;
 
-    background-color: white;
-
+    background-image: $bg-color-preview-hover;
+    color: #ffffff;
     .list-header {
         display: grid;
         grid-template-columns: 1fr max-content;
         justify-content: space-between;
         align-items: center;
         padding: .5rem 1rem;
-        border-bottom: 1px solid #e0e0e0;
+        border-bottom: 1px solid #111b212e;
     }
 }

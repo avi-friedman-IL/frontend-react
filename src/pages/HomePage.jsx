@@ -30,11 +30,12 @@ export function HomePage() {
 
    return (
       <section className='home-page'>
-         {user && <button className='logout-btn btn' onClick={onLogout}>{t('logout')}</button>}
+         {user && <button className='logout-btn btn1' onClick={onLogout}>{t('logout')}</button>}
          {!user && <LoginWithGoogle />}
         
          <div className='bg-icon'>
-            <IoChatbubbleEllipsesOutline />
+            {/* <IoChatbubbleEllipsesOutline /> */}
+            <img src="https://res.cloudinary.com/dcymxvtnd/image/upload/v1737468159/ydamq97cqradrdjgxyn5.png" alt="" />
          </div>
       </section>
    )

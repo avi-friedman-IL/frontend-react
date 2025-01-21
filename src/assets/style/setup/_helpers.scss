@@ -11,26 +11,29 @@ svg {
     display: grid;
     width: 1.2rem;
     height: 1.2rem;
+    stroke: $color-primary;
+    fill: $color-primary;
 }
 
 input:focus {
     outline: none;
 }
 
-.btn {
+.btn1 {
     width: max-content;
     height: max-content;
-    padding: .5rem 1rem;
+    padding: .6rem 2.5rem;
     font-size: 1rem;
-    color: $grin;
-    background-color: #fff;
-    border-radius: 5px;
+    color: #ffffff;
+    background-image: $color-btn;
+    border-radius: 3rem;
     cursor: pointer;
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
     transition: all .3s;
 
     &:hover {
-        background-color: #25D366;
+        padding: .6rem 2.7rem;
+        background-image: $color-btn-hover;
         color: #fff;
     }
 }
@@ -43,10 +46,11 @@ input:focus {
     border-radius: 5px;
     cursor: pointer;
     transition: all .3s;
-    background-color: white;
+    background-image: $color-btn;
+    color: #ffffff;
 
     &:hover {
-        background-color: $bgc-chat-preview-hover;
+        background-image: $color-btn-hover;
         box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1), 1px 0px 3px rgba(0, 0, 0, 0.1);
 
     }
@@ -60,11 +64,119 @@ input:focus {
     border-radius: 5px;
     cursor: pointer;
     transition: all .3s;
-
-    background-color: white;
+    
     box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1), 1px 0px 3px rgba(0, 0, 0, 0.1);
+
 
     &:hover {
         background-color: $bgc-chat-preview-hover;
+    }
+}
+
+@keyframes spin-and-color {
+    0% {
+        fill: hsl(142.41deg 70.16% 48.63% / 58%);
+        stroke: hsl(142.41deg 70.16% 48.63% / 58%);
+    }
+
+    33% {
+        fill: hsl(200deg 80% 50% / 58%);
+        stroke: hsl(200deg 80% 50% / 58%);
+    }
+
+    66% {
+        fill: hsl(300deg 70% 60% / 58%);
+        stroke: hsl(300deg 70% 60% / 58%);
+    }
+
+    100% {
+        fill: hsl(142.41deg 70.16% 48.63% / 58%);
+        stroke: hsl(142.41deg 70.16% 48.63% / 58%);
+    }
+}
+
+.bg-icon {
+    position: absolute;
+    top: 50%;
+    left: 37%;
+    transform: translate(-50%, -50%);
+    color: rgba(0, 0, 0, 0.1);
+    z-index: 0;
+    img {
+        width: 30vw;
+        
+        animation: spin-and-color 5s infinite linear;
+    }
+
+    svg {
+        fill: hsl(142.41deg 70.16% 48.63% / 58%);
+        stroke: hsl(142.41deg 70.16% 48.63% / 58%);
+        width: 30vw;
+        height: 30vh;
+        animation: spin-and-color 5s infinite linear;
+    }
+
+    svg {
+        fill: hsl(142.41deg 70.16% 48.63% / 58%);
+        width: 30vw;
+        height: 30vh;
+    }
+}
+
+.form1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    gap: .5rem;
+
+    padding: .5rem;
+    font-family: 'Roboto', sans-serif;
+    
+    background-color: white;
+    border: 1px solid #ededed;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+
+    z-index: 1;
+
+    input {
+        width: 100%;
+        padding: .5rem;
+        font-family: 'Roboto', sans-serif;
+        ;
+        border: 1px solid #ededed;
+        color: black;
+
+        &:focus {
+            outline: none;
+            border: 1px solid #007bff;
+        }
+
+    }
+
+    textarea {
+        width: 100%;
+        height: 100%;
+        padding: .5rem;
+
+        font-family: 'Roboto', sans-serif;
+
+        resize: none;
+        border: 1px solid #ededed;
+        color: black;
+        &:focus {
+            outline: none;
+            border: 1px solid #007bff;
+        }
+    }
+
+    .form-btns {
+        display: grid;
+        grid-auto-flow: column;
+        gap: .5rem;
     }
 }

@@ -11,22 +11,41 @@
     width: max-content;
     padding: .5rem;
     padding-inline: 1rem;
-    border-radius: .5rem;
-
-    background-color: #e0e0e0;
-    box-shadow: 0 1px 0px rgba(0, 0, 0, 0.08),
-        0 1px 0px rgba(0, 0, 0, 0.08);
-
+    border-radius: 0 .5rem .5rem .5rem;
+    // border: 1px solid $bg-color-chat-preview;
+    // box-shadow: 0 1px 0px $bg-color-chat-preview,
+    //     0 1px 0px $bg-color-chat-preview;
+    box-shadow: 0 0 2px 1px $bg-color-chat-preview;
+    
     .msg {
         display: grid;
+        color: $color-text;
     }
 
     .msg-info {
         font-size: .65rem;
+
+        span {
+            color: $color-text;
+        }
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        left: -10px;
+        top: 9.5px;
+        transform: translateY(-50%);
+        width: 0;
+        height: 0;
+        
     }
 }
 
 .chat-preview-from-me {
     justify-self: end;
-    background-color: rgb(34 201 96 / 30%);
+    border-radius: .5rem 0 .5rem .5rem;
+
+    
+
 }

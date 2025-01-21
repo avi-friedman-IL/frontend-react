@@ -7,7 +7,7 @@
     max-width: 100%;
 
     .modal-emoji-picker {
-       
+
 
         padding: 0;
     }
@@ -15,17 +15,15 @@
     .emoji-btn {
         display: grid;
         align-items: center;
+        height: 100%;
         padding-inline: 1rem;
-        background-color: white;
         cursor: pointer;
 
-        &:hover {
-            color: $grin;
-        }
+        background-color: $bg-color-chat-preview;
 
         svg {
             display: grid;
-            stroke: $grin;
+
         }
 
 
@@ -33,11 +31,14 @@
 
     input {
         padding: 1rem;
+        background-color: $bg-color-chat-preview;
+        color: $color-text;
     }
 
     .send-btn {
+        height: 100%;
         padding-inline: 1rem;
-        background-color: white;
+        background-color: $bg-color-chat-preview;
 
         &:hover {
             color: $grin;
@@ -46,7 +47,7 @@
         svg {
             display: grid;
             // fill: $grin;
-            stroke: $grin;
+            // stroke: $grin;
 
             body[dir="rtl"] & {
                 transform: rotate(180deg);

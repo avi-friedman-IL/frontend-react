@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { ScriptPreview } from './ScriptPreview.jsx'
 
 export function ScriptList({ scripts }) {

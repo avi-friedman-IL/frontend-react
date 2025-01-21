@@ -54,7 +54,9 @@ export function AppHeader() {
       timeoutRef.current = setTimeout(() => {
          setIsTooltipOpen(true)
       }, 500)
-      setTooltipPos({ x: ev.pageX - 80, y: ev.pageY - 10 })
+      i18n.dir() === 'rtl'
+         ? setTooltipPos({ x: ev.pageX - 80, y: ev.pageY - 10 })
+         : setTooltipPos({ x: ev.pageX + 10, y: ev.pageY - 10 })
    }
 
    function handleMouseLeave() {

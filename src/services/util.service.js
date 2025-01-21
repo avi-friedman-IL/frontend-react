@@ -1,4 +1,4 @@
-import i18n from "../i18n.js";
+import i18n from '../i18n.js'
 
 export function makeId(length = 6) {
    var txt = ''
@@ -23,7 +23,7 @@ export function getDayOrDate(dateNumber) {
    sevenDaysAgo.setDate(today.getDate() - 7)
 
    if (givenDate >= sevenDaysAgo && givenDate < today) {
-     const daysOfWeek = i18n.t('daysOfWeek', { returnObjects: true })
+      const daysOfWeek = i18n.t('daysOfWeek', { returnObjects: true })
       // const daysOfWeek = [
       //    'Sunday',
       //    'Monday',
@@ -167,7 +167,6 @@ function _hexToHSL(hex) {
    }
 }
 
-
 export function convertToTransparent(color, alpha = 1) {
    // בדיקה אם הצבע הוא בפורמט HEX
    if (color.startsWith('#')) {
@@ -184,15 +183,33 @@ export function convertToTransparent(color, alpha = 1) {
 
    // אם הצבע כבר בפורמט RGBA
    if (color.startsWith('rgba')) {
-      return color.replace(/rgba\(([^,]+),([^,]+),([^,]+),([^,]+)\)/, `rgba($1,$2,$3,${alpha})`)
+      return color.replace(
+         /rgba\(([^,]+),([^,]+),([^,]+),([^,]+)\)/,
+         `rgba($1,$2,$3,${alpha})`
+      )
    }
 
    // אם הצבע בפורמט RGB
    if (color.startsWith('rgb')) {
-      return color.replace(/rgb\(([^,]+),([^,]+),([^,]+)\)/, `rgba($1,$2,$3,${alpha})`)
+      return color.replace(
+         /rgb\(([^,]+),([^,]+),([^,]+)\)/,
+         `rgba($1,$2,$3,${alpha})`
+      )
    }
 
    // אם הצבע לא מזוהה, החזר את הצבע המקורי
    return color
 }
 
+export function extractPlainText(content) {
+   try {
+      // Parse the JSON string
+      const parsedContent = JSON.parse(content)
+
+      // Extract text from the "blocks" array
+      return parsedContent.blocks.map(block => block.text).join('\n')
+   } catch (err) {
+      console.error('Error parsing content:', err)
+      return '' // Return an empty string if parsing fails
+   }
+}

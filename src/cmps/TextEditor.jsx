@@ -1,37 +1,85 @@
-import { useState } from 'react'
-import ReactQuill from 'react-quill'
-import 'react-quill/dist/quill.snow.css'
+import { Editor } from '@tinymce/tinymce-react'
+import { useEffect, useRef } from 'react'
 
-export function TextEditor({ item, setEditedItem }) {
-   const [editorHtml, setEditorHtml] = useState(item.content)
+export function TextEditor({ item, setEditedItem, setOpenItemId }) {
+   const editorRef = useRef(null)
+   useEffect(() => {
+      if (editorRef.current) {
+         editorRef.current.focus()
+      }
+   }, [])
 
-   function handleEditorChange(html) {
-      setEditorHtml(html)
-      setEditedItem(prevState => ({
-         ...prevState,
-         content: html,
-      }))
-   }
+   const defaultColor = item.style?.color || '#708090'
 
    return (
-      <div className='text-editor'>
-         <ReactQuill
-            className='text-editor'
-            value={editorHtml}
-            onChange={handleEditorChange}
-            modules={{
-               toolbar: [
-                  // [{ header: '1' }, { header: '2' }, { font: [] }],
-                  // [{ list: 'ordered' }, { list: 'bullet' }],
-                  ['bold', 'italic', 'underline'],
-                  ['link'],
-                  [{ align: [] }],
-                  ['image'],
-                  [{ color: [item.style?.color] }, { background: [] }], // dropdown with defaults from theme
+      <section className='text-editor'>
+         <Editor
+            apiKey='4t0jqmbiio9yuhkttljns4bgklv2e5783neoz12pg40tqje8'
+            onInit={(evt, editor) => {
+               editorRef.current = editor
+               editor.on('ExecCommand', (e) => {
+                  e.stopPropagation();
+               })
+            }}
+            initialValue={item.content || ''}
+            init={{
+               language: 'he_IL',
+               directionality: 'rtl',
+               height: 200,
+               menubar: false,
+
+               plugins: [
+                  'advlist',
+                  'autolink',
+                  'lists',
+                  'link',
+                  'image',
+                  'charmap',
+                  'preview',
+                  'anchor',
+                  'searchreplace',
+                  'visualblocks',
+                  'code',
+                  'fullscreen',
+                  'insertdatetime',
+                  'media',
+                  'table',
+                  'help',
+                  'wordcount',
+               ],
+
+               toolbar:
+                  'formatselect | bold italic forecolor backcolor | \
+               alignleft aligncenter alignright alignjustify | \
+               bullist numlist outdent indent | removeformat | help',
+               content_style:`
+               body {
+                  font-family: 'Roboto', sans-serif;
+                  
+
+                     `
+               ,
+               color_map: [
+                  defaultColor,
+                  'Default color',
+                  'black',
+                  'Black',
+                  'red',
+                  'Red',
+                  'blue',
+                  'Blue',
+                  'green',
+                  'Green',
                ],
             }}
-            theme='snow' // ניתן גם לבחור 'bubble' עבור נושא אחר
+            onEditorChange={content => (editorRef.current = content)}
+            onBlur={() =>
+               setEditedItem(prevState => ({
+                  ...prevState,
+                  content: editorRef.current,
+               }))
+            }
          />
-      </div>
+      </section>
    )
 }

@@ -42,46 +42,6 @@ export function ScriptStyle({ currScript, setCurrScript }) {
                onBlur={onSave}
             />
          </label>
-         {/* <div className='layout'>
-            <label htmlFor='column' className='btn2'>
-               columns
-            </label>
-            <input
-               id='column'
-               type='radio'
-               name='layout'
-               value='column'
-               checked={currScript?.style?.layout === 'column'}
-               onChange={handleChange}
-               onInput={onSave}
-               style={{
-                  position: 'absolute',
-                  opacity: 0,
-                  width: '1px',
-                  height: '1px',
-                  pointerEvents: 'none',
-               }}
-            />
-            <label htmlFor='row' className='btn2'>
-               rows
-            </label>
-            <input
-               id='row'
-               type='radio'
-               name='layout'
-               value='row'
-               checked={currScript?.style?.layout === 'row'}
-               onChange={handleChange}
-               onInput={onSave}
-               style={{
-                  position: 'absolute',
-                  opacity: 0,
-                  width: '1px',
-                  height: '1px',
-                  pointerEvents: 'none',
-               }}
-            />
-         </div> */}
       </section>
    )
 }

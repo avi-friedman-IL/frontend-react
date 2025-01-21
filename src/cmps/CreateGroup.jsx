@@ -94,7 +94,7 @@ export function CreateGroup({ user, users, contacts, setIsOpen }) {
             className='select'
             placeholder={t('select members')}
          />
-         <button className='btn' onClick={onSave}>
+         <button className='btn2' onClick={onSave}>
             {t('save')}
          </button>
       </section>

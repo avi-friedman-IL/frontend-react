@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router'
 import { addScript } from '../store/actions/script.actions'
 import { scriptService } from '../services/script'
 import { makeId } from '../services/util.service'
+import { t } from 'i18next'
 
 // export function ScriptEdit() {
 //    const params = useParams()
@@ -159,17 +160,17 @@ export function AddScript({ setIsOpen }) {
    }
    const { category, items } = currScript
    return (
-      <form className='add-script'>
+      <form className='form1'>
          <input
             type='text'
             name='category'
-            placeholder='category'
+            placeholder={t('category')}
             value={category}
             onChange={handleChange}
          />
 
-         <button className='btn' onClick={addItem}>
-            Add Item
+         <button className='btn2' onClick={addItem}>
+            {t('add item')}
          </button>
          <ul className='add-script-items'>
             {items?.map((item, idx) => (
@@ -177,26 +178,26 @@ export function AddScript({ setIsOpen }) {
                   <input
                      type='text'
                      name='title'
-                     placeholder='title'
+                     placeholder={t('title')}
                      value={item.title}
                      onChange={ev => handleChangeItem(ev, item.id)}
                   />
                   <textarea
                      name='content'
                      rows={5}
-                     placeholder='content'
+                     placeholder={t('content')}
                      value={item.content ? item.content : ''}
                      onChange={ev => handleChangeItem(ev, item.id)}>
                      </textarea>
                </li>
             ))}
          </ul>
-         <div className='save-and-cancel'>
-            <button className='btn' onClick={onSave}>
-               Save
+         <div className='form-btns'>
+            <button className='btn2' onClick={onSave}>
+              {t('save')}
             </button>
-            <button className='btn' onClick={() => setIsOpen(false)}>
-               Cancel
+            <button className='btn2' onClick={() => setIsOpen(false)}>
+               {t('cancel')}
             </button>
          </div>
       </form>

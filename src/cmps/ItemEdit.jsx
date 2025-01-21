@@ -6,7 +6,7 @@ import { IoCloseOutline } from 'react-icons/io5'
 import { ItemStyle } from './ItemStyle.jsx'
 import { TextEditor } from './TextEditor.jsx'
 
-export function ItemEdit({ item, setOpenItemId, currScript }) {
+export function ItemEdit({ item, setOpenItemId, currScript, parsedContent }) {
    const [editedItem, setEditedItem] = useState(item)
 
    function handleChange(ev) {
@@ -18,6 +18,7 @@ export function ItemEdit({ item, setOpenItemId, currScript }) {
    }
 
    async function onSave(ev) {
+      ev.stopPropagation()
       ev.preventDefault()
       const updatedItems = currScript.items.map(currItem =>
          currItem.id === editedItem.id ? editedItem : currItem
@@ -38,24 +39,23 @@ export function ItemEdit({ item, setOpenItemId, currScript }) {
          <div className='item-edit-btns'>
             <IoCloseOutline
                className='btn2'
-               onClick={() => setOpenItemId(null)}
+               onClick={(ev) => {
+                  ev.stopPropagation()
+                  setOpenItemId(null)}}
             />
 
-            <ItemStyle
-               item={editedItem}
-               setEditedItem={setEditedItem}
-              
-            />
+            <ItemStyle item={editedItem} setEditedItem={setEditedItem} />
          </div>
-         <input
-            type='text'
-            value={editedItem.title}
-            name='title'
-            onChange={handleChange}
-            style={{ color: editedItem.style?.color }}
-         />
          <div className='item-edit-content'>
-            <TextEditor item={editedItem} setEditedItem={setEditedItem} />
+            <input
+               type='text'
+               value={editedItem.title}
+               name='title'
+               onChange={handleChange}
+               style={{ color: editedItem.style?.color }}
+            />
+
+            <TextEditor item={editedItem} setEditedItem={setEditedItem} setOpenItemId={setOpenItemId} />
          </div>
 
          <button className='btn2' onClick={onSave}>

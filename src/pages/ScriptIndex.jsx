@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import { ScriptList } from '../cmps/ScriptList.jsx'
 import { Outlet } from 'react-router-dom'
 import { AddScript } from '../cmps/AddScript.jsx'
+import { t } from 'i18next'
 
 export function ScriptIndex() {
    const scripts = useSelector(state => state.scriptModule.scripts)
@@ -25,8 +26,8 @@ export function ScriptIndex() {
 
    return (
       <section className='script-index'>
-         <button onClick={() => setIsOpen(true)} className='btn'>
-            Add Script
+         <button onClick={() => setIsOpen(true)} className='btn1'>
+            {t('add script')}
          </button>
          {isOpen && <AddScript setIsOpen={setIsOpen} />}
          <ScriptList scripts={scripts} />

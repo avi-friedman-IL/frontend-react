@@ -1,5 +1,8 @@
+@use '../base/vars' as *;
 .text-editor {
-    .ql-editor {
-        font-size: 1rem;
+    
+   
+    .tox-statusbar {
+        opacity: 0;
     }
 }

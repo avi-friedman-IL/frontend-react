@@ -1,6 +1,8 @@
 import { VscSymbolColor } from 'react-icons/vsc'
+import { updateScript } from '../store/actions/script.actions'
 export function ItemStyle({ item, setEditedItem }) {
-   function handleChange(ev) {
+   async function handleChange(ev) {
+      ev.stopPropagation()
       const { name, value } = ev.target
       setEditedItem(prevState => ({
          ...prevState,

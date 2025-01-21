@@ -1,8 +1,16 @@
 import { useSelector } from 'react-redux'
 import { ContactsList } from './ContactsList'
 import { useEffect, useRef, useState } from 'react'
-import { loadAllChats, loadChats, setFilter } from '../store/actions/chat.actions'
-import { loadUsers, updateLoggedUser, updateUser } from '../store/actions/user.actions'
+import {
+   loadAllChats,
+   loadChats,
+   setFilter,
+} from '../store/actions/chat.actions'
+import {
+   loadUsers,
+   updateLoggedUser,
+   updateUser,
+} from '../store/actions/user.actions'
 import { CreateGroup } from './CreateGroup.jsx'
 import { GroupList } from './GroupList.jsx'
 import { t } from 'i18next'
@@ -37,7 +45,7 @@ export function ContactsIndex() {
 
    async function load() {
       try {
-        if(!users.length) await loadUsers()
+         if (!users.length) await loadUsers()
       } catch (err) {
          console.log('Cannot load users', err)
       }
@@ -112,6 +120,9 @@ export function ContactsIndex() {
          />
          <div className='list-header'>
             <h3>{t('chats')}</h3>
+            <button className='btn2'>
+               <RiChatNewLine />
+            </button>
          </div>
          <ContactsList
             contacts={users}

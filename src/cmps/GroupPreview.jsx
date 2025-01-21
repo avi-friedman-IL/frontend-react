@@ -39,9 +39,6 @@ export function GroupPreview({ group, userId }) {
       setTheMemberTyping(null)
    }
 
-   // const isTyping =
-   //    dataTyping?.toGroupId === group.id && dataTyping?.fromUserId !== userId
-
    return (
       <>
          {group.imgUrl ? (

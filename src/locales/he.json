@@ -4,7 +4,7 @@
    "Send me material/credit": "שלח לי חומר/אשראי",
    "Another time/not now": "בפעם אחרת/לא עכשיו",
 
-   "scripts":"תסריטים",
+   "scripts": "תסריטים",
    "contacts": "אנשי קשר",
    "change language": "החלף שפה",
    "create group": "צור קבוצה",
@@ -19,5 +19,12 @@
    "logout": "התנתקות",
    "save": "שמור",
    "name of group": "שם הקבוצה",
-   "select members": "בחר חברים"
+   "select members": "בחר חברים",
+   "cancel": "ביטול",
+   "add": "הוסף",
+   "title": "כותרת",
+   "content": "תוכן",
+   "add item": "הוסף פריט",
+   "add script": "הוסף תסריט",
+   "category": "קטגוריה"
 }

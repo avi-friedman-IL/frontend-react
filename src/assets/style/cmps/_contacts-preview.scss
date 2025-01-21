@@ -2,11 +2,11 @@
 
 .contacts-preview {
     display: grid;
-    grid-template-columns: max-content 1fr max-content;
+    grid-template-columns: max-content 1fr max-content max-content;
     align-items: center;
     gap: .75rem;
 
-    padding: 1rem;
+    padding: 1rem 1rem 1rem .5rem;
     border-radius: .5rem;
     
     font-family: sans-serif;
@@ -15,6 +15,7 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1),
         0 1px 3px rgba(0, 0, 0, 0.08);
 
+        color: #ffffff;
     &.active {
         background-color: $bgc-chat-preview-hover;
     }

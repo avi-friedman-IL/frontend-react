@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { socketService } from '../services/socket.service'
 import { t } from 'i18next'
 
-export function ContactsPreview({ contact, userId}) {
+export function ContactsPreview({ contact, userId }) {
    const [dataTyping, setDataTyping] = useState(null)
 
    useEffect(() => {
@@ -17,8 +17,6 @@ export function ContactsPreview({ contact, userId}) {
       }
    }, [dataTyping])
 
-   // const countUnreadMsgs = contact.newMsgs?.filter(msg => msg.toUserId === userId).length
-   
    function onTyping(data) {
       if (data.toUserId === userId && data.fromUserId === contact._id) {
          setDataTyping(data)
@@ -32,14 +30,18 @@ export function ContactsPreview({ contact, userId}) {
    const isTyping =
       dataTyping?.fromUserId === contact._id && dataTyping?.toUserId === userId
 
-      const { newMsgs } = contact
-      const countUnreadMsgs = newMsgs?.filter(msg => msg.fromUserId !== userId).length
-  
+   const { newMsgs } = contact
+   const countUnreadMsgs = newMsgs?.filter(
+      msg => msg.fromUserId !== userId
+   ).length
+
    return (
       <>
          <img className='img-url' src={contact.imgUrl} alt={contact.fullname} />
          <p>{contact.fullname}</p>
-         {countUnreadMsgs > 0 && <span className='unread-msgs'>{countUnreadMsgs}</span>}
+         {countUnreadMsgs > 0 && (
+            <span className='unread-msgs'>{countUnreadMsgs}</span>
+         )}
          {isTyping && <span className='typing'>{t('typing...')}</span>}
       </>
    )
