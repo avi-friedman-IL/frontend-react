@@ -1,8 +1,10 @@
+@use '../base/vars' as *;
+
 .create-group {
     position: absolute;
     top: 1rem;
     right: 30%;
-   
+
     display: grid;
     gap: 1rem;
     padding: 1rem;
@@ -10,6 +12,7 @@
     z-index: 100;
     border-radius: 5px;
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+    color: $color-primary;
 
     input {
         width: 100%;
