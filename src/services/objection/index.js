@@ -2,10 +2,10 @@ const { DEV, VITE_LOCAL } = import.meta.env
 
 import { getRandomIntInclusive, makeId } from '../util.service'
 
-// import {scriptService as local} from './script.service.local'
-import { scriptService as remote } from './script.service.remote'
+// import {objectionService as local} from './objection.service.local'
+import { objectionService as remote } from './objection.service.remote'
 
-function getEmptyScript() {
+function getEmptyObjection() {
    return {
       category: '',
       items: [],
@@ -16,4 +16,4 @@ function getEmptyScript() {
 // const service = local
 const service = remote
 // console.log(VITE_LOCAL)
-export const scriptService = { ...service, getEmptyScript }
+export const objectionService = { ...service, getEmptyObjection }

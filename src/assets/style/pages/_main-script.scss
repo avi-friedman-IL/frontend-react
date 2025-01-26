@@ -1,0 +1,89 @@
+@use '../base/vars' as *;
+
+.main-script {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(500px, 900px) minmax(0, 1fr);
+    justify-items: center;
+    align-items: center;
+
+    height: 100vh;
+    color: $color-text;
+
+    .nav-btns {
+        grid-column: 1;
+        grid-row: 2;
+        display: grid;
+        gap: 1rem;
+        justify-items: start;
+        align-items: start;
+
+        padding: 1rem;
+        width: 100%;
+
+        .btn1 {
+            width: 100%;
+            text-align: center;
+        }
+
+        .objections-btn{
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            width: max-content;
+        }
+
+        svg {
+            height: 2rem;
+            width: 2rem;
+            fill: $color-text;
+        }
+
+    }
+
+    .items {
+        grid-column: 2;
+        grid-row: 2;
+        display: grid;
+
+        grid-template-rows: max-content 1fr max-content;
+
+        line-height: 2;
+        height: 100%;
+        overflow: auto;
+        scrollbar-width: none;
+        scrollbar-color: $color-text transparent;
+        scroll-snap-type: y mandatory;
+        scroll-behavior: smooth;
+
+        .item {
+            display: grid;
+            grid-template-rows: max-content 1fr max-content;
+            align-items: center;
+            justify-items: center;
+            height: calc(100vh);
+            font-size: 1.3rem;
+            scroll-snap-align: start;
+
+            .content {
+                grid-row: 2;
+            }
+            &>* {
+                padding: 1rem;
+            }
+
+            .title {
+                display: block;
+                font-size: 2rem;
+                font-weight: bold;
+            }
+
+            svg {
+                height: 2rem;
+                width: 2rem;
+                fill: $color-text;
+                
+            }
+        }
+    }
+
+}

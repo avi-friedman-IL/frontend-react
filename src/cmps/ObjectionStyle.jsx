@@ -1,11 +1,11 @@
 import { VscSymbolColor } from 'react-icons/vsc'
-import { updateScript } from '../store/actions/script.actions'
+import { updateObjection } from '../store/actions/objection.actions'
 import { showErrorMsg } from '../services/event-bus.service'
 
-export function ScriptStyle({ currScript, setCurrScript }) {
+export function ObjectionStyle({ currObjection, setCurrObjection }) {
    function handleChange(ev) {
       const { name, value } = ev.target
-      setCurrScript(prevState => ({
+      setCurrObjection(prevState => ({
          ...prevState,
          style: { ...prevState.style, [name]: value },
       }))
@@ -14,23 +14,23 @@ export function ScriptStyle({ currScript, setCurrScript }) {
    async function onSave(ev) {
       ev.preventDefault()
       try {
-         await updateScript(currScript)
+         await updateObjection(currObjection)
       } catch (err) {
-         console.log('Cannot save script', err)
-         showErrorMsg('Cannot save script')
+         console.log('Cannot save objection', err)
+         showErrorMsg('Cannot save objection')
       }
    }
    return (
-      <section className='script-style'>
+      <section className='objection-style'>
          <label>
             <VscSymbolColor
                className='btn2'
-               style={{ fill: currScript?.style?.color }}
+               style={{ fill: currObjection?.style?.color }}
             />
             <input
                type='color'
                name='color'
-               value={currScript?.style?.color || '#000000'}
+               value={currObjection?.style?.color || '#000000'}
                onChange={handleChange}
                style={{
                   position: 'absolute',

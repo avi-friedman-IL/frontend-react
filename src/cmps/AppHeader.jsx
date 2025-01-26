@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom'
 import { BiChat } from 'react-icons/bi'
 import { IoMdContacts } from 'react-icons/io'
 import { IoHomeOutline } from 'react-icons/io5'
-import { MdLanguage } from 'react-icons/md'
+import { MdLanguage, MdWifiCalling3 } from 'react-icons/md'
 import { TbPhoneCalling } from 'react-icons/tb'
 
 import { Tooltip } from './Tooltip'
@@ -75,9 +75,18 @@ export function AppHeader() {
                   <IoHomeOutline />
                </NavLink>
                <NavLink
-                  to={'/script'}
+                  to={'/main'}
                   onMouseEnter={ev => {
                      setTooltipText(t('scripts'))
+                     handleMouseEnter(ev)
+                  }}
+                  onMouseLeave={handleMouseLeave}>
+                  <MdWifiCalling3 />
+               </NavLink>
+               <NavLink
+                  to={'/objection'}
+                  onMouseEnter={ev => {
+                     setTooltipText(t('objections'))
                      handleMouseEnter(ev)
                   }}
                   onMouseLeave={handleMouseLeave}>

@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import { updateScript } from '../store/actions/script.actions'
+import { updateObjection } from '../store/actions/objection.actions'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 import { IoCloseOutline } from 'react-icons/io5'
 
 import { ItemStyle } from './ItemStyle.jsx'
 import { TextEditor } from './TextEditor.jsx'
 
-export function ItemEdit({ item, setOpenItemId, currScript, parsedContent }) {
+export function ItemEdit({ item, setOpenItemId, currObjection, parsedContent }) {
    const [editedItem, setEditedItem] = useState(item)
 
    function handleChange(ev) {
@@ -20,11 +20,11 @@ export function ItemEdit({ item, setOpenItemId, currScript, parsedContent }) {
    async function onSave(ev) {
       ev.stopPropagation()
       ev.preventDefault()
-      const updatedItems = currScript.items.map(currItem =>
+      const updatedItems = currObjection.items.map(currItem =>
          currItem.id === editedItem.id ? editedItem : currItem
       )
       try {
-         await updateScript({ ...currScript, items: updatedItems })
+         await updateObjection({ ...currObjection, items: updatedItems })
          showSuccessMsg('Item saved successfully')
       } catch (err) {
          console.log('Cannot save item', err)

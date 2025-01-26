@@ -8,23 +8,24 @@
 
 /* pages */
 @use 'pages/home-page';
-@use 'pages/script-index';
-@use 'pages/script-details';
+@use 'pages/objection-index';
+@use 'pages/objection-details';
 @use 'pages/chat-index';
 @use 'pages/members-index';
+@use 'pages/main-script';
 
 
 /* components */
 @use 'cmps/add-item-form';
-@use 'cmps/add-script';
-@use 'cmps/script-style';
+@use 'cmps/add-objection';
+@use 'cmps/objection-style';
 @use 'cmps/item-edit';
 @use 'cmps/user-msg';
 @use 'cmps/app-header';
 @use 'cmps/login-with-google';
 @use 'cmps/tooltip';
-@use 'cmps/script-list';
-@use 'cmps/script-preview';
+@use 'cmps/objection-list';
+@use 'cmps/objection-preview';
 @use 'cmps/contacts-index';
 @use 'cmps/contacts-list';
 @use 'cmps/contacts-preview';

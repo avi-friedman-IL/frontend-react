@@ -2,10 +2,10 @@ import { legacy_createStore as createStore, combineReducers } from 'redux'
 
 import { chatReducer } from './reducers/chat.reducer'
 import { userReducer } from './reducers/user.reducer'
-import { scriptReducer } from './reducers/script.reducer'
+import { objectionReducer } from './reducers/objection.reducer'
 
 const rootReducer = combineReducers({
-    scriptModule: scriptReducer,
+    objectionModule: objectionReducer,
     chatModule: chatReducer,
     userModule: userReducer,
 })

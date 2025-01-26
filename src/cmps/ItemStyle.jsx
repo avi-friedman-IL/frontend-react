@@ -1,5 +1,5 @@
 import { VscSymbolColor } from 'react-icons/vsc'
-import { updateScript } from '../store/actions/script.actions'
+import { updateObjection } from '../store/actions/objection.actions'
 export function ItemStyle({ item, setEditedItem }) {
    async function handleChange(ev) {
       ev.stopPropagation()

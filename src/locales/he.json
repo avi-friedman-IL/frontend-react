@@ -26,5 +26,13 @@
    "content": "תוכן",
    "add item": "הוסף פריט",
    "add script": "הוסף תסריט",
-   "category": "קטגוריה"
+   "category": "קטגוריה",
+   "main script": "תסריט ראשי",
+   "opening": "פתיח",
+   "connection": "העמקת קשר",
+   "closing": "סגירה",
+   "reality": "הצגת מציאות",
+   "solution": "הצגת פתרון",
+   "objections": "התנגדויות",
+   "add objection": "הוסף התנגדות"
 }

@@ -3,30 +3,31 @@ import { useNavigate, useParams } from 'react-router'
 import { BiEdit } from 'react-icons/bi'
 import { TfiBackRight } from 'react-icons/tfi'
 
-import { scriptService } from '../services/script'
+import { objectionService } from '../services/objection'
 import { useSelector } from 'react-redux'
-import { loadScripts } from '../store/actions/script.actions'
+import { loadObjections } from '../store/actions/objection.actions'
 import { ItemEdit } from '../cmps/ItemEdit.jsx'
-import { ScriptStyle } from '../cmps/ScriptStyle.jsx'
+import { ObjectionStyle } from '../cmps/ObjectionStyle.jsx'
 import { convertToTransparent } from '../services/util.service.js'
 import { AddItem } from '../cmps/AddItem.jsx'
 import { t } from 'i18next'
 
-export function ScriptDetails() {
+export function ObjectionDetails() {
    const navigate = useNavigate()
    const params = useParams()
 
-   const scripts = useSelector(state => state.scriptModule.scripts)
+   const objections = useSelector(state => state.objectionModule.objections)
 
-   const [currScript, setCurrScript] = useState(null)
+   const [currObjection, setCurrObjection] = useState(null)
    const [openItemId, setOpenItemId] = useState(null)
    const [selectedItemId, setSelectedItemId] = useState(null)
+   const [fullScreenItemId, setFullScreenItemId] = useState(null)
    const [isOpenAddItem, setIsOpenAddItem] = useState(false)
 
    const openItemRef = useRef(null)
    useEffect(() => {
-      loadScript()
-   }, [params.id, scripts.length, openItemId, isOpenAddItem])
+      loadObjection()
+   }, [params.id, objections.length, openItemId, isOpenAddItem])
 
    useEffect(() => {
       const handleClickOutside = event => {
@@ -44,13 +45,13 @@ export function ScriptDetails() {
       }
    }, [])
 
-   async function loadScript() {
+   async function loadObjection() {
       try {
-         if (!scripts.length) await loadScripts()
-         const script = await scriptService.getById(params.id)
-         setCurrScript(script)
+         if (!objections.length) await loadObjections()
+         const objection = await objectionService.getById(params.id)
+         setCurrObjection(objection)
       } catch (err) {
-         console.log('Cannot load script', err)
+         console.log('Cannot load objection', err)
       }
    }
 
@@ -68,19 +69,20 @@ export function ScriptDetails() {
          return content
       }
    }
+
    return (
       <section
-         className='script-details'
+         className='objection-details'
          style={{
-            backgroundColor: currScript?.style?.color
-               ? convertToTransparent(currScript.style.color, 0.2)
+            backgroundColor: currObjection?.style?.color
+               ? convertToTransparent(currObjection.style.color, 0.2)
                : 'transparent',
          }}>
-         <h1>{currScript?.category}</h1>
+         <h1>{currObjection?.category}</h1>
          <div className='actions'>
-            <ScriptStyle
-               currScript={currScript}
-               setCurrScript={setCurrScript}
+            <ObjectionStyle
+               currObjection={currObjection}
+               setCurrObjection={setCurrObjection}
             />
             <button
                className='add-btn btn2'
@@ -90,33 +92,28 @@ export function ScriptDetails() {
          </div>
          {isOpenAddItem && (
             <AddItem
-               currScript={currScript}
-               setCurrScript={setCurrScript}
+               currObjection={currObjection}
+               setCurrObjection={setCurrObjection}
                setIsOpenAddItem={setIsOpenAddItem}
             />
          )}
          <ul
-            className='script-details-main'
+            className='objection-details-main'
             style={{
                gridTemplateColumns:
-                  currScript?.style?.layout === 'column'
+                  currObjection?.style?.layout === 'column'
                      ? 'repeat(auto-fill, minmax(200px, 1fr))'
                      : 'none',
             }}>
-            {currScript?.items?.map(item => (
+            {currObjection?.items?.map(item => (
                <li
                   className={`item${`${
                      selectedItemId === item.id ? '-selected' : ''
-                  }`}`}
+                  }${fullScreenItemId === item.id ? '-full-screen' : ''}`}`}
                   key={item.id}
                   onClick={() => setSelectedItemId(item.id)}
-                  ref={selectedItemId === item.id ? openItemRef : null}
-                  style={{
-                     boxShadow:
-                        selectedItemId === item.id
-                           ? `${item.style?.color} 0px 1px 2px 2px`
-                           : 'none',
-                  }}>
+                  ref={selectedItemId === item.id ? openItemRef : null}>
+                  
                   {openItemId !== item.id && (
                      <div className='details-item-btns'>
                         <button
@@ -126,13 +123,24 @@ export function ScriptDetails() {
                               style={{ fill: item.style?.color || 'black' }}
                            />
                         </button>
+                        <button
+                           className='btn2'
+                           onClick={() => setFullScreenItemId(item.id)}>
+                           full screen
+                        </button>
+                        <button
+                           className='btn2'
+                           onClick={() => setFullScreenItemId(null)}>
+                           exit
+                        </button>
                      </div>
                   )}
+                  
                   {openItemId === item.id && (
                      <ItemEdit
                         item={item}
                         setOpenItemId={setOpenItemId}
-                        currScript={currScript}
+                        currObjection={currObjection}
                         parsedContent={parsedContent}
                      />
                   )}
@@ -143,7 +151,7 @@ export function ScriptDetails() {
                            style={{
                               color: item.style?.color || 'black',
                            }}>
-                           {item.title}
+                           {t(item.title)}
                         </h2>
 
                         <p dangerouslySetInnerHTML={{ __html: item.content }} />
@@ -153,24 +161,24 @@ export function ScriptDetails() {
             ))}
          </ul>
 
-         <ul className='script-details-links'>
-            <button className='btn1' onClick={() => navigate('/script')}>
+         <ul className='objection-details-links'>
+            <button className='btn1' onClick={() => navigate('/objection')}>
                <TfiBackRight />
             </button>
 
-            {scripts.length &&
-               scripts.map(script => (
+            {objections.length &&
+               objections.map(objection => (
                   <li
                      className='link btn2'
-                     onClick={() => navigate(`/script/details/${script._id}`)}
-                     key={script._id}
+                     onClick={() => navigate(`/objection/details/${objection._id}`)}
+                     key={objection._id}
                      style={{
                         '--bg-color-link':
-                           script._id === currScript?._id
+                           objection._id === currObjection?._id
                               ? 'rgba(210, 210, 220, 0.4)'
                               : 'white',
                      }}>
-                     {script.category}
+                     {objection.category}
                   </li>
                ))}
          </ul>

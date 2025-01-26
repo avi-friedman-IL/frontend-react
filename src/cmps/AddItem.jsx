@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { makeId } from '../services/util.service'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
-import { updateScript } from '../store/actions/script.actions'
+import { updateObjection } from '../store/actions/objection.actions'
 import { t } from 'i18next'
 
-export function AddItem({ currScript, setCurrScript, setIsOpenAddItem }) {
+export function AddItem({ currObjection, setCurrObjection, setIsOpenAddItem }) {
    const [newItem, setNewItem] = useState({
       id: makeId(),
       title: '',
@@ -22,9 +22,9 @@ export function AddItem({ currScript, setCurrScript, setIsOpenAddItem }) {
 
    async function onSave(ev) {
       ev.preventDefault()
-      const updatedItems = [...currScript.items, newItem]
+      const updatedItems = [...currObjection.items, newItem]
       try {
-         await updateScript({ ...currScript, items: updatedItems })
+         await updateObjection({ ...currObjection, items: updatedItems })
          showSuccessMsg('Item added successfully')
       } catch (err) {
          console.log('Cannot add item', err)

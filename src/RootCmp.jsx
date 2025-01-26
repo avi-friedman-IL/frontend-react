@@ -9,10 +9,11 @@ import { AppHeader } from './cmps/AppHeader'
 import { MembersIndex } from './pages/MembersIndex'
 import { UserMsg } from './cmps/UserMsg'
 import { ChatIndex } from './pages/ChatIndex'
-import { ScriptIndex } from './pages/ScriptIndex'
+import { ObjectionIndex } from './pages/ObjectionIndex'
 
 import './assets/style/main.scss'
-import { ScriptDetails } from './pages/ScriptDetails.jsx'
+import { ObjectionDetails } from './pages/ObjectionDetails.jsx'
+import { MainScript } from './pages/MainScript.jsx'
 
 export function RootCmp() {
    const { i18n } = useTranslation()
@@ -33,11 +34,12 @@ export function RootCmp() {
             <UserMsg />
             <Routes>
                <Route path='/' element={<HomePage />} />
+               <Route path='/main' element={<MainScript />} />
 
-               <Route path='/script' element={<ScriptIndex />}>
-                  {/* <Route path='edit/:id' element={<ScriptEdit />} /> */}
+               <Route path='/objection' element={<ObjectionIndex />}>
+                  {/* <Route path='edit/:id' element={<ObjectionEdit />} /> */}
                </Route>
-               <Route path='/script/details/:id' element={<ScriptDetails />} />
+               <Route path='/objection/details/:id' element={<ObjectionDetails />} />
 
                <Route path='/chat' element={<ChatIndex />} />
                <Route path='/members' element={<MembersIndex />} />

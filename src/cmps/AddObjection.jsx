@@ -1,44 +1,44 @@
 // import { useEffect, useState } from 'react'
-// import { scriptService } from '../services/script'
+// import { objectionService } from '../services/objection'
 // import {
-//    addScript,
-//    getScriptById,
-//    loadScripts,
-//    updateScript,
-// } from '../store/actions/script.actions'
+//    addObjection,
+//    getObjectionById,
+//    loadObjections,
+//    updateObjection,
+// } from '../store/actions/objection.actions'
 // import { useNavigate, useParams } from 'react-router'
 // import { makeId } from '../services/util.service'
 // import { TextEditor } from '../cmps/TextEditor'
 
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
-import { addScript } from '../store/actions/script.actions'
-import { scriptService } from '../services/script'
+import { addObjection } from '../store/actions/objection.actions'
+import { objectionService } from '../services/objection'
 import { makeId } from '../services/util.service'
 import { t } from 'i18next'
 
-// export function ScriptEdit() {
+// export function ObjectionEdit() {
 //    const params = useParams()
 //    const navigate = useNavigate()
-//    const [currScript, setCurrScript] = useState(scriptService.getEmptyScript())
+//    const [currObjection, setCurrObjection] = useState(objectionService.getEmptyObjection())
 
 //    useEffect(() => {
-//       params.id ? scriptToEdit() : scriptService.getEmptyScript()
-//    }, [params.id, scriptService])
+//       params.id ? objectionToEdit() : objectionService.getEmptyObjection()
+//    }, [params.id, objectionService])
 
-//    async function scriptToEdit() {
+//    async function objectionToEdit() {
 //       try {
-//          const script = await getScriptById(params.id)
-//          if (script) setCurrScript(script)
-//          return script
+//          const objection = await getObjectionById(params.id)
+//          if (objection) setCurrObjection(objection)
+//          return objection
 //       } catch (err) {
-//          console.log('Cannot get script', err)
+//          console.log('Cannot get objection', err)
 //       }
 //    }
 
 //    function addItem(ev) {
 //       ev.preventDefault()
-//       setCurrScript(prevState => ({
+//       setCurrObjection(prevState => ({
 //          ...prevState,
 //          items: [...prevState.items, { title: '', content: '' }],
 //       }))
@@ -46,7 +46,7 @@ import { t } from 'i18next'
 
 //    function handleChange(ev) {
 //       const { name, value } = ev.target
-//       setCurrScript(prevState => ({
+//       setCurrObjection(prevState => ({
 //          ...prevState,
 //          [name]: value,
 //       }))
@@ -54,10 +54,10 @@ import { t } from 'i18next'
 
 //    function handleChangeItem(ev, id) {
 //       const { name, value } = ev.target
-//       const updatedItems = currScript.items.map((item, idx) =>
+//       const updatedItems = currObjection.items.map((item, idx) =>
 //          item.id === id ? { ...item, id: makeId(), [name]: value } : item
 //       )
-//       setCurrScript(prevState => ({
+//       setCurrObjection(prevState => ({
 //          ...prevState,
 //          items: updatedItems,
 //       }))
@@ -66,17 +66,17 @@ import { t } from 'i18next'
 //       ev.preventDefault()
 //       try {
 //          params.id
-//             ? await updateScript(currScript)
-//             : await addScript(currScript)
-//          navigate('/script')
+//             ? await updateObjection(currObjection)
+//             : await addObjection(currObjection)
+//          navigate('/objection')
 //       } catch (err) {
-//          console.log('Cannot save script', err)
+//          console.log('Cannot save objection', err)
 //       }
 //    }
-//    if (!currScript) return <div>Loading...</div>
-//    const { category, items } = currScript
+//    if (!currObjection) return <div>Loading...</div>
+//    const { category, items } = currObjection
 //    return (
-//       <form className='script-edit'>
+//       <form className='objection-edit'>
 //          <input
 //             type='text'
 //             name='category'
@@ -88,7 +88,7 @@ import { t } from 'i18next'
 //          <button className='btn' onClick={addItem}>
 //             Add Item
 //          </button>
-//          <ul className='script-edit-items'>
+//          <ul className='objection-edit-items'>
 //             {items?.map((item, idx) => (
 //                <li className='item' key={idx}>
 //                   <input
@@ -113,19 +113,19 @@ import { t } from 'i18next'
 //             <button className='btn' onClick={onSave}>
 //                Save
 //             </button>
-//             <button className='btn' onClick={() => navigate('/script')}>
+//             <button className='btn' onClick={() => navigate('/objection')}>
 //                Cancel
 //             </button>
 //          </div>
 //       </form>
 //    )
 // }
-export function AddScript({ setIsOpen }) {
-   const [currScript, setCurrScript] = useState(scriptService.getEmptyScript())
+export function AddObjection({ setIsOpen }) {
+   const [currObjection, setCurrObjection] = useState(objectionService.getEmptyObjection())
 
    function addItem(ev) {
       ev.preventDefault()
-      setCurrScript(prevState => ({
+      setCurrObjection(prevState => ({
          ...prevState,
          items: [...prevState.items, { title: '', content: '' }],
       }))
@@ -133,7 +133,7 @@ export function AddScript({ setIsOpen }) {
 
    function handleChange(ev) {
       const { name, value } = ev.target
-      setCurrScript(prevState => ({
+      setCurrObjection(prevState => ({
          ...prevState,
          [name]: value,
       }))
@@ -141,10 +141,10 @@ export function AddScript({ setIsOpen }) {
 
    function handleChangeItem(ev, id) {
       const { name, value } = ev.target
-      const updatedItems = currScript.items.map((item, idx) =>
+      const updatedItems = currObjection.items.map((item, idx) =>
          item.id === id ? { ...item, id: makeId(), [name]: value } : item
       )
-      setCurrScript(prevState => ({
+      setCurrObjection(prevState => ({
          ...prevState,
          items: updatedItems,
       }))
@@ -152,13 +152,13 @@ export function AddScript({ setIsOpen }) {
    async function onSave(ev) {
       ev.preventDefault()
       try {
-         await addScript(currScript)
+         await addObjection(currObjection)
          setIsOpen(false)
       } catch (err) {
-         console.log('Cannot save script', err)
+         console.log('Cannot save objection', err)
       }
    }
-   const { category, items } = currScript
+   const { category, items } = currObjection
    return (
       <form className='form1'>
          <input
@@ -172,7 +172,7 @@ export function AddScript({ setIsOpen }) {
          <button className='btn2' onClick={addItem}>
             {t('add item')}
          </button>
-         <ul className='add-script-items'>
+         <ul className='add-objection-items'>
             {items?.map((item, idx) => (
                <li className='item' key={idx}>
                   <input
