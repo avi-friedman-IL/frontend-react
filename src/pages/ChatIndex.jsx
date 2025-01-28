@@ -17,7 +17,6 @@ import {
 } from '../store/reducers/chat.reducer'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 import { updateLoggedUser, updateUser } from '../store/actions/user.actions'
-import { IoChatbubbleEllipsesOutline } from 'react-icons/io5'
 
 export function ChatIndex() {
    const user = useSelector(state => state.userModule.user)
@@ -124,9 +123,14 @@ export function ChatIndex() {
    if (!chats || !users || !filterBy) return
    return (
       <section className='chat-index'>
-         <div className='bg-icon'>
-            <img src="https://res.cloudinary.com/dcymxvtnd/image/upload/v1737468159/ydamq97cqradrdjgxyn5.png" alt="" />
-         </div>
+         {chats.length === 0 && (
+            <div className='bg-icon'>
+               <img
+                  src='https://res.cloudinary.com/dcymxvtnd/image/upload/v1737468159/ydamq97cqradrdjgxyn5.png'
+                  alt=''
+               />
+            </div>
+         )}
          <ChatList
             chats={chats}
             user={user}

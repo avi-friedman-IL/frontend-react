@@ -1,40 +1,31 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { loadObjections } from '../store/actions/objection.actions'
 import { t } from 'i18next'
-import {
-   FaArrowDown,
-   FaArrowUp,
-   FaCircleArrowDown,
-   FaCircleArrowUp,
-} from 'react-icons/fa6'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
+import { loadObjections } from '../store/actions/objection.actions'
+import { objectionService } from '../services/objection'
 
-export function MainScript() {
-   const objection = useSelector(state =>
-      state.objectionModule.objections.find(
-         objection => objection.category === 'mainScript'
-      )
-   )
+export function ScriptDetails() {
+   const params = useParams()
 
    const [refs, setRefs] = useState({})
-   const [currSectionId, setCurrSectionId] = useState(objection?.items[0].id)
+   const [currSectionId, setCurrSectionId] = useState(null)
+   const [script, setScript] = useState(null)
 
    useEffect(() => {
-      load()
-   }, [])
+      loadScript()
+   }, [params.id])
 
    useEffect(() => {
-      if (!objection) return
-      const refsReduce = objection.items.reduce((acc, item) => {
+      if (!script) return
+      const refsReduce = script.items.reduce((acc, item) => {
          acc[item.id] = React.createRef()
          return acc
       }, {})
       setRefs(refsReduce)
-   }, [objection])
+   }, [script])
 
    useEffect(() => {
-      if (!objection || !Object.keys(refs).length) return
+      if (!script || !Object.keys(refs).length) return
       const observer = new IntersectionObserver(
          entries => {
             entries.forEach(entry => {
@@ -46,35 +37,36 @@ export function MainScript() {
          { threshold: 0.5 }
       )
 
-      objection.items.forEach(item => {
+      script.items.forEach(item => {
          observer.observe(refs[item.id].current)
       })
       return () => observer.disconnect()
-   }, [objection, refs])
+   }, [script, refs])
 
-   async function load() {
+   async function loadScript() {
       try {
-         await loadObjections()
+         // if (!script.length) await loadObjections()
+         const script = await objectionService.getById(params.id)
+         setScript(script)
       } catch (err) {
-         console.log('Cannot load objections', err)
+         console.log('Cannot load script', err)
       }
    }
 
    function scrollToSection(sectionId) {
-      if (!sectionId) {
-         refs[0].current.scrollIntoView({ behavior: 'smooth' })
-         setCurrSectionId(objection.items[0].id)
-      } else {
-         refs[sectionId].current.scrollIntoView({ behavior: 'smooth' })
-         setCurrSectionId(sectionId)
-      }
-   }
-
-   if (!objection) return <div>{t('loading')}</div>
+    if (!sectionId) {
+       refs[0].current.scrollIntoView({ behavior: 'smooth' })
+       setCurrSectionId(objection.items[0].id)
+    } else {
+       refs[sectionId].current.scrollIntoView({ behavior: 'smooth' })
+       setCurrSectionId(sectionId)
+    }
+ }
+if (!script) return <div>Loading...</div>
    return (
-      <section className='main-script'>
+      <section className='script-details'>
          <ul className='nav-btns'>
-            {objection.items.map((item, idx) => (
+            {script.items.map(item => (
                <li
                   className={`btn1 ${
                      currSectionId === item.id ? 'active' : ''
@@ -88,15 +80,15 @@ export function MainScript() {
                {t('objections')}
             </Link>
          </ul>
-
          <ul className='items'>
-            {objection.items.map((item, idx) => (
+            {script.items.map(item => (
                <li
                   id={item.id}
                   key={item.id}
                   ref={refs[item.id]}
                   className='item'>
                   <p
+                     autoFocus
                      className='content'
                      dangerouslySetInnerHTML={{ __html: item.content }}
                   />

@@ -6,8 +6,9 @@
     align-content: space-between;
     justify-items: center;
 
-    padding: .5rem;
+    padding-block: .5rem;
     background-color: $bgc-app-header;
+    color: $gray1;
 
     .app-nav {
         display: grid;
@@ -22,12 +23,15 @@
         }
 
         a {
+            display: grid;
+            justify-items: center;
+            gap: .5rem;
             padding: .5rem;
-            border-radius: 50%;
             transition: .5s;
 
             &.active {
                 background-color: $bgc-app-header-hover;
+                text-decoration: none;
 
                 svg {
                     fill: #25D366;
@@ -45,23 +49,35 @@
     .user-info {
         display: grid;
         gap: .5rem;
-        // position: relative;
+        width: 100%;
 
-        text-align: center;
-
-        span {
+        a {
             display: grid;
             justify-items: center;
-            align-items: center;
-            cursor: pointer;
+            gap: .5rem;
+
+            width: 100%;
+            padding: .5rem;
             transition: .5s;
+            cursor: pointer;
+
+            .img-url {
+                display: grid;
+                width: 1.2rem;
+                height: 1.2rem;
+
+            }
+
+            &.active {
+                background-color: $bgc-app-header-hover;
+                text-decoration: none;
+
+
+            }
 
             &:hover {
                 background-color: $bgc-app-header-hover;
             }
-
-
-
 
         }
 

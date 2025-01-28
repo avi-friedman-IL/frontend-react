@@ -1,14 +1,17 @@
 @use '../base/vars' as *;
 
-.main-script {
+.script-details {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(500px, 900px) minmax(0, 1fr);
     justify-items: center;
     align-items: center;
 
     height: 100vh;
-    color: $color-text;
+    // background-color: white;
 
+    color: $gray1;
+    // color: $color-text;
+    // color: white;
     .nav-btns {
         grid-column: 1;
         grid-row: 2;
@@ -66,6 +69,8 @@
 
             .content {
                 grid-row: 2;
+                border-radius: .5rem;
+                background-color: white;
             }
             &>* {
                 padding: 1rem;

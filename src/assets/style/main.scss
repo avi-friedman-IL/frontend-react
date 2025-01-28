@@ -12,7 +12,9 @@
 @use 'pages/objection-details';
 @use 'pages/chat-index';
 @use 'pages/members-index';
-@use 'pages/main-script';
+@use 'pages/script-index';
+@use 'pages/script-details';
+
 
 
 /* components */
@@ -40,5 +42,7 @@
 @use 'cmps/icon-picker';  
 @use 'cmps/icons-details';  
 @use 'cmps/text-editor';
+@use 'cmps/script-list';
+@use 'cmps/script-preview';
 
 

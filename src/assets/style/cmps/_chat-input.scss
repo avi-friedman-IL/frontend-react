@@ -5,10 +5,10 @@
     display: grid;
     grid-template-columns: max-content 1fr max-content;
     max-width: 100%;
+    background-color: transparent;
+    box-shadow: -1px -2px 9px 0px rgba(210, 210, 220, 0.9);
 
     .modal-emoji-picker {
-
-
         padding: 0;
     }
 
@@ -19,26 +19,21 @@
         padding-inline: 1rem;
         cursor: pointer;
 
-        background-color: $bg-color-chat-preview;
-
         svg {
             display: grid;
-
+            fill: $gray1;
+            stroke: $gray1;
         }
-
-
     }
 
     input {
         padding: 1rem;
-        background-color: $bg-color-chat-preview;
         color: $color-text;
     }
 
     .send-btn {
         height: 100%;
         padding-inline: 1rem;
-        background-color: $bg-color-chat-preview;
 
         &:hover {
             color: $grin;
@@ -46,8 +41,8 @@
 
         svg {
             display: grid;
-            // fill: $grin;
-            // stroke: $grin;
+            fill: $gray1;
+            stroke: $gray1;
 
             body[dir="rtl"] & {
                 transform: rotate(180deg);

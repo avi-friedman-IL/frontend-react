@@ -73,15 +73,17 @@ export function AppHeader() {
             <nav className='app-nav'>
                <NavLink to={'/'}>
                   <IoHomeOutline />
+                  <span>{t('home')}</span>
                </NavLink>
                <NavLink
-                  to={'/main'}
+                  to={'/script'}
                   onMouseEnter={ev => {
                      setTooltipText(t('scripts'))
                      handleMouseEnter(ev)
                   }}
                   onMouseLeave={handleMouseLeave}>
                   <MdWifiCalling3 />
+                  <span>{t('scripts')}</span>
                </NavLink>
                <NavLink
                   to={'/objection'}
@@ -91,6 +93,7 @@ export function AppHeader() {
                   }}
                   onMouseLeave={handleMouseLeave}>
                   <TbPhoneCalling />
+                  <span>{t('objections')}</span>
                </NavLink>
 
                <NavLink
@@ -101,9 +104,10 @@ export function AppHeader() {
                   }}
                   onMouseLeave={handleMouseLeave}>
                   <BiChat />
+                  <span>{t('chats')}</span>
                </NavLink>
 
-               <NavLink
+               {/* <NavLink
                   to={'/members'}
                   onMouseEnter={ev => {
                      setTooltipText(t('members'))
@@ -111,13 +115,14 @@ export function AppHeader() {
                   }}
                   onMouseLeave={handleMouseLeave}>
                   <IoMdContacts />
-               </NavLink>
+                  <span>{t('members')}</span>
+               </NavLink> */}
             </nav>
          )}
          <div className='user-info' ref={languageRef}>
             {user && (
-               <span
-                  className='img-url'
+               <a
+                  className='language-btn'
                   onClick={() => setIsOpen(open => !open)}
                   onMouseEnter={ev => {
                      setTooltipText(t('change language'))
@@ -125,9 +130,15 @@ export function AppHeader() {
                   }}
                   onMouseLeave={handleMouseLeave}>
                   <MdLanguage />
-               </span>
+                  <span>{i18n.language === 'en' ? 'EN' : 'עברית'}</span>
+               </a>
             )}
-            {user && <img className='img-url' src={user.imgUrl} alt='' />}
+            {user && (
+               <a href=''>
+                  <img className='img-url' src={user.imgUrl} alt='' />
+                  <span>{user.fullname.split(' ')[0]}</span>
+               </a>
+            )}
             {isOpen && (
                <ul className='language-list' onBlur={() => setIsOpen(false)}>
                   <li onClick={() => changeLanguage('en')}>english</li>

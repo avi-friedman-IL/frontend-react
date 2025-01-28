@@ -2,8 +2,20 @@
 
 
 .objection-details {
+
+   .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+      display: none;
+   }
+
    display: grid;
-   grid-template-columns: minmax(0, 400px) minmax(700px, 1fr) minmax(0, 400px);
+   grid-template-columns: minmax(0, 250px) minmax(700px, 1fr) minmax(0, 250px);
    grid-template-rows: max-content 1fr 1fr;
    gap: 3rem;
    height: 100vh;
@@ -23,9 +35,12 @@
       grid-row: 1/4;
       grid-column: 2;
       display: grid;
-      align-content: space-around;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 1rem;
+      // align-content: start;
+      // align-items: center;
 
+      // margin: 20% 0;
       height: 100%;
       // max-width: 100%;
       overflow: auto;
@@ -36,7 +51,7 @@
       border: 1px solid #030029;
       box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
 
-      background-color: white;
+      // background-color: white;
       transition: all 0.3s ease;
 
       .item,
@@ -47,8 +62,15 @@
          grid-template-rows: max-content 1fr;
          gap: .5rem;
          padding: 1rem;
-         // border-radius: 1rem;
+         border-radius: .5rem;
+         height: 100%;
+         background-color: white;
+         // box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
          transition: all 0.3s ease;
+
+         &:hover {
+            box-shadow: inset 0px 0px 0px 2px $bg-color;
+         }
 
          .details-item-btns {
             display: none;
@@ -58,6 +80,9 @@
             gap: 1rem;
             grid-row: 1;
             grid-column: 1;
+
+            .btn2 {
+            }
 
          }
 
@@ -91,6 +116,7 @@
 
          overflow: auto;
          max-height: 100vh;
+         height: max-content;
          width: 50%;
          padding: 1rem;
          font-size: 1.5rem;
@@ -114,6 +140,7 @@
          right: 1rem;
          bottom: 1rem;
 
+         height: none;
          overflow: auto;
          display: grid;
          gap: 1rem;
@@ -147,41 +174,57 @@
       // justify-content: center;
       align-content: start;
 
-      .btn2 {
+
+      .btn1 {
          width: 100%;
          opacity: 0;
          transform: translateY(20px);
          animation: fadeInUp 0.5s ease forwards;
-         background-color: var(--bg-color-link);
+         background-image: var(--color-link-active);
 
          &:hover {
-            background-color: $bgc-chat-preview-hover;
+            background-image: $color-btn-hover;
          }
       }
 
+      .back-btn {
+         background-image: $color-btn;
 
-      .btn2:nth-child(1) {
+         &:hover {
+            background-image: $color-btn-hover;
+         }
+      }
+
+      .btn1:nth-child(1) {
          animation-delay: 0s;
       }
 
-      .btn2:nth-child(2) {
+      .btn1:nth-child(2) {
          animation-delay: 0.3s;
       }
 
-      .btn2:nth-child(3) {
+      .btn1:nth-child(3) {
          animation-delay: 0.6s;
       }
 
-      .btn2:nth-child(4) {
+      .btn1:nth-child(4) {
          animation-delay: 0.9s;
       }
 
-      .btn2:nth-child(5) {
+      .btn1:nth-child(5) {
          animation-delay: 1.2s;
       }
 
-      .btn2:nth-child(6) {
+      .btn1:nth-child(6) {
          animation-delay: 1.5s;
+      }
+
+      .btn1:nth-child(7) {
+         animation-delay: 1.8s;
+      }
+
+      .btn1:nth-child(8) {
+         animation-delay: 2.1s;
       }
 
 

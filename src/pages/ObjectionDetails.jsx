@@ -11,7 +11,8 @@ import { ObjectionStyle } from '../cmps/ObjectionStyle.jsx'
 import { convertToTransparent } from '../services/util.service.js'
 import { AddItem } from '../cmps/AddItem.jsx'
 import { t } from 'i18next'
-
+import { IoCloseOutline } from 'react-icons/io5'
+import { RiFullscreenLine } from "react-icons/ri";
 export function ObjectionDetails() {
    const navigate = useNavigate()
    const params = useParams()
@@ -36,11 +37,24 @@ export function ObjectionDetails() {
             !openItemRef.current.contains(event.target)
          ) {
             setSelectedItemId(null)
+            setFullScreenItemId(null)
          }
       }
 
+      document.addEventListener('keydown', event => {
+         if (event.key === 'Escape') {
+            setSelectedItemId(null)
+            setFullScreenItemId(null)
+         }
+      })
       document.addEventListener('mousedown', handleClickOutside)
       return () => {
+         document.removeEventListener('keydown', event => {
+            if (event.key === 'Escape') {
+               setSelectedItemId(null)
+               setFullScreenItemId(null)
+            }
+         })
          document.removeEventListener('mousedown', handleClickOutside)
       }
    }, [])
@@ -73,12 +87,20 @@ export function ObjectionDetails() {
    return (
       <section
          className='objection-details'
-         style={{
-            backgroundColor: currObjection?.style?.color
-               ? convertToTransparent(currObjection.style.color, 0.2)
-               : 'transparent',
-         }}>
+         // style={{
+         //    backgroundColor: currObjection?.style?.color
+         //       ? convertToTransparent(currObjection.style.color, 0.2)
+         //       : 'transparent',
+         // }}
+      >
+         <div
+            className='overlay'
+            style={{
+               display: selectedItemId ? 'block' : 'none',
+            }}></div>
+
          <h1>{currObjection?.category}</h1>
+
          <div className='actions'>
             <ObjectionStyle
                currObjection={currObjection}
@@ -90,6 +112,7 @@ export function ObjectionDetails() {
                {t('add item')}
             </button>
          </div>
+
          {isOpenAddItem && (
             <AddItem
                currObjection={currObjection}
@@ -97,14 +120,8 @@ export function ObjectionDetails() {
                setIsOpenAddItem={setIsOpenAddItem}
             />
          )}
-         <ul
-            className='objection-details-main'
-            style={{
-               gridTemplateColumns:
-                  currObjection?.style?.layout === 'column'
-                     ? 'repeat(auto-fill, minmax(200px, 1fr))'
-                     : 'none',
-            }}>
+
+         <ul className='objection-details-main'>
             {currObjection?.items?.map(item => (
                <li
                   className={`item${`${
@@ -113,9 +130,17 @@ export function ObjectionDetails() {
                   key={item.id}
                   onClick={() => setSelectedItemId(item.id)}
                   ref={selectedItemId === item.id ? openItemRef : null}>
-                  
                   {openItemId !== item.id && (
                      <div className='details-item-btns'>
+                        <button
+                           className='btn2'
+                           onClick={ev => {
+                              ev.stopPropagation()
+                              setSelectedItemId(null)
+                              setFullScreenItemId(null)
+                           }}>
+                           <IoCloseOutline />
+                        </button>
                         <button
                            className='btn2'
                            onClick={() => setOpenItemId(item.id)}>
@@ -126,16 +151,11 @@ export function ObjectionDetails() {
                         <button
                            className='btn2'
                            onClick={() => setFullScreenItemId(item.id)}>
-                           full screen
-                        </button>
-                        <button
-                           className='btn2'
-                           onClick={() => setFullScreenItemId(null)}>
-                           exit
+                           <RiFullscreenLine />
                         </button>
                      </div>
                   )}
-                  
+
                   {openItemId === item.id && (
                      <ItemEdit
                         item={item}
@@ -162,21 +182,25 @@ export function ObjectionDetails() {
          </ul>
 
          <ul className='objection-details-links'>
-            <button className='btn1' onClick={() => navigate('/objection')}>
+            <button
+               className='back-btn btn2'
+               onClick={() => navigate('/objection')}>
                <TfiBackRight />
             </button>
 
             {objections.length &&
                objections.map(objection => (
                   <li
-                     className='link btn2'
-                     onClick={() => navigate(`/objection/details/${objection._id}`)}
+                     className='link btn1'
+                     onClick={() =>
+                        navigate(`/objection/details/${objection._id}`)
+                     }
                      key={objection._id}
                      style={{
-                        '--bg-color-link':
+                        '--color-link-active':
                            objection._id === currObjection?._id
-                              ? 'rgba(210, 210, 220, 0.4)'
-                              : 'white',
+                              ? 'linear-gradient(320deg, #d87cb5 0%, #d4bbc4 100%)'
+                              : 'linear-gradient(320deg, #cb1e88 0%, #cb1e5c 100%)',
                      }}>
                      {objection.category}
                   </li>
