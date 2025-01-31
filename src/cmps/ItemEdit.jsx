@@ -47,7 +47,8 @@ export function ItemEdit({ item, setOpenItemId, currObjection, parsedContent }) 
             <ItemStyle item={editedItem} setEditedItem={setEditedItem} />
          </div>
          <div className='item-edit-content'>
-            <input
+            <textarea
+               className='item-title'
                type='text'
                value={editedItem.title}
                name='title'

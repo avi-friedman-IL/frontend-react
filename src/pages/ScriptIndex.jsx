@@ -1,24 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { loadObjections } from '../store/actions/objection.actions'
+import { loadScripts } from '../store/actions/script.actions'
 import { t } from 'i18next'
 
 import { ScriptList } from '../cmps/ScriptList.jsx'
 
 export function ScriptIndex() {
-   const scripts = useSelector(
-      state => state.objectionModule.objections
-   ).filter(objection => objection.category === 'mainScript')
+   const scripts = useSelector(state => state.scriptModule.scripts)
 
    useEffect(() => {
       load()
-   }, [])
+   }, [scripts])
 
    async function load() {
       try {
-         await loadObjections()
+         await loadScripts()
       } catch (err) {
-         console.log('Cannot load objections', err)
+         console.log('Cannot load scripts', err)
       }
    }
 

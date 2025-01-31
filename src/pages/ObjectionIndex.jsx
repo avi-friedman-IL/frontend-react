@@ -28,9 +28,9 @@ export function ObjectionIndex() {
    return (
       <section className='objection-index'>
          
-         <button onClick={() => setIsOpen(true)} className='btn1'>
+         {/* <button onClick={() => setIsOpen(true)} className='btn1'>
             {t('add objection')}
-         </button>
+         </button> */}
          {isOpen && <AddObjection setIsOpen={setIsOpen} />}
          <ObjectionList objections={objections} />
          <Outlet />

@@ -41,6 +41,7 @@ export function RootCmp() {
                   {/* <Route path='edit/:id' element={<ObjectionEdit />} /> */}
                </Route>
                <Route path='/objection/details/:id' element={<ObjectionDetails />} />
+               <Route path='/objection/details/:id/:itemId' element={<ObjectionDetails />} />
                <Route path='/script/details/:id' element={<ScriptDetails />} />
 
                <Route path='/chat' element={<ChatIndex />} />

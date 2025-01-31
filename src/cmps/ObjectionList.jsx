@@ -8,7 +8,7 @@ export function ObjectionList({ objections }) {
          {objections.map(objection => (
             <li
                key={objection._id}
-               onClick={() => navigate(`details/${objection._id}`)}>
+               >
                <ObjectionPreview objection={objection} />
             </li>
          ))}

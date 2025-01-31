@@ -1,8 +1,9 @@
 import { t } from 'i18next'
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { loadObjections } from '../store/actions/objection.actions'
-import { objectionService } from '../services/objection'
+import { loadScripts } from '../store/actions/script.actions'
+import { scriptService } from '../services/script'
+import { ObjectionIndex } from './ObjectionIndex'
 
 export function ScriptDetails() {
    const params = useParams()
@@ -10,6 +11,7 @@ export function ScriptDetails() {
    const [refs, setRefs] = useState({})
    const [currSectionId, setCurrSectionId] = useState(null)
    const [script, setScript] = useState(null)
+   const [fontSize, setFontSize] = useState(20)
 
    useEffect(() => {
       loadScript()
@@ -45,8 +47,8 @@ export function ScriptDetails() {
 
    async function loadScript() {
       try {
-         // if (!script.length) await loadObjections()
-         const script = await objectionService.getById(params.id)
+         // if (!script.length) await loadScripts()
+         const script = await scriptService.getById(params.id)
          setScript(script)
       } catch (err) {
          console.log('Cannot load script', err)
@@ -54,19 +56,19 @@ export function ScriptDetails() {
    }
 
    function scrollToSection(sectionId) {
-    if (!sectionId) {
-       refs[0].current.scrollIntoView({ behavior: 'smooth' })
-       setCurrSectionId(objection.items[0].id)
-    } else {
-       refs[sectionId].current.scrollIntoView({ behavior: 'smooth' })
-       setCurrSectionId(sectionId)
-    }
- }
-if (!script) return <div>Loading...</div>
+      if (!sectionId) {
+         refs[0].current.scrollIntoView({ behavior: 'smooth' })
+         setCurrSectionId(script.items[0].id)
+      } else {
+         refs[sectionId].current.scrollIntoView({ behavior: 'smooth' })
+         setCurrSectionId(sectionId)
+      }
+   }
+   if (!script) return <div>Loading...</div>
    return (
       <section className='script-details'>
          <ul className='nav-btns'>
-            {script.items.map(item => (
+            {/* {script.items.map(item => (
                <li
                   className={`btn1 ${
                      currSectionId === item.id ? 'active' : ''
@@ -76,9 +78,11 @@ if (!script) return <div>Loading...</div>
                   {t(item.title)}
                </li>
             ))}
-            <Link className='objections-btn btn1' to='/objection'>
-               {t('objections')}
-            </Link>
+            <Link className='scripts-btn btn1' to='/script'>
+               {t('scripts')}
+            </Link> */}
+            <button className='btn2' onClick={() => setFontSize(fontSize => fontSize += 5)}>{`+`}</button>
+            <button className='btn2' onClick={() => setFontSize(fontSize => fontSize -= 5)}>{`-`}</button>
          </ul>
          <ul className='items'>
             {script.items.map(item => (
@@ -86,7 +90,10 @@ if (!script) return <div>Loading...</div>
                   id={item.id}
                   key={item.id}
                   ref={refs[item.id]}
-                  className='item'>
+                  className='item'
+                  style={{ fontSize: `${fontSize}px` }}
+                  >
+                  <h2>{t(item.title)}</h2>
                   <p
                      autoFocus
                      className='content'
@@ -95,6 +102,8 @@ if (!script) return <div>Loading...</div>
                </li>
             ))}
          </ul>
+
+         <ObjectionIndex />
       </section>
    )
 }

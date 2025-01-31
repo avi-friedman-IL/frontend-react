@@ -1,18 +1,17 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
+import { useSelector } from 'react-redux'
 import { BiEdit } from 'react-icons/bi'
 import { TfiBackRight } from 'react-icons/tfi'
+import { IoCloseOutline } from 'react-icons/io5'
 
 import { objectionService } from '../services/objection'
-import { useSelector } from 'react-redux'
 import { loadObjections } from '../store/actions/objection.actions'
 import { ItemEdit } from '../cmps/ItemEdit.jsx'
 import { ObjectionStyle } from '../cmps/ObjectionStyle.jsx'
-import { convertToTransparent } from '../services/util.service.js'
 import { AddItem } from '../cmps/AddItem.jsx'
 import { t } from 'i18next'
-import { IoCloseOutline } from 'react-icons/io5'
-import { RiFullscreenLine } from "react-icons/ri";
+
 export function ObjectionDetails() {
    const navigate = useNavigate()
    const params = useParams()
@@ -21,8 +20,7 @@ export function ObjectionDetails() {
 
    const [currObjection, setCurrObjection] = useState(null)
    const [openItemId, setOpenItemId] = useState(null)
-   const [selectedItemId, setSelectedItemId] = useState(null)
-   const [fullScreenItemId, setFullScreenItemId] = useState(null)
+   const [selectedItemId, setSelectedItemId] = useState(params.itemId)
    const [isOpenAddItem, setIsOpenAddItem] = useState(false)
 
    const openItemRef = useRef(null)
@@ -37,14 +35,14 @@ export function ObjectionDetails() {
             !openItemRef.current.contains(event.target)
          ) {
             setSelectedItemId(null)
-            setFullScreenItemId(null)
+            setOpenItemId(null)
          }
       }
 
       document.addEventListener('keydown', event => {
          if (event.key === 'Escape') {
             setSelectedItemId(null)
-            setFullScreenItemId(null)
+            setOpenItemId(null)
          }
       })
       document.addEventListener('mousedown', handleClickOutside)
@@ -52,7 +50,7 @@ export function ObjectionDetails() {
          document.removeEventListener('keydown', event => {
             if (event.key === 'Escape') {
                setSelectedItemId(null)
-               setFullScreenItemId(null)
+               setOpenItemId(null)
             }
          })
          document.removeEventListener('mousedown', handleClickOutside)
@@ -85,14 +83,7 @@ export function ObjectionDetails() {
    }
 
    return (
-      <section
-         className='objection-details'
-         // style={{
-         //    backgroundColor: currObjection?.style?.color
-         //       ? convertToTransparent(currObjection.style.color, 0.2)
-         //       : 'transparent',
-         // }}
-      >
+      <section className='objection-details'>
          <div
             className='overlay'
             style={{
@@ -124,67 +115,70 @@ export function ObjectionDetails() {
          <ul className='objection-details-main'>
             {currObjection?.items?.map(item => (
                <li
-                  className={`item${`${
-                     selectedItemId === item.id ? '-selected' : ''
-                  }${fullScreenItemId === item.id ? '-full-screen' : ''}`}`}
+                  className='item'
                   key={item.id}
                   onClick={() => setSelectedItemId(item.id)}
                   ref={selectedItemId === item.id ? openItemRef : null}>
-                  {openItemId !== item.id && (
-                     <div className='details-item-btns'>
-                        <button
-                           className='btn2'
-                           onClick={ev => {
-                              ev.stopPropagation()
-                              setSelectedItemId(null)
-                              setFullScreenItemId(null)
+                  <div
+                     className={`item-content ${
+                        selectedItemId === item.id ? 'selected' : ''
+                     }`}>
+                     {openItemId !== item.id && (
+                        <div
+                           className='details-item-btns'
+                           style={{
+                              display:
+                                 selectedItemId === item.id ? 'grid' : 'none',
                            }}>
-                           <IoCloseOutline />
-                        </button>
-                        <button
-                           className='btn2'
-                           onClick={() => setOpenItemId(item.id)}>
-                           <BiEdit
-                              style={{ fill: item.style?.color || 'black' }}
-                           />
-                        </button>
-                        <button
-                           className='btn2'
-                           onClick={() => setFullScreenItemId(item.id)}>
-                           <RiFullscreenLine />
-                        </button>
-                     </div>
-                  )}
+                           <button
+                              className='btn2'
+                              onClick={ev => {
+                                 ev.stopPropagation()
+                                 setSelectedItemId(null)
+                              }}>
+                              <IoCloseOutline />
+                           </button>
+                           <button
+                              className='btn2'
+                              onClick={() => setOpenItemId(item.id)}>
+                              <BiEdit
+                                 style={{
+                                    fill: item.style?.color || 'black',
+                                 }}
+                              />
+                           </button>
+                        </div>
+                     )}
 
-                  {openItemId === item.id && (
-                     <ItemEdit
-                        item={item}
-                        setOpenItemId={setOpenItemId}
-                        currObjection={currObjection}
-                        parsedContent={parsedContent}
-                     />
-                  )}
+                     {openItemId === item.id && (
+                        <ItemEdit
+                           item={item}
+                           setOpenItemId={setOpenItemId}
+                           currObjection={currObjection}
+                           parsedContent={parsedContent}
+                        />
+                     )}
 
-                  {openItemId !== item.id && (
-                     <div className='item-content'>
+                     {openItemId !== item.id && (
                         <h2
+                           className='item-title'
                            style={{
                               color: item.style?.color || 'black',
                            }}>
                            {t(item.title)}
                         </h2>
+                     )}
 
+                     {openItemId !== item.id && (
                         <p dangerouslySetInnerHTML={{ __html: item.content }} />
-                     </div>
-                  )}
+                     )}
+                  </div>
                </li>
             ))}
          </ul>
 
          <ul className='objection-details-links'>
-            <button
-               className='back-btn btn2'
-               onClick={() => navigate('/objection')}>
+            <button className='back-btn btn2' onClick={() => navigate(-1)}>
                <TfiBackRight />
             </button>
 
