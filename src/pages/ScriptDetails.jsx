@@ -4,46 +4,22 @@ import { Link, useParams } from 'react-router-dom'
 import { loadScripts } from '../store/actions/script.actions'
 import { scriptService } from '../services/script'
 import { ObjectionIndex } from './ObjectionIndex'
+import { TipsIndex } from './TipsIndex.jsx'
+import { BiEdit } from 'react-icons/bi'
+import { ItemEdit } from '../cmps/ItemEdit.jsx'
+import { AiOutlineEdit } from 'react-icons/ai'
 
 export function ScriptDetails() {
    const params = useParams()
 
    const [refs, setRefs] = useState({})
-   const [currSectionId, setCurrSectionId] = useState(null)
    const [script, setScript] = useState(null)
-   const [fontSize, setFontSize] = useState(20)
+   const [fontSize, setFontSize] = useState(24)
+   const [openItemId, setOpenItemId] = useState(null)
 
    useEffect(() => {
       loadScript()
-   }, [params.id])
-
-   useEffect(() => {
-      if (!script) return
-      const refsReduce = script.items.reduce((acc, item) => {
-         acc[item.id] = React.createRef()
-         return acc
-      }, {})
-      setRefs(refsReduce)
-   }, [script])
-
-   useEffect(() => {
-      if (!script || !Object.keys(refs).length) return
-      const observer = new IntersectionObserver(
-         entries => {
-            entries.forEach(entry => {
-               if (entry.isIntersecting) {
-                  setCurrSectionId(entry.target.id)
-               }
-            })
-         },
-         { threshold: 0.5 }
-      )
-
-      script.items.forEach(item => {
-         observer.observe(refs[item.id].current)
-      })
-      return () => observer.disconnect()
-   }, [script, refs])
+   }, [params.id, openItemId])
 
    async function loadScript() {
       try {
@@ -55,34 +31,21 @@ export function ScriptDetails() {
       }
    }
 
-   function scrollToSection(sectionId) {
-      if (!sectionId) {
-         refs[0].current.scrollIntoView({ behavior: 'smooth' })
-         setCurrSectionId(script.items[0].id)
-      } else {
-         refs[sectionId].current.scrollIntoView({ behavior: 'smooth' })
-         setCurrSectionId(sectionId)
-      }
-   }
    if (!script) return <div>Loading...</div>
    return (
       <section className='script-details'>
-         <ul className='nav-btns'>
-            {/* {script.items.map(item => (
-               <li
-                  className={`btn1 ${
-                     currSectionId === item.id ? 'active' : ''
-                  }`}
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}>
-                  {t(item.title)}
-               </li>
-            ))}
-            <Link className='scripts-btn btn1' to='/script'>
-               {t('scripts')}
-            </Link> */}
-            <button className='btn2' onClick={() => setFontSize(fontSize => fontSize += 5)}>{`+`}</button>
-            <button className='btn2' onClick={() => setFontSize(fontSize => fontSize -= 5)}>{`-`}</button>
+         <TipsIndex />
+         <ul className='script-details-btns'>
+            <button
+               className='btn1'
+               onClick={() => setFontSize(fontSize => (fontSize += 5))}>
+               {t('Increase text')}
+            </button>
+            <button
+               className='btn1'
+               onClick={() => setFontSize(fontSize => (fontSize -= 5))}>
+               {t('Decrease text')}
+            </button>
          </ul>
          <ul className='items'>
             {script.items.map(item => (
@@ -91,14 +54,32 @@ export function ScriptDetails() {
                   key={item.id}
                   ref={refs[item.id]}
                   className='item'
-                  style={{ fontSize: `${fontSize}px` }}
-                  >
-                  <h2>{t(item.title)}</h2>
-                  <p
-                     autoFocus
-                     className='content'
-                     dangerouslySetInnerHTML={{ __html: item.content }}
-                  />
+                  style={{ fontSize: `${fontSize}px` }}>
+                  <div className='title'>
+                     <h2
+                     style={{fontSize: `${fontSize * 2}px`}}
+                     >{t(item.title)}</h2>
+                     <button
+                        className='btn3'
+                        onClick={() => setOpenItemId(item.id)}>
+                        <span>{t('Edit')}</span>
+                        <AiOutlineEdit />
+                     </button>
+                  </div>
+                  {openItemId !== item.id && (
+                     <p
+                        autoFocus
+                        className='content'
+                        dangerouslySetInnerHTML={{ __html: item.content }}
+                     />
+                  )}
+                  {openItemId === item.id && (
+                     <ItemEdit
+                        item={item}
+                        setOpenItemId={setOpenItemId}
+                        currObjection={script}
+                     />
+                  )}
                </li>
             ))}
          </ul>

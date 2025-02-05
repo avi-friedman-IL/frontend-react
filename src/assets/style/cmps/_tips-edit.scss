@@ -1,0 +1,10 @@
+.tips-edit {
+    position: fixed;
+
+    .tip-edit {
+        display: grid;
+        grid-auto-flow: column;
+        align-items: center;
+        gap: 1rem;
+    }
+}

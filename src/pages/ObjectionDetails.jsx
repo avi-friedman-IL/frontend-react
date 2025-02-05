@@ -11,6 +11,7 @@ import { ItemEdit } from '../cmps/ItemEdit.jsx'
 import { ObjectionStyle } from '../cmps/ObjectionStyle.jsx'
 import { AddItem } from '../cmps/AddItem.jsx'
 import { t } from 'i18next'
+import { AiOutlineEdit } from 'react-icons/ai'
 
 export function ObjectionDetails() {
    const navigate = useNavigate()
@@ -29,23 +30,12 @@ export function ObjectionDetails() {
    }, [params.id, objections.length, openItemId, isOpenAddItem])
 
    useEffect(() => {
-      const handleClickOutside = event => {
-         if (
-            openItemRef.current &&
-            !openItemRef.current.contains(event.target)
-         ) {
-            setSelectedItemId(null)
-            setOpenItemId(null)
-         }
-      }
-
       document.addEventListener('keydown', event => {
          if (event.key === 'Escape') {
             setSelectedItemId(null)
             setOpenItemId(null)
          }
       })
-      document.addEventListener('mousedown', handleClickOutside)
       return () => {
          document.removeEventListener('keydown', event => {
             if (event.key === 'Escape') {
@@ -53,7 +43,6 @@ export function ObjectionDetails() {
                setOpenItemId(null)
             }
          })
-         document.removeEventListener('mousedown', handleClickOutside)
       }
    }, [])
 
@@ -67,24 +56,13 @@ export function ObjectionDetails() {
       }
    }
 
-   function parsedContent(content) {
-      try {
-         const parsedContent = JSON.parse(content)
-         return (
-            parsedContent?.root?.children
-               ?.map(paragraph =>
-                  paragraph.children?.map(node => node.text).join(' ')
-               )
-               .join('\n') || ''
-         )
-      } catch (error) {
-         return content
-      }
-   }
-
    return (
       <section className='objection-details'>
          <div
+            onClick={() => {
+               setSelectedItemId(null)
+               setOpenItemId(null)
+            }}
             className='overlay'
             style={{
                display: selectedItemId ? 'block' : 'none',
@@ -139,13 +117,10 @@ export function ObjectionDetails() {
                               <IoCloseOutline />
                            </button>
                            <button
-                              className='btn2'
+                              className='btn3'
                               onClick={() => setOpenItemId(item.id)}>
-                              <BiEdit
-                                 style={{
-                                    fill: item.style?.color || 'black',
-                                 }}
-                              />
+                              <span>{t('Edit')}</span>
+                              <AiOutlineEdit />
                            </button>
                         </div>
                      )}
@@ -155,7 +130,6 @@ export function ObjectionDetails() {
                            item={item}
                            setOpenItemId={setOpenItemId}
                            currObjection={currObjection}
-                           parsedContent={parsedContent}
                         />
                      )}
 
@@ -171,6 +145,14 @@ export function ObjectionDetails() {
 
                      {openItemId !== item.id && (
                         <p dangerouslySetInnerHTML={{ __html: item.content }} />
+                     )}
+                     {selectedItemId === item.id && (
+                        <button
+                           className='back-btn btn2'
+                           onClick={() => navigate(-1)}>
+                           {t('back to script')}
+                           <TfiBackRight />
+                        </button>
                      )}
                   </div>
                </li>

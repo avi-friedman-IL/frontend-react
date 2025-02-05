@@ -14,6 +14,7 @@
 @use 'pages/members-index';
 @use 'pages/script-index';
 @use 'pages/script-details';
+@use 'pages/tips-index';
 
 
 
@@ -44,5 +45,8 @@
 @use 'cmps/text-editor';
 @use 'cmps/script-list';
 @use 'cmps/script-preview';
+@use 'cmps/tips-list';
+@use 'cmps/tips-preview';
+@use 'cmps/tips-edit';
 
 

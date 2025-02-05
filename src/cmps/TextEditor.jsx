@@ -17,17 +17,17 @@ export function TextEditor({ item, setEditedItem, setOpenItemId }) {
             apiKey='4t0jqmbiio9yuhkttljns4bgklv2e5783neoz12pg40tqje8'
             onInit={(evt, editor) => {
                editorRef.current = editor
-               editor.on('ExecCommand', (e) => {
-                  e.stopPropagation();
+               editor.on('ExecCommand', e => {
+                  e.stopPropagation()
                })
             }}
             initialValue={item.content || ''}
             init={{
                language: 'he_IL',
                directionality: 'rtl',
-               height: 200,
                menubar: false,
-
+               // skin: false,
+               // content_css: false,
                plugins: [
                   'advlist',
                   'autolink',
@@ -52,13 +52,11 @@ export function TextEditor({ item, setEditedItem, setOpenItemId }) {
                   'formatselect | bold italic forecolor backcolor | \
                alignleft aligncenter alignright alignjustify | \
                bullist numlist outdent indent | removeformat | help',
-               content_style:`
+               content_style: `
                body {
                   font-family: 'Roboto', sans-serif;
-                  
+                     `,
 
-                     `
-               ,
                color_map: [
                   defaultColor,
                   'Default color',
@@ -83,3 +81,4 @@ export function TextEditor({ item, setEditedItem, setOpenItemId }) {
       </section>
    )
 }
+

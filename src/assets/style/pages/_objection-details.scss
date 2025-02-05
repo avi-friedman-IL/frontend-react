@@ -59,6 +59,13 @@
          background-color: white;
          transition: all 0.3s;
 
+         .back-btn {
+            svg {
+               fill: white;
+               stroke: white;
+            }
+         }
+
          .item-content {
             grid-row: 2;
             grid-column: 1/span 2;
@@ -137,6 +144,11 @@
       .back-btn {
          background-image: $color-btn;
          z-index: 3;
+
+         svg {
+            fill: white;
+            stroke: white;
+         }
 
          &:hover {
             background-image: $color-btn-hover;

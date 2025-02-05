@@ -36,5 +36,15 @@
    "objections": "התנגדויות",
    "add objection": "הוסף התנגדות",
    "call script": "תסריט שיחה",
-   "home": "דף הבית"
+   "home": "דף הבית",
+   "back to script": "חזור לתסריט שיחה",
+   "Increase text": "הגדל טקסט",
+   "Decrease text": "הקטן טקסט",
+   "Edit": "ערוך",
+   "Close": "סגור",
+   "Delete": "מחק",
+   "Save": "שמור",
+   "Add": "הוסף",
+   "Add Tip": "הוסף טיפ",
+   "Edit Tips": "ערוך טיפים"
 }

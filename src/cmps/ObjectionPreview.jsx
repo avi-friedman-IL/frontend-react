@@ -18,10 +18,10 @@ export function ObjectionPreview({ objection }) {
    return (
       <section className='objection-preview'>
          <header
-            className='btn2'
+            className='btn1'
             onClick={() => navigate(`/objection/details/${objection._id}`)}>
-            <div className='icon'>{Icon}</div>
             <h1>{objection.category}</h1>
+            <div className='icon'>{Icon}</div>
          </header>
          <div className='objection-items-container'>
             <ul className='objection-items'>

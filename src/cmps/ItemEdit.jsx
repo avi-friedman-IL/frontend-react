@@ -5,8 +5,9 @@ import { IoCloseOutline } from 'react-icons/io5'
 
 import { ItemStyle } from './ItemStyle.jsx'
 import { TextEditor } from './TextEditor.jsx'
+import { updateScript } from '../store/actions/script.actions.js'
 
-export function ItemEdit({ item, setOpenItemId, currObjection, parsedContent }) {
+export function ItemEdit({ item, setOpenItemId, currObjection }) {
    const [editedItem, setEditedItem] = useState(item)
 
    function handleChange(ev) {
@@ -24,7 +25,9 @@ export function ItemEdit({ item, setOpenItemId, currObjection, parsedContent }) 
          currItem.id === editedItem.id ? editedItem : currItem
       )
       try {
-         await updateObjection({ ...currObjection, items: updatedItems })
+         currObjection.title
+            ? await updateScript({ ...currObjection, items: updatedItems })
+            : await updateObjection({ ...currObjection, items: updatedItems })
          showSuccessMsg('Item saved successfully')
       } catch (err) {
          console.log('Cannot save item', err)
@@ -39,9 +42,10 @@ export function ItemEdit({ item, setOpenItemId, currObjection, parsedContent }) 
          <div className='item-edit-btns'>
             <IoCloseOutline
                className='btn2'
-               onClick={(ev) => {
+               onClick={ev => {
                   ev.stopPropagation()
-                  setOpenItemId(null)}}
+                  setOpenItemId(null)
+               }}
             />
 
             <ItemStyle item={editedItem} setEditedItem={setEditedItem} />
@@ -56,7 +60,11 @@ export function ItemEdit({ item, setOpenItemId, currObjection, parsedContent }) 
                style={{ color: editedItem.style?.color }}
             />
 
-            <TextEditor item={editedItem} setEditedItem={setEditedItem} setOpenItemId={setOpenItemId} />
+            <TextEditor
+               item={editedItem}
+               setEditedItem={setEditedItem}
+               setOpenItemId={setOpenItemId}
+            />
          </div>
 
          <button className='btn2' onClick={onSave}>
