@@ -12,6 +12,14 @@ export function ChatList({ chats, user, users, onRemove, onUpdate }) {
 
    return (
       <ul className='chat-list'>
+          {chats.length === 0 && (
+            <div className='bg-icon'>
+               <img
+                  src='https://res.cloudinary.com/dcymxvtnd/image/upload/v1737468159/ydamq97cqradrdjgxyn5.png'
+                  alt=''
+               />
+            </div>
+         )}
          {chats.map((chat, idx) => (
             <li
                className={

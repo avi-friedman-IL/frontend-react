@@ -1,19 +1,27 @@
 import { useEffect, useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
-import { BiChat } from 'react-icons/bi'
-import { IoMdContacts } from 'react-icons/io'
+import { useTranslation } from 'react-i18next'
+
+import { NotificationList } from './NotificationList.jsx'
+
+import {
+   MdLanguage,
+   MdOutlineMailOutline,
+   MdWifiCalling3,
+} from 'react-icons/md'
 import { IoHomeOutline } from 'react-icons/io5'
-import { MdLanguage, MdWifiCalling3 } from 'react-icons/md'
-import { TbPhoneCalling } from 'react-icons/tb'
+import { BiChat } from 'react-icons/bi'
 
 import { Tooltip } from './Tooltip'
 
 export function AppHeader() {
    const user = useSelector(state => state.userModule.user)
-   const [isOpen, setIsOpen] = useState(false)
+   const users = useSelector(state => state.userModule.users)
+
+   const [isOpenLanguage, setIsOpenLanguage] = useState(false)
+   const [isOpenNotification, setIsOpenNotification] = useState(false)
    const [isTooltipOpen, setIsTooltipOpen] = useState(false)
    const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 })
    const [tooltipText, setTooltipText] = useState('')
@@ -29,7 +37,7 @@ export function AppHeader() {
             languageRef.current &&
             !languageRef.current.contains(event.target)
          ) {
-            setIsOpen(false)
+            setIsOpenLanguage(false)
          }
       }
 
@@ -44,7 +52,7 @@ export function AppHeader() {
       document.body.dir = lang === 'he' ? 'rtl' : 'ltr'
 
       i18n.changeLanguage(lang)
-      setIsOpen(false)
+      setIsOpenLanguage(false)
       localStorage.setItem('language', lang)
    }
 
@@ -65,7 +73,7 @@ export function AppHeader() {
          setIsTooltipOpen(false)
       }, 500)
    }
-
+   if (!users?.length || !user) return <div>Loading...</div>
    return (
       <section className='app-header'>
          {isTooltipOpen && <Tooltip position={tooltipPos} text={tooltipText} />}
@@ -75,72 +83,61 @@ export function AppHeader() {
                   <IoHomeOutline />
                   <span>{t('home')}</span>
                </NavLink>
-               <NavLink
-                  to={'/script'}
-                  onMouseEnter={ev => {
-                     setTooltipText(t('scripts'))
-                     handleMouseEnter(ev)
-                  }}
-                  onMouseLeave={handleMouseLeave}>
+               <NavLink to={'/script'}>
                   <MdWifiCalling3 />
                   <span>{t('scripts')}</span>
                </NavLink>
-               <NavLink
-                  to={'/objection'}
-                  onMouseEnter={ev => {
-                     setTooltipText(t('objections'))
-                     handleMouseEnter(ev)
-                  }}
-                  onMouseLeave={handleMouseLeave}>
-                  <TbPhoneCalling />
-                  <span>{t('objections')}</span>
-               </NavLink>
 
-               <NavLink
-                  to={'/chat'}
-                  onMouseEnter={ev => {
-                     setTooltipText(t('chats'))
-                     handleMouseEnter(ev)
-                  }}
-                  onMouseLeave={handleMouseLeave}>
+               <NavLink to={'/chat'}>
                   <BiChat />
                   <span>{t('chats')}</span>
                </NavLink>
 
-               {/* <NavLink
-                  to={'/members'}
-                  onMouseEnter={ev => {
-                     setTooltipText(t('members'))
-                     handleMouseEnter(ev)
-                  }}
-                  onMouseLeave={handleMouseLeave}>
-                  <IoMdContacts />
-                  <span>{t('members')}</span>
-               </NavLink> */}
+               <NavLink to={'/msg'}>
+                  <MdOutlineMailOutline />
+                  <span>{t('msgs')}</span>
+               </NavLink>
             </nav>
          )}
          <div className='user-info' ref={languageRef}>
-            {user && (
+            {/* {user && (
                <a
                   className='language-btn'
-                  onClick={() => setIsOpen(open => !open)}
-                  onMouseEnter={ev => {
-                     setTooltipText(t('change language'))
-                     handleMouseEnter(ev)
-                  }}
-                  onMouseLeave={handleMouseLeave}>
+                  onClick={() => setIsOpenLanguage(open => !open)}>
                   <MdLanguage />
                   <span>{i18n.language === 'en' ? 'EN' : 'עברית'}</span>
                </a>
-            )}
+            )} */}
             {user && (
-               <a href=''>
+               <div
+                  className='user-btn'
+                  onClick={() => setIsOpenNotification(open => !open)}>
                   <img className='img-url' src={user.imgUrl} alt='' />
                   <span>{user.fullname.split(' ')[0]}</span>
-               </a>
+                  {
+                     <span className='notifications'>
+                        {
+                           users?.find(currUser => currUser._id === user._id)
+                              .notifications?.length
+                        }
+                     </span>
+                  }
+               </div>
             )}
-            {isOpen && (
-               <ul className='language-list' onBlur={() => setIsOpen(false)}>
+            {isOpenNotification && (
+               <NotificationList
+                  users={users}
+                  user={user}
+                  notifications={
+                     users?.find(currUser => currUser._id === user._id)
+                        .notifications
+                  }
+               />
+            )}
+            {isOpenLanguage && (
+               <ul
+                  className='language-list'
+                  onBlur={() => setIsOpenLanguage(false)}>
                   <li onClick={() => changeLanguage('en')}>english</li>
                   <li onClick={() => changeLanguage('he')}>עברית</li>
                </ul>

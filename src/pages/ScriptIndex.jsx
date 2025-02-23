@@ -4,13 +4,16 @@ import { loadScripts } from '../store/actions/script.actions'
 import { t } from 'i18next'
 
 import { ScriptList } from '../cmps/ScriptList.jsx'
+import { AddScript } from '../cmps/AddScript.jsx'
 
 export function ScriptIndex() {
    const scripts = useSelector(state => state.scriptModule.scripts)
+   const [isOpen, setIsOpen] = useState(false)
 
    useEffect(() => {
       load()
-   }, [scripts])
+      console.log('scripts:', scripts)
+   }, [scripts?.length])
 
    async function load() {
       try {
@@ -23,7 +26,11 @@ export function ScriptIndex() {
    if (!scripts) return <div>{t('loading')}</div>
    return (
       <section className='script-index'>
+         <button onClick={() => setIsOpen(true)} className='add-btn btn1'>
+            {t('Add Script')}
+         </button>
          <ScriptList scripts={scripts} />
+         {isOpen && <AddScript setIsOpen={setIsOpen} />}
       </section>
    )
 }

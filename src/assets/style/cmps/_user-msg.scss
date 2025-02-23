@@ -1,12 +1,15 @@
+@use '../base/vars' as *;
 .user-msg {
     position: fixed;
     top: 60px;
     right: 0.2em;
   
-    display: flex;
+    display: grid;
+    gap: 1rem;
+    justify-items: start;
     align-items: center;
   
-    padding: .5rem;
+    padding: 1.5rem;
     border-radius: 4px;
     background-color: grey;
   
@@ -16,6 +19,12 @@
     opacity: 0;
     translate: 150%;
     transition: 600ms;
+
+    p{
+      // padding: 1rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
   }
   
   .user-msg.visible {
@@ -24,11 +33,16 @@
   }
   
   .user-msg button {
-    background-color: gray;
-    padding: 1px 6px;
-    border: 0;
-    border-radius: 50%;
-    color: black;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: transparent;
+    padding: 0;
+    svg {
+      stroke: white;
+      fill: white;
+    }
+    
   }
   
   .user-msg.success {
@@ -37,6 +51,10 @@
   }
   .user-msg.error {
     background-color: rgb(216, 59, 59);
+    z-index: 100000000000000000000;
+  }
+  .user-msg.respect {
+    background-image: $color-btn;
     z-index: 100000000000000000000;
   }
   

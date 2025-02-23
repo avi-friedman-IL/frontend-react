@@ -29,4 +29,8 @@ export function showErrorMsg(txt) {
     showUserMsg({txt, type: 'error'})
 }
 
+export function showRespectMsg(txt) {
+    showUserMsg({txt, type: 'respect'})
+}
+
 window.showUserMsg = showUserMsg

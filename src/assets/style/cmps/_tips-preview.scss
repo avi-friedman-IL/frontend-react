@@ -1,4 +1,22 @@
 .tips-preview {
-//   min-width: 90vw;
+    //   min-width: 90vw;
+    background: linear-gradient(90deg, #3f934e, #3383ff, #ff33d4);
+    background-size: 300% 300%;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientMove 2s forwards ease-in-out;
+    // color: #ffffff;
 
+
+    @keyframes gradientMove {
+        0% {
+            background-position: 0% 50%;
+        }
+
+        100% {
+            background-position: 100% 50%;
+        }
+    }
+
+    //   color:  #ff5733, #ffc300, #3f934e, #3383ff, #ff33d4;
 }

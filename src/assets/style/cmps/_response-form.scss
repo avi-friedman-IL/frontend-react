@@ -1,0 +1,27 @@
+@use '../base/vars' as *;
+
+.response-form {
+    display: grid;
+    gap: 1rem;
+    width: 100%;
+    border: 1px solid $blue;
+
+    .response-textarea {
+        width: 100%;
+        height: 100%;
+        padding: .5rem;
+
+        font-family: 'Roboto', sans-serif;
+
+        resize: none;
+        color: black;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .form-btns {
+        justify-content: start;
+    }
+}

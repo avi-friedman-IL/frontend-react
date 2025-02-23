@@ -15,6 +15,7 @@
 @use 'pages/script-index';
 @use 'pages/script-details';
 @use 'pages/tips-index';
+@use 'pages/msg-index';
 
 
 
@@ -48,5 +49,11 @@
 @use 'cmps/tips-list';
 @use 'cmps/tips-preview';
 @use 'cmps/tips-edit';
+@use 'cmps/msg-list';
+@use 'cmps/msg-preview';
+@use 'cmps/msg-filter';
+@use 'cmps/response-form';
+@use 'cmps/notification-list';
+@use 'cmps/notification-preview';
 
 

@@ -1,8 +1,6 @@
-import { t } from 'i18next'
-import { GrMoney } from 'react-icons/gr'
-import { WiTime4 } from 'react-icons/wi'
-import { IoDocumentAttachOutline } from 'react-icons/io5'
+import { GrDocumentText, GrMoney } from 'react-icons/gr'
 import { FaRegQuestionCircle } from 'react-icons/fa'
+import { ImClock } from 'react-icons/im'
 import { useNavigate } from 'react-router'
 
 export function ObjectionPreview({ objection }) {
@@ -10,8 +8,8 @@ export function ObjectionPreview({ objection }) {
 
    const iconMap = {
       Money: <GrMoney />,
-      Time: <WiTime4 />,
-      Material: <IoDocumentAttachOutline />,
+      Time: <ImClock />,
+      Material: <GrDocumentText />,
       Hesitating: <FaRegQuestionCircle />,
    }
    const Icon = iconMap[objection.Name]

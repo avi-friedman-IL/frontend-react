@@ -7,23 +7,22 @@ export function TipsList({ tips }) {
 
    useEffect(() => {
       const interval = setInterval(() => {
-         setCurrentTipIndex((prevIndex) => (prevIndex + 1) % tips.length)
-      }, 3000) 
+         setCurrentTipIndex(prevIndex => (prevIndex + 1) % tips.length)
+      }, 5000)
 
       return () => clearInterval(interval)
    }, [tips.length])
 
    return (
       <div className='tips-list'>
-         <AnimatePresence mode="wait">
+         <AnimatePresence mode='wait'>
             <motion.div
                key={tips[currentTipIndex].id}
                className='tip-item'
-               initial={{ opacity: 0, scale: 0.8 }}
-               animate={{ opacity: 1, scale: 1 }}
-               exit={{ opacity: 0, scale: 0.8 }}
-               transition={{ duration: 0.5 }}
-            >
+               initial={{ clipPath: 'inset(100% 0% 0% 0%)' }}
+               animate={{ clipPath: 'inset(0% 0% 0% 0%)' }}
+               exit={{ clipPath: 'inset(100% 0% 0% 0%)' }}
+               transition={{ duration: 0.3, ease: 'easeInOut' }}>
                <TipsPreview tip={tips[currentTipIndex]} />
             </motion.div>
          </AnimatePresence>

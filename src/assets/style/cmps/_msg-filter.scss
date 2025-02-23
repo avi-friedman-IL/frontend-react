@@ -1,0 +1,31 @@
+@use '../base/vars' as *;
+.msg-filter {
+    background: $bg-msg-preview;
+    grid-template-columns: 1fr max-content;
+    padding-inline-end: .5rem;
+
+    .search-input {
+        // background: $bg-msg-preview;
+        height: 70%;
+    }
+    
+    .subject-filter{
+        padding: 1rem;
+        cursor: pointer;
+        
+        button {
+            width: 100%;
+            height: 100%;
+            font-size: 1rem;
+            font-weight: bold;
+            color: $google-text-color-title;
+        }
+
+        &.active {
+            box-shadow: inset 0 -4px 0 0 $pink;
+            button {
+                color: $pink;
+            }
+        }
+    }
+}

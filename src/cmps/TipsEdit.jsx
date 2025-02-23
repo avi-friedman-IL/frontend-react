@@ -7,7 +7,7 @@ import { AiFillDelete } from 'react-icons/ai'
 
 export function TipsEdit({ setIsEdit, tips }) {
    const params = useParams()
-   const [tipsToEdit, setTipsToEdit] = useState([...tips])
+   const [tipsToEdit, setTipsToEdit] = useState(tips?.length?[...tips]:[{ id: makeId(), text: '' }])
 
    function onAddTip(ev) {
       ev.preventDefault()

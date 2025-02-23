@@ -1,67 +1,71 @@
 @use '../base/vars' as *;
 
-.objection-preview {
-    display: grid;
-    grid-template-columns: max-content 1fr;
-    gap: 1rem;
-    width: 100%;
+.script-details {
 
-    header {
-        grid-column: 2;
-        width: 100%;
-        font-weight: 400;
-        font-size: 1rem;
-        color: #ffffff;
-        cursor: pointer;
 
-        svg {
-            width: 1.5rem;
-            height: 1.5rem;
-            fill: #ffffff;
-            stroke: #ffffff;
-        }
-    }
-
-    &:hover .objection-items-container {
+    .objection-preview {
         display: grid;
-    }
+        grid-template-columns: max-content 1fr;
+        gap: 1rem;
+        width: 100%;
 
+        header {
+            grid-column: 2;
+            width: 100%;
+            font-weight: 400;
+            font-size: 1rem;
+            color: #ffffff;
+            cursor: pointer;
 
-    .objection-items-container {
-        display: none;
-        position: relative;
-        grid-column: 1;
-        grid-row: 1;
-        // opacity: 0;
-        // min-width: 70px;
-        transition: opacity .3s;
+            svg {
+                width: 1.5rem;
+                height: 1.5rem;
+                fill: #ffffff;
+                stroke: #ffffff;
+            }
+        }
 
-        .objection-items {
+        &:hover .objection-items-container {
             display: grid;
-            gap: 1rem;
-            position: absolute;
-            left: 0;
-            background-color: #ffffff;
-            border-radius: 1rem;
-            padding: .5rem;
-            box-shadow: 0 0 1rem 0.5rem #00000040;
+        }
 
-            .item {
-                white-space: nowrap;
+
+        .objection-items-container {
+            display: none;
+            position: relative;
+            grid-column: 1;
+            grid-row: 1;
+            // opacity: 0;
+            // min-width: 70px;
+            transition: opacity .3s;
+
+            .objection-items {
                 display: grid;
-                gap: 1rem;
-                align-items: center;
-                padding: 1rem;
-                border-radius: 3rem;
-                border: 1px solid #00000020;
-                font-size: 1rem;
+                // gap: 1rem;
+                position: absolute;
+                left: 0;
+                background-color: #ffffff;
+                border-radius: 1rem;
+                padding: .5rem;
+                box-shadow: 0 0 1rem 0.5rem #00000040;
 
-                cursor: pointer;
+                .item {
+                    white-space: nowrap;
+                    display: grid;
+                    gap: 1rem;
+                    align-items: center;
+                    padding: .6rem 1rem;
+                    border-radius: 3rem;
+                    font-size: 1rem;
 
-                &:hover {
-                    background-color: $bg-color-chat;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: $bgc-chat-preview-hover;
+                    }
                 }
             }
         }
     }
+
 }

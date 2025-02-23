@@ -47,20 +47,39 @@
     }
 
     .user-info {
+        position: relative;
         display: grid;
         gap: .5rem;
         width: 100%;
 
-        a {
+        
+        .user-btn {
+            position: relative;
             display: grid;
             justify-items: center;
             gap: .5rem;
-
+            
             width: 100%;
             padding: .5rem;
             transition: .5s;
             cursor: pointer;
-
+            
+            .notifications {
+                position: absolute;
+                top: 0;
+                right: 0;
+                display: grid;
+                justify-items: center;
+                align-items: center;
+        
+                width: 1.5rem;
+                height: 1.5rem;
+                // padding: .5rem;
+                font-size: .75rem;
+                background-color: $pink;
+                color: white;
+                border-radius: 50%;
+            }
             .img-url {
                 display: grid;
                 width: 1.2rem;

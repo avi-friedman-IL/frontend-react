@@ -1,0 +1,12 @@
+.msg-index {
+    gap: 4rem;
+    grid-template-rows: auto minmax(0, 1fr);
+    height: 100vh;
+    background: white;
+
+    .add-btn {
+        position: absolute;
+        top: 5rem;
+        left: 2rem;
+    }
+}

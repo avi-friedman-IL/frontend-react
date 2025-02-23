@@ -1,0 +1,15 @@
+@use '../base/vars' as *;
+.msg-list {
+    align-content: start;
+    min-height: 0;
+    height: 100%;
+    overflow: auto;
+    
+
+    .done {
+        // opacity: 0.6;
+        .msg-preview {
+            background: white;
+        }
+    }
+}

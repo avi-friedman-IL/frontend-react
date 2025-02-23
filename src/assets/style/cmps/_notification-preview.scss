@@ -1,0 +1,8 @@
+@use '../base/vars' as *;
+.notification-preview {
+    display: grid;
+    gap: .5rem;
+     .notification-subject {
+        color: $pink
+     }
+}

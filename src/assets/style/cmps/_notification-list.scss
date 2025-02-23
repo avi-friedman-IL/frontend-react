@@ -1,0 +1,14 @@
+.notification-list {
+    
+    display: grid;
+    gap: .5rem;
+    
+    position: absolute;
+    bottom: 5rem;
+    right: 5rem;
+    width: max-content;
+    padding: .5rem;
+    background-color: white;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .1);
+    z-index: 2000000000;
+}

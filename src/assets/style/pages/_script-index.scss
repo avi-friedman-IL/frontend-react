@@ -1,10 +1,18 @@
 @use '../base/vars' as *;
 
 .script-index {
+    position: relative;
     display: grid;
     align-content: center;
     gap: 1rem;
     height: 100vh;
     padding: 2rem;
     background-color: #030029;
+
+    .add-btn {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        
+    }
 }

@@ -4,12 +4,14 @@ import { chatReducer } from './reducers/chat.reducer'
 import { userReducer } from './reducers/user.reducer'
 import { objectionReducer } from './reducers/objection.reducer'
 import { scriptReducer } from './reducers/script.reducer'
+import { msgReducer } from './reducers/msg.reducer'
 
 const rootReducer = combineReducers({
     scriptModule: scriptReducer,
     objectionModule: objectionReducer,
     chatModule: chatReducer,
     userModule: userReducer,
+    msgModule: msgReducer,
 })
 
 
