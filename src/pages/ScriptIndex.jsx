@@ -12,7 +12,6 @@ export function ScriptIndex() {
 
    useEffect(() => {
       load()
-      console.log('scripts:', scripts)
    }, [scripts?.length])
 
    async function load() {

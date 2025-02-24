@@ -73,7 +73,7 @@ export function AppHeader() {
          setIsTooltipOpen(false)
       }, 500)
    }
-   if (!users?.length || !user) return <div>Loading...</div>
+   // if (!users?.length || !user) return <div>Loading...</div>
    return (
       <section className='app-header'>
          {isTooltipOpen && <Tooltip position={tooltipPos} text={tooltipText} />}
@@ -118,7 +118,7 @@ export function AppHeader() {
                      <span className='notifications'>
                         {
                            users?.find(currUser => currUser._id === user._id)
-                              .notifications?.length
+                              ?.notifications?.length
                         }
                      </span>
                   }
@@ -128,10 +128,7 @@ export function AppHeader() {
                <NotificationList
                   users={users}
                   user={user}
-                  notifications={
-                     users?.find(currUser => currUser._id === user._id)
-                        .notifications
-                  }
+                  
                />
             )}
             {isOpenLanguage && (

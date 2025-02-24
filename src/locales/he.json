@@ -86,5 +86,16 @@
    "Your request in subject has been processed": "הבקשה שלך בנושא טופלה",
    "No subject": "ללא נושא",
    "Tell friends": "ספר לחברים",
-   "Clear notifications": "נקה התראות"
+   "Clear notifications": "נקה התראות",
+   "Logged in successfully": "התחברת בהצלחה",
+   "Logged out successfully": "התנתקת בהצלחה",
+   "Cannot login": "לא ניתן להתחבר",
+   "Username": "שם משתמש",
+   "Fullname": "שם מלא",
+   "Password": "סיסמה",
+   "Login": "התחבר",
+   "Signup": "הרשם",
+   "Back to login": "חזור להתחברות",
+   "Or": "או",
+   "No notifications": "אין התראות"
 }

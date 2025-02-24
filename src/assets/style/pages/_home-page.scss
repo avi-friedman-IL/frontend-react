@@ -5,6 +5,30 @@
     height: 100vh;
     padding: 1rem;
 
+    .login-container {
+        display: grid;
+        // justify-items: center;
+        // align-items: center;
+        gap: 1rem;
+
+        width: 23%;
+        // max-height: 80vh;
+        overflow: auto;
+
+        padding: 1rem;
+        font-family: 'Roboto', sans-serif;
+
+        background-color: white;
+        border: 1px solid #ededed;
+        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+
+        z-index: 1;
+
+        p {
+            text-align: center;
+        }
+    }
+
     .bg-icon {
         color: rgba(0, 0, 0, 0.1);
         z-index: 100;
