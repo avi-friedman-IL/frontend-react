@@ -1,11 +1,12 @@
 import { t } from 'i18next'
-import { showRespectMsg } from '../services/event-bus.service'
 import { useState } from 'react'
-import { TbCurrencyShekel } from 'react-icons/tb'
+import { socketService } from '../services/socket.service'
 
 export function RespectForm({ setIsOpenRespectForm }) {
    const [userName, setUserName] = useState('')
    const [amount, setAmount] = useState(0)
+
+   
 
    function handleChange(ev) {
       const { name, value } = ev.target
@@ -15,10 +16,15 @@ export function RespectForm({ setIsOpenRespectForm }) {
 
    function onSend(ev) {
       ev.preventDefault()
-      showRespectMsg(
-         `${userName} ${t('recruit now')} ${amount} ` +
-         t('Shekel')
-      )
+      // showRespectMsg(
+      //    `${userName} ${t('recruit now')} ${amount} ` +
+      //    t('Shekel')
+      // )
+     
+      socketService.emit('on-respected-msg', {
+         userName,
+         amount,
+      })
       setIsOpenRespectForm(false)
    }
 
@@ -41,9 +47,7 @@ export function RespectForm({ setIsOpenRespectForm }) {
             required
          />
          <div className='form-btns'>
-            <button className='btn2'>
-               {t('Send')}
-            </button>
+            <button className='btn2'>{t('Send')}</button>
             <button
                className='btn2'
                onClick={() => setIsOpenRespectForm(false)}>

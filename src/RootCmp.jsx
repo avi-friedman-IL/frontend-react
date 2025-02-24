@@ -18,19 +18,35 @@ import { ScriptIndex } from './pages/ScriptIndex.jsx'
 import { ScriptDetails } from './pages/ScriptDetails.jsx'
 import { RespectForm } from './cmps/RespectForm.jsx'
 import { MsgIndex } from './pages/MsgIndex.jsx'
+import { showRespectMsg } from './services/event-bus.service.js'
+import { socketService } from './services/socket.service.js'
 
 export function RootCmp() {
    const { i18n } = useTranslation()
    const [isOpenRespectForm, setIsOpenRespectForm] = useState(false)
 
    useEffect(() => {
-      const defaultLanguage = localStorage.getItem('language') || 'he'
+      if (!socketService.isConnected()) socketService.setup()
+      socketService.on('on-respected-msg', onRespectMsg)
+      return () => {
+         socketService.off('on-respected-msg', onRespectMsg)
+      }
+   }, [])
+
+   useEffect(() => {
+      const defaultLanguage = 'he'
       i18n.changeLanguage(defaultLanguage)
 
       const direction = defaultLanguage === 'he' ? 'rtl' : 'ltr'
       document.documentElement.setAttribute('dir', direction)
       document.documentElement.setAttribute('lang', defaultLanguage)
    }, [i18n])
+
+   function onRespectMsg({ userName, amount }) {
+      return showRespectMsg(
+         `${userName} ${t('recruit now')} ${amount} ` + t('Shekel')
+      )
+   }
 
    return (
       <Provider store={store}>

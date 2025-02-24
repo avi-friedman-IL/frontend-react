@@ -7,13 +7,15 @@
 
     .login-container {
         display: grid;
-        // justify-items: center;
-        // align-items: center;
+        justify-items: center;
+        align-items: center;
         gap: 1rem;
 
         width: 23%;
+        // max-width: 25%;
         // max-height: 80vh;
-        overflow: auto;
+        // overflow: auto;
+        overflow: hidden;
 
         padding: 1rem;
         font-family: 'Roboto', sans-serif;
