@@ -1,6 +1,6 @@
 import { Provider } from 'react-redux'
 import { Route, Routes } from 'react-router'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import { useTranslation } from 'react-i18next'
 import { store } from './store/store'
@@ -16,51 +16,28 @@ import { t } from 'i18next'
 import { ObjectionDetails } from './pages/ObjectionDetails.jsx'
 import { ScriptIndex } from './pages/ScriptIndex.jsx'
 import { ScriptDetails } from './pages/ScriptDetails.jsx'
-import { RespectForm } from './cmps/RespectForm.jsx'
 import { MsgIndex } from './pages/MsgIndex.jsx'
-import { showRespectMsg } from './services/event-bus.service.js'
-import { socketService } from './services/socket.service.js'
+import { RespectBtn } from './cmps/RespectBtn.jsx'
 
 export function RootCmp() {
-   const { i18n } = useTranslation()
-   const [isOpenRespectForm, setIsOpenRespectForm] = useState(false)
+   // const { i18n } = useTranslation()
 
-   useEffect(() => {
-      if (!socketService.isConnected()) socketService.setup()
-      socketService.on('on-respected-msg', onRespectMsg)
-      return () => {
-         socketService.off('on-respected-msg', onRespectMsg)
-      }
-   }, [])
+   // useEffect(() => {
+   //    const defaultLanguage = 'he'
+   //    i18n.changeLanguage(defaultLanguage)
 
-   useEffect(() => {
-      const defaultLanguage = 'he'
-      i18n.changeLanguage(defaultLanguage)
-
-      const direction = defaultLanguage === 'he' ? 'rtl' : 'ltr'
-      document.documentElement.setAttribute('dir', direction)
-      document.documentElement.setAttribute('lang', defaultLanguage)
-   }, [i18n])
-
-   function onRespectMsg({ userName, amount }) {
-      return showRespectMsg(
-         `${userName} ${t('recruit now')} ${amount} ` + t('Shekel')
-      )
-   }
+   //    const direction = defaultLanguage === 'he' ? 'rtl' : 'ltr'
+   //    document.documentElement.setAttribute('dir', direction)
+   //    document.documentElement.setAttribute('lang', defaultLanguage)
+   // }, [i18n])
 
    return (
       <Provider store={store}>
          <main className='main-layout'>
             <AppHeader />
             <UserMsg />
-            <button
-               className='respect-btn btn1'
-               onClick={() => setIsOpenRespectForm(true)}>
-               {t('Tell friends')}
-            </button>
-            {isOpenRespectForm && (
-               <RespectForm setIsOpenRespectForm={setIsOpenRespectForm} />
-            )}
+            <RespectBtn />
+
             <Routes>
                <Route path='/' element={<HomePage />} />
                <Route path='/script' element={<ScriptIndex />} />

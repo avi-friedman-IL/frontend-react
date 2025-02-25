@@ -22,7 +22,7 @@ export function MsgFilter({ msgs }) {
    //    }, [])
    const subjects = msgService.getSubjects()
    return (
-      <form className='msg-filter grid-col align-center'>
+      <form className='msg-filter grid-col align-center gap-1'>
          <ul className='grid-col'>
             <li
                key='all'
@@ -43,6 +43,35 @@ export function MsgFilter({ msgs }) {
                </li>
             ))}
          </ul>
+         <div className='radio-inputs'>
+            <input
+               hidden
+               type='radio'
+               name='isDone'
+               id='done'
+               value='true'
+               onChange={handleChange}
+            />
+            <label htmlFor='done'>{t('Done')}</label>
+            <input
+               hidden
+               type='radio'
+               name='isDone'
+               id='undone'
+               value='false'
+               onChange={handleChange}
+            />
+            <label htmlFor='undone'>{t('Undone')}</label>
+            <input
+               hidden
+               type='radio'
+               name='isDone'
+               id='all'
+               value=''
+               onChange={handleChange}
+            />
+            <label htmlFor='all'>{t('All')}</label>
+         </div>
 
          <input
             className='search-input pad-1'

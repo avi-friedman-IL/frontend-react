@@ -22,7 +22,7 @@ function getDefaultFilter() {
     return {
       text: '',
       subject:'',
-      
+      isDone: '',
     }
 }
 
