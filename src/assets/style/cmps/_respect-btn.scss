@@ -1,0 +1,70 @@
+.respect-btn-container {
+    position: fixed;
+    bottom: 1rem;
+    right: 5rem;
+    z-index: 10000000000;
+
+    display: grid;
+    gap: 1rem;
+
+    .respect-form {
+        display: grid;
+        justify-items: center;
+        align-items: center;
+        gap: 1rem;
+
+        max-height: 80vh;
+        overflow: auto;
+
+        padding: 1rem;
+        font-family: 'Roboto', sans-serif;
+
+        background-color: white;
+        border: 1px solid #ededed;
+        border-radius: .5rem;
+        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+
+        z-index: 1;
+        transition: all ease-in-out .2s;
+        opacity: 0;
+        transform: translateX(100%);
+        visibility: hidden;
+
+        &.open {
+            opacity: 1;
+            transform: translateX(0);
+            visibility: visible;
+        }
+
+        input {
+            width: 100%;
+            padding: .5rem;
+            font-family: 'Roboto', sans-serif;
+
+            border: 1px solid #ededed;
+            color: black;
+
+            &:focus {
+                outline: none;
+                border: 1px solid #007bff;
+            }
+
+        }
+
+        .form-btns {
+            display: grid;
+            grid-auto-flow: column;
+            gap: .5rem;
+            width: 100%;
+
+            >* {
+                width: 100%;
+            }
+        }
+
+    }
+
+    .respect-btn {
+        width: 100%;
+    }
+}

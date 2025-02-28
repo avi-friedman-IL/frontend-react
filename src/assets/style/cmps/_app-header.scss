@@ -14,6 +14,12 @@
         display: grid;
         gap: .5rem;
 
+        .icon {
+            display: grid;
+            padding: .5rem 1rem;
+            border-radius: 3rem;
+        }
+
         svg {
             display: grid;
             width: 1.2rem;
@@ -30,17 +36,22 @@
             transition: .5s;
 
             &.active {
-                background-color: $bgc-app-header-hover;
                 text-decoration: none;
 
+                .icon {
+                    background: $bgc-app-header-hover;
+                }
+
                 svg {
-                    fill: #25D366;
-                    stroke: #25D366;
+                    fill: $pink;
+                    stroke: $pink;
                 }
             }
 
             &:hover {
-                background-color: $bgc-app-header-hover;
+                .icon {
+                    background: $bgc-app-header-hover;
+                }
             }
         }
 
@@ -52,18 +63,18 @@
         gap: .5rem;
         width: 100%;
 
-        
+
         .user-btn {
             position: relative;
             display: grid;
             justify-items: center;
             gap: .5rem;
-            
+
             width: 100%;
             padding: .5rem;
             transition: .5s;
             cursor: pointer;
-            
+
             .notifications {
                 position: absolute;
                 top: 0;
@@ -71,7 +82,7 @@
                 display: grid;
                 justify-items: center;
                 align-items: center;
-        
+
                 width: 1.5rem;
                 height: 1.5rem;
                 // padding: .5rem;
@@ -80,6 +91,7 @@
                 color: white;
                 border-radius: 50%;
             }
+
             .img-url {
                 display: grid;
                 width: 1.2rem;

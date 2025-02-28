@@ -2,19 +2,66 @@
 
 .home-page {
     position: relative;
+    display: grid;
     height: 100vh;
     padding: 1rem;
 
+    .home-header {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        display: grid;
+        grid-auto-flow: column;
+        justify-content: space-between;
+        height: max-content;
+
+        &.justify-end {
+            justify-content: end;
+        }
+
+        .logout-btn {
+            display: grid;
+            align-items: center;
+            justify-content: space-between;
+            grid-auto-flow: column;
+            gap: 1rem;
+
+            height: 100%;
+            width: max-content;
+            padding: .6rem 2rem;
+            font-size: 1.2rem;
+
+            color: $pink;
+            cursor: pointer;
+
+            transition: all .3s;
+
+            &:hover {
+                background-image: $bg-color-preview-hover;
+            }
+        }
+
+        img,
+        .logo {
+            width: 300px;
+        }
+
+    }
+
     .login-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
         display: grid;
         justify-items: center;
         align-items: center;
         gap: 1rem;
 
         width: 23%;
-        // max-width: 25%;
-        // max-height: 80vh;
-        // overflow: auto;
+
         overflow: hidden;
 
         padding: 1rem;
@@ -22,7 +69,8 @@
 
         background-color: white;
         border: 1px solid #ededed;
-        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+        border-radius: .5rem;
+        // box-shadow: 3px 3px 10px rgb(128, 127, 127);
 
         z-index: 1;
 
@@ -31,8 +79,56 @@
         }
     }
 
-    .bg-icon {
-        color: rgba(0, 0, 0, 0.1);
-        z-index: 100;
+    .home-nav {
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        grid-template-columns: repeat(3, 200px);
+        // grid-template-columns: repeat(3, 300px);
+        gap: 2rem;
+
+        padding: 1rem;
+        height: 100%;
+        color: $color-text;
+        overflow: auto;
+
+        scrollbar-width: none;
+
+        a {
+
+            display: grid;
+            gap: 1rem;
+
+            height: max-content;
+            padding: 2rem;
+            border-radius: 1.8rem;
+            // font-size: 3rem;
+            background-image: $bg-color-preview-hover;
+
+            transition: .6s;
+            cursor: pointer;
+
+            svg {
+                width: 2rem;
+                height: 2rem;
+                fill: $color-text;
+                stroke: $color-text;
+            }
+
+
+            &:hover {
+                transform: translateY(-5px);
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                background-image: linear-gradient(to bottom right,
+                        rgba(255, 255, 255, 0.1),
+                        rgba(255, 255, 255, 0.05));
+
+                svg {
+                    fill: $pink;
+                    stroke: $pink;
+                }
+            }
+        }
     }
+
 }

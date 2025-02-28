@@ -2,7 +2,7 @@ import { t } from 'i18next'
 import { useState } from 'react'
 import { socketService } from '../services/socket.service'
 
-export function RespectForm({ setIsOpenRespectForm }) {
+export function RespectForm({ setIsOpenRespectForm, isOpenRespectForm }) {
    const [userName, setUserName] = useState('')
    const [amount, setAmount] = useState(0)
 
@@ -26,10 +26,12 @@ export function RespectForm({ setIsOpenRespectForm }) {
          amount,
       })
       setIsOpenRespectForm(false)
+      setUserName('')
+      setAmount(0)
    }
 
    return (
-      <form className='respect-form form1' onSubmit={onSend}>
+      <form className={`respect-form ${isOpenRespectForm ? 'open' : ''}`} onSubmit={onSend}>
          <input
             name='name'
             onChange={handleChange}

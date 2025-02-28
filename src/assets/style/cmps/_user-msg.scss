@@ -54,7 +54,27 @@
     z-index: 100000000000000000000;
   }
   .user-msg.respect {
+    
     background-image: $color-btn;
     z-index: 100000000000000000000;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      animation: prayingHands 1.5s ease-out infinite;
+    }
   }
+  
+@keyframes prayingHands {
+    0% {
+        transform: translateY(80%);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+}
   

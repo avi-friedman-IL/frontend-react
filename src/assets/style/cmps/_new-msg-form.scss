@@ -1,0 +1,129 @@
+@use '../base/vars' as *;
+
+.new-msg-form {
+    padding: 2rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    min-width: 320px;
+
+    display: grid;
+    gap: 1rem;
+    z-index: 1000000;
+
+    .field-container {
+        position: relative;
+        overflow: hidden;
+
+        display: grid;
+        gap: 1rem;
+
+        .field-input {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+
+            &.entering {
+                animation: slideIn 0.5s ease forwards;
+            }
+
+            &.exiting {
+                animation: slideOut 0.5s ease forwards;
+            }
+
+            &:focus {
+                border-color: $pink;
+                box-shadow: 0 0 0 2px rgba($pink, 0.1);
+            }
+        }
+
+        .btn-container {
+            display: grid;
+            grid-template-columns: auto auto;
+            justify-content: space-between;
+
+            .prev-btn,.next-btn {
+
+                padding: 0.8rem 1.5rem;
+                background-color: $pink;
+                color: white;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+    
+                &:hover {
+                    background-color: #ff1493;
+                }
+            }
+
+            .next-btn {
+                grid-column: -1;
+            }
+
+            .send-btn {
+                padding: 0.8rem 1.5rem;
+                background-color: $blue;
+                color: white;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+
+                &:hover {
+                    background-color: #ff1493;
+                }
+            }
+        }
+
+    }
+
+    input,
+    select {
+        padding: 1rem;
+        font-size: 1rem;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        width: 100%;
+        background: white;
+
+        &:focus {
+            outline: none;
+            border-color: $pink;
+            box-shadow: 0 0 0 2px rgba($pink, 0.1);
+        }
+    }
+
+
+}
+
+// Keyframes for animations
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+}

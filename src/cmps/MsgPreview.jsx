@@ -107,7 +107,9 @@ export function MsgPreview({
          <p className='subject'>{t(msg.subject)}</p>
          <p className='content'>{msg.content}</p>
          <div className='msg-actions grid-col'>
-            <button className='btn3' onClick={() => onRemoveMsg(msg._id)}>
+            <button className='btn3' onClick={(ev) => {
+               ev.stopPropagation()
+               onRemoveMsg(msg._id)}}>
                <span>{t('Delete')}</span>
                <MdDelete />
             </button>

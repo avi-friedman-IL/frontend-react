@@ -51,12 +51,10 @@ export function MsgIndex() {
    }
 
    async function onAddMsg(newMsg) {
-      console.log('Got new msg:', newMsg)
-      // if (!newMsg.to || !newMsg.subject || !newMsg.content) return
       try {
          dispatch({ type: ADD_MSG, msg: newMsg })
-      } catch {
-         console.log('Cannot add msg')
+      } catch (err) {
+         console.log('Cannot add msg', err)  
       }
    }
 

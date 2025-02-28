@@ -3,9 +3,11 @@ import { socketService } from '../services/socket.service'
 import { showRespectMsg } from '../services/event-bus.service'
 import { t } from 'i18next'
 import { RespectForm } from './RespectForm'
-
+import { useSelector } from 'react-redux'
+import { FaArrowLeftLong, FaArrowRightLong } from 'react-icons/fa6'
 export function RespectBtn() {
    const [isOpenRespectForm, setIsOpenRespectForm] = useState(false)
+   const user = useSelector(store => store.userModule.user)
    useEffect(() => {
       if (!socketService.isConnected()) socketService.setup()
       socketService.on('on-respected-msg', onRespectMsg)
@@ -13,7 +15,7 @@ export function RespectBtn() {
          socketService.off('on-respected-msg', onRespectMsg)
       }
    }, [])
-   
+
    function onRespectMsg({ userName, amount }) {
       return showRespectMsg(
          `${userName} ${t('recruit now')} ${amount} ` + t('Shekel')
@@ -21,15 +23,25 @@ export function RespectBtn() {
    }
 
    return (
-      <>
-         <button
-            className='respect-btn btn1'
-            onClick={() => setIsOpenRespectForm(true)}>
-            {t('Tell friends')}
-         </button>
-         {isOpenRespectForm && (
-            <RespectForm setIsOpenRespectForm={setIsOpenRespectForm} />
+      <section className='respect-btn-container'>
+         <RespectForm
+            setIsOpenRespectForm={setIsOpenRespectForm}
+            isOpenRespectForm={isOpenRespectForm}
+         />
+         {user && (
+            <button
+               className='respect-btn btn1'
+               onClick={() => setIsOpenRespectForm(!isOpenRespectForm)}>
+               {isOpenRespectForm ? t('Close') : t('Tell friends')}
+               <span className='respect-btn-icon'>
+                  {isOpenRespectForm ? (
+                     <FaArrowRightLong />
+                  ) : (
+                     <FaArrowLeftLong />
+                  )}
+               </span>
+            </button>
          )}
-      </>
+      </section>
    )
 }

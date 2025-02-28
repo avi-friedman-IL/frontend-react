@@ -12,29 +12,26 @@ export function MsgDetails({
    time,
    loggedInUser,
 }) {
+   const msgFields = Object.keys(msg)
+   const msgFieldsToShow = msgFields.filter(
+      key =>
+         key !== '_id' &&
+         key !== 'createdAt' &&
+         key !== 'responses' &&
+         key !== 'isDone' &&
+         key !== 'subject' &&
+         key !== 'from'
+   )
+   const from = users.find(user => user._id === msg.from)?.fullname || 'Unknown'
    return (
       <div className={`msg-details ${showMsgId === msg._id ? 'open' : ''}`}>
-         <p>
-            {t('From')}:{' '}
-            {users.find(user => user._id === msg.from)?.fullname || 'Unknown'}
-         </p>
-         <p>
-            {t('To')}:{' '}
-            {users.find(user => user._id === msg.to)?.fullname || 'Unknown'}
-         </p>
-         <p className='subject-open'>
-            {t('Subject')}: {t(msg.subject)}
-         </p>
-         <p className='content-open'>
-            {t('Content')}: {msg.content}
-         </p>
-         <p>
-            {t('Date')}: {date}
-         </p>
-         <p>
-            {t('Time')}: {time}
-         </p>
-         <div className='responses'>
+         {msgFieldsToShow.map(key => (
+            <p key={key}>
+               {t(key)}: {msg[key]}
+            </p>
+         ))}
+
+         {/* <div className='responses'>
             {msg.responses?.length > 0 && (
                <ul className='responses-container'>
                   <h3>{t('Responses')}</h3>
@@ -70,7 +67,7 @@ export function MsgDetails({
                   ))}
                </ul>
             )}
-         </div>
+         </div> */}
          <div className='msg-details-btns'>
             <button
                className='response-btn btn2'
@@ -86,7 +83,7 @@ export function MsgDetails({
                setIsOpenResponse={setIsOpenResponse}
                msg={msg}
                users={users}
-            //    loggedInUser={loggedInUser}
+               //    loggedInUser={loggedInUser}
             />
          )}
       </div>

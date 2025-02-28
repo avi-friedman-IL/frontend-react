@@ -4,12 +4,12 @@
     position: relative;
     display: grid;
     // gap: 1rem;
-    grid-template-columns: minmax(0, 1fr) minmax(500px, 900px) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) minmax(200px, 900px) minmax(0, 1fr);
     justify-items: center;
     align-items: center;
 
     height: 100vh;
-    width: calc(100vw - 80px);
+    // width: calc(100vw - 80px);
     overflow: hidden;
     // background-color: white;
 

@@ -2,13 +2,29 @@ import { useSelector } from 'react-redux'
 import { setFilter } from '../store/actions/msg.actions'
 import { t } from 'i18next'
 import { msgService } from '../services/msg'
+import { useCallback } from 'react'
+import { debounce } from 'lodash'
 
 export function MsgFilter({ msgs }) {
    const filterBy = useSelector(state => state.msgModule.filterBy)
+   
+   // Create a debounced version of setFilter for text search
+   const debouncedSetFilter = useCallback(
+      debounce((filterBy) => {
+         setFilter(filterBy)
+      }, 500),
+      []
+   )
+
    function handleChange(ev) {
       const field = ev.target.name
       const value = ev.target.value
-      setFilter({ ...filterBy, [field]: value })
+      
+      if (field === 'text') {
+         debouncedSetFilter({ ...filterBy, [field]: value })
+      } else {
+         setFilter({ ...filterBy, [field]: value })
+      }
    }
 
    function handleClick(ev, subject) {
@@ -34,12 +50,12 @@ export function MsgFilter({ msgs }) {
             </li>
             {subjects.map((subject, idx) => (
                <li
-                  key={idx}
-                  onClick={ev => handleClick(ev, subject)}
+                  key={subject.id}
+                  onClick={ev => handleClick(ev, subject.title)}
                   className={`subject-filter ${
-                     subject === filterBy.subject ? 'active' : ''
+                     subject.title === filterBy.subject ? 'active' : ''
                   }`}>
-                  <button>{t(subject)}</button>
+                  <button>{t(subject.title)}</button>
                </li>
             ))}
          </ul>

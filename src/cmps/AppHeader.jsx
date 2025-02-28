@@ -46,7 +46,7 @@ export function AppHeader() {
       return () => {
          document.removeEventListener('mousedown', handleClickOutside)
       }
-   }, [])
+   }, [users, user])
 
    function changeLanguage(lang) {
       document.body.dir = lang === 'he' ? 'rtl' : 'ltr'
@@ -80,21 +80,29 @@ export function AppHeader() {
          {user && (
             <nav className='app-nav'>
                <NavLink to={'/'}>
-                  <IoHomeOutline />
+                  <span className='icon'>
+                     <IoHomeOutline />
+                  </span>
                   <span>{t('home')}</span>
                </NavLink>
                <NavLink to={'/script'}>
-                  <MdWifiCalling3 />
+                  <span className='icon'>
+                     <MdWifiCalling3 />
+                  </span>
                   <span>{t('scripts')}</span>
                </NavLink>
 
                <NavLink to={'/chat'}>
-                  <BiChat />
+                  <span className='icon'>
+                     <BiChat />
+                  </span>
                   <span>{t('chats')}</span>
                </NavLink>
 
                <NavLink to={'/msg'}>
-                  <MdOutlineMailOutline />
+                  <span className='icon'>
+                     <MdOutlineMailOutline />
+                  </span>
                   <span>{t('msgs')}</span>
                </NavLink>
             </nav>
@@ -125,11 +133,7 @@ export function AppHeader() {
                </div>
             )}
             {isOpenNotification && (
-               <NotificationList
-                  users={users}
-                  user={user}
-                  
-               />
+               <NotificationList users={users} user={user} />
             )}
             {isOpenLanguage && (
                <ul
