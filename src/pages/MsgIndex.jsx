@@ -8,6 +8,7 @@ import {
 } from '../store/actions/msg.actions.js'
 import { MsgList } from '../cmps/MsgList.jsx'
 import { NewMsg } from '../cmps/NewMsg.jsx'
+import { MsgSidebar } from '../cmps/MsgSidebar.jsx'
 import { MsgFilter } from '../cmps/MsgFilter.jsx'
 import { loadUsers } from '../store/actions/user.actions.js'
 import { socketService } from '../services/socket.service.js'
@@ -84,8 +85,9 @@ export function MsgIndex() {
 
    if (!msgs) return <div>Loading...</div>
    return (
-      <section className='msg-index grid pad-1'>
+      <section className='msg-index grid'>
          <MsgFilter msgs={msgs} />
+         <MsgSidebar />
          {isOpenNewMsg && (
             <NewMsg
                users={users}

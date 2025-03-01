@@ -1,15 +1,12 @@
 .msg-index {
-    gap: 4rem;
-    // grid-template-areas:
-    //     "msg-filter msg-filter"
-    //     "msg-list msg-filter";
     grid-template-rows: auto minmax(0, 1fr);
+    grid-template-columns: 20% 1fr;
     height: 100vh;
     background: white;
 
     .add-btn {
         position: absolute;
-        top: 5rem;
+        bottom: 1rem;
         left: 2rem;
     }
 }

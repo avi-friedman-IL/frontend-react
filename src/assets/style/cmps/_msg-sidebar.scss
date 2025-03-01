@@ -1,0 +1,43 @@
+@use '../base/vars' as *;
+
+.msg-sidebar {
+    grid-column: 1;
+    display: grid;
+    align-content: start;
+    gap: 0.5rem;
+    padding: 1.5rem;
+    background-color: #f8f9fa;
+    border-right: 1px solid #e9ecef;
+    min-width: 200px;
+
+    .subject-filter {
+        list-style: none;
+        transition: all 0.3s ease;
+
+        button {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 8px;
+            background: transparent;
+            color: #495057;
+            font-size: 0.95rem;
+            text-align: start;
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            &:hover {
+                background-color: rgba($pink, 0.1);
+                color: $pink;
+            }
+        }
+
+        &.active {
+            button {
+                background-color: $pink;
+                color: white;
+                font-weight: 500;
+            }
+        }
+    }
+}

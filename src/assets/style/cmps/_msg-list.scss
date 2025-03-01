@@ -1,7 +1,8 @@
 @use '../base/vars' as *;
 .msg-list {
-    grid-area: 'msg-list';
+    grid-column: 2;
     align-content: start;
+    padding: 1rem;
     min-height: 0;
     height: 100%;
     overflow: auto;

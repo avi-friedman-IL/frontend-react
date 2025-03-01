@@ -27,10 +27,10 @@ export function MsgFilter({ msgs }) {
       }
    }
 
-   function handleClick(ev, subject) {
-      ev.preventDefault()
-      setFilter({ ...filterBy, subject })
-   }
+   // function handleClick(ev, subject) {
+   //    ev.preventDefault()
+   //    setFilter({ ...filterBy, subject })
+   // }
 
    //    const subjects = msgs.reduce((acc, msg) => {
    //       if (!acc.includes(msg.subject) && msg.subject) acc.push(msg.subject)
@@ -39,7 +39,7 @@ export function MsgFilter({ msgs }) {
    const subjects = msgService.getSubjects()
    return (
       <form className='msg-filter grid-col align-center gap-1'>
-         <ul className='grid-col'>
+         {/* <ul className='grid-col'>
             <li
                key='all'
                onClick={ev => handleClick(ev, '')}
@@ -58,7 +58,7 @@ export function MsgFilter({ msgs }) {
                   <button>{t(subject.title)}</button>
                </li>
             ))}
-         </ul>
+         </ul> */}
          <div className='radio-inputs'>
             <input
                hidden

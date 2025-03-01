@@ -67,15 +67,6 @@ export function NewMsg({ users, loggedinUser, setIsOpenNewMsg }) {
 
    return (
       <form className='new-msg-form' onSubmit={onAddMsg}>
-         {/* <select name='to' id='to' onChange={handleChange} required>
-            <option value=''>{t('To')}:</option>
-            {users.map(user => (
-               <option key={user._id} value={user._id}>
-                  {user.fullname}
-               </option>
-            ))}
-         </select> */}
-
          <select name='subject' id='subject' onChange={handleChange} required>
             <option value=''>{t('Subject')}:</option>
             {subjects.map(subject => (
@@ -87,14 +78,24 @@ export function NewMsg({ users, loggedinUser, setIsOpenNewMsg }) {
 
          {currSubjectFields && currSubjectFields[currFieldIdx] && (
             <div className='field-container'>
-               <input
-                  className={`field-input ${animationState}`}
-                  type={currSubjectFields[currFieldIdx].type}
-                  name={currSubjectFields[currFieldIdx].label}
-                  placeholder={currSubjectFields[currFieldIdx].label}
-                  value={msg[currSubjectFields[currFieldIdx].label] || ''}
-                  onChange={handleChange}
-               />
+               {currSubjectFields[currFieldIdx].type === 'textarea' ? (
+                  <textarea
+                     className={`field-input ${animationState}`}
+                     name={currSubjectFields[currFieldIdx].label}
+                     placeholder={currSubjectFields[currFieldIdx].label}
+                     value={msg[currSubjectFields[currFieldIdx].label] || ''}
+                     onChange={handleChange}
+                  />
+               ) : (
+                  <input
+                     className={`field-input ${animationState}`}
+                     type={currSubjectFields[currFieldIdx].type}
+                     name={currSubjectFields[currFieldIdx].label}
+                     placeholder={currSubjectFields[currFieldIdx].label}
+                     value={msg[currSubjectFields[currFieldIdx].label] || ''}
+                     onChange={handleChange}
+                  />
+               )}
                <div className='btn-container'>
                   {currFieldIdx !== 0 && (
                      <button className='prev-btn' onClick={handlePrev}>
@@ -114,13 +115,6 @@ export function NewMsg({ users, loggedinUser, setIsOpenNewMsg }) {
             </div>
          )}
 
-         {/* <textarea
-            name='content'
-            id='content'
-            cols='30'
-            rows='10'
-            placeholder='Type your message here'
-            onChange={handleChange}></textarea> */}
          <div className='form-btns'>
             <button
                type='button'
