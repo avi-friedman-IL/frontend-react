@@ -124,5 +124,6 @@
    "theme": "נושא",
    "status": "סטטוס",
    "Export to Excel": "ייצא לאקסל",
-   "Unknown": "לא ידוע"
+   "Unknown": "לא ידוע",
+   "fromName": "מאת"
 }
