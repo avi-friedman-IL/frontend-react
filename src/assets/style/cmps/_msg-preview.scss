@@ -67,6 +67,7 @@
 
     .msg-details {
         display: none;
+        grid-auto-flow: column;
         grid-column: 1 / -1;
         grid-row: 2;
         gap: 1rem;

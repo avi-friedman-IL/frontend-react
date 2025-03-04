@@ -97,8 +97,7 @@ export function MsgPreview({
                </button>
             )}
             <p className='from'>
-               {users.find(user => user._id === msg.from)?.fullname ||
-                  'Unknown'}{' '}
+               {msg.fromName || t('Unknown')}
                {msg.responses?.length > 0 && (
                   <span>{msg.responses.length + 1}</span>
                )}

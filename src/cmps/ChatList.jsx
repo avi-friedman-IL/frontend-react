@@ -36,14 +36,19 @@ export function ChatList({ chats, user, users, onRemove, onUpdate }) {
                   onUpdate={onUpdate}
                />
                {chat.fromUserId !== user._id && (
-                  <img
-                     className='img-url'
-                     src={
-                        users.length &&
-                        users.find(user => user._id === chat.fromUserId).imgUrl
-                     }
-                     alt=''
-                  />
+                  // <img
+                  //    className='img-url'
+                  //    src={
+                  //       users.length &&
+                  //       users.find(user => user._id === chat.fromUserId).imgUrl
+                  //    }
+                  //    alt=''
+                  // />
+                  <span className='user-img'>
+                     {users.length &&
+                        users.find(user => user._id === chat.fromUserId)
+                           .fullname.split(' ')[0].charAt(0).toUpperCase()}
+                  </span>
                )}
             </li>
          ))}

@@ -16,6 +16,10 @@ import { useDispatch } from 'react-redux'
 import { ADD_MSG, UPDATE_MSG } from '../store/reducers/msg.reducer.js'
 import { t } from 'i18next'
 import { UPDATE_USER } from '../store/reducers/user.reducer.js'
+import { IoMdAdd } from 'react-icons/io'
+import * as XLSX from 'xlsx'
+import { saveAs } from 'file-saver'
+import { BsFileEarmarkExcelFill } from 'react-icons/bs'
 
 export function MsgIndex() {
    const dispatch = useDispatch()
@@ -55,7 +59,7 @@ export function MsgIndex() {
       try {
          dispatch({ type: ADD_MSG, msg: newMsg })
       } catch (err) {
-         console.log('Cannot add msg', err)  
+         console.log('Cannot add msg', err)
       }
    }
 
@@ -83,6 +87,37 @@ export function MsgIndex() {
       }
    }
 
+   function exportToExcel() {
+      // הכנת הנתונים לקובץ Excel
+      const dataToExport = msgs.map((msg) => ({
+         נושא: msg.subject,
+         סטטוס: msg.status,
+         מאת: users.find((user) => user._id === msg.from)?.fullname || 'לא ידוע',
+         תאריך: new Date(msg.createdAt).toLocaleString(),
+         [t('collection')]: msg.collection,
+         [t('phone')]: msg.phone,
+         [t('nowName')]: msg.nowName,
+         [t('realName')]: msg.realName,
+         [t('realPhone')]: msg.realPhone,
+         [t('problem')]: msg.problem,
+         [t('comment')]: msg.comment,
+         [t('note')]: msg.note,
+         
+         
+         // הוסף כאן עוד שדות לפי הצורך
+      }));
+
+      // יצירת גיליון עבודה
+      const worksheet = XLSX.utils.json_to_sheet(dataToExport);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, 'Messages');
+
+      // יצירת קובץ Excel והורדה
+      const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+      const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
+      saveAs(blob, `Messages-${new Date().toLocaleDateString()}.xlsx`);
+   }
+
    if (!msgs) return <div>Loading...</div>
    return (
       <section className='msg-index grid'>
@@ -105,7 +140,14 @@ export function MsgIndex() {
             loggedinUser={loggedinUser}
          />
          <button className='add-btn btn1' onClick={() => setIsOpenNewMsg(true)}>
-            + {t('New Message')}
+            {t('New Message')}
+            <span>
+               <IoMdAdd />
+            </span>
+         </button>
+         <button className="export-btn btn1" onClick={exportToExcel}>
+            {t('Export to Excel')}
+            <BsFileEarmarkExcelFill />
          </button>
       </section>
    )

@@ -24,6 +24,7 @@
     "draft-js": "^0.11.7",
     "draft-js-export-html": "^1.4.1",
     "emoji-mart": "^5.6.0",
+    "file-saver": "^2.0.5",
     "framer-motion": "^12.0.6",
     "i18next": "^24.1.0",
     "lexical": "^0.23.1",
@@ -50,7 +51,8 @@
     "sass": "^1.80.6",
     "socket.io-client": "^4.8.1",
     "tinymce": "^7.6.0",
-    "twemoji": "^14.0.2"
+    "twemoji": "^14.0.2",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",

@@ -4,10 +4,12 @@
     grid-area: contacts-index;
     display: grid;
     align-content: start;
+    // border-inline-end: 1px solid $color-text;
+    // box-shadow: -1px 0px 0px 0px rgba(210, 210, 220, 0.9);
 
-
-    background-image: $bg-color-preview-hover;
-    color: #ffffff;
+    background-color: #f8f9fa;
+    // background-image: $bg-color-preview-hover;
+    // color: #ffffff;
     .list-header {
         display: grid;
         grid-template-columns: 1fr max-content;

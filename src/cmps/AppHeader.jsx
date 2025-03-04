@@ -120,7 +120,10 @@ export function AppHeader() {
                <div
                   className='user-btn'
                   onClick={() => setIsOpenNotification(open => !open)}>
-                  <img className='img-url' src={user.imgUrl} alt='' />
+                  {/* <img className='img-url' src={user.imgUrl} alt='' /> */}
+                  <span className='user-img'>
+                     {user.fullname.split(' ')[0].charAt(0).toUpperCase()}
+                  </span>
                   <span>{user.fullname.split(' ')[0]}</span>
                   {
                      <span className='notifications'>

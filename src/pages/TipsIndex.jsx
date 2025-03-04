@@ -28,10 +28,10 @@ export function TipsIndex() {
 
    return (
       <section className='tips-index'>
-         {/* <button className='edit-btn btn3' onClick={() => setIsEdit(!isEdit)}>
+         <button className='edit-btn btn3' onClick={() => setIsEdit(!isEdit)}>
             <span>{t('Edit Tips')}</span>
             <AiOutlineEdit />
-         </button> */}
+         </button>
          {tips?.length > 0 && <TipsList tips={tips} />}
          {isEdit && <TipsEdit setIsEdit={setIsEdit} tips={tips} />}
       </section>

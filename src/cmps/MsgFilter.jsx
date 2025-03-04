@@ -27,38 +27,8 @@ export function MsgFilter({ msgs }) {
       }
    }
 
-   // function handleClick(ev, subject) {
-   //    ev.preventDefault()
-   //    setFilter({ ...filterBy, subject })
-   // }
-
-   //    const subjects = msgs.reduce((acc, msg) => {
-   //       if (!acc.includes(msg.subject) && msg.subject) acc.push(msg.subject)
-   //       return acc
-   //    }, [])
-   const subjects = msgService.getSubjects()
    return (
       <form className='msg-filter grid-col align-center gap-1'>
-         {/* <ul className='grid-col'>
-            <li
-               key='all'
-               onClick={ev => handleClick(ev, '')}
-               className={`subject-filter ${
-                  !filterBy.subject ? 'active' : ''
-               }`}>
-               <button>{t('all')}</button>
-            </li>
-            {subjects.map((subject, idx) => (
-               <li
-                  key={subject.id}
-                  onClick={ev => handleClick(ev, subject.title)}
-                  className={`subject-filter ${
-                     subject.title === filterBy.subject ? 'active' : ''
-                  }`}>
-                  <button>{t(subject.title)}</button>
-               </li>
-            ))}
-         </ul> */}
          <div className='radio-inputs'>
             <input
                hidden
