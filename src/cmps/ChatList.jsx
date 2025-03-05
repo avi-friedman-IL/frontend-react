@@ -44,7 +44,7 @@ export function ChatList({ chats, user, users, onRemove, onUpdate }) {
                   //    }
                   //    alt=''
                   // />
-                  <span className='user-img'>
+                  <span className='user-img' style={{ backgroundColor: users.length && users.find(user => user._id === chat.fromUserId).color }}>
                      {users.length &&
                         users.find(user => user._id === chat.fromUserId)
                            .fullname.split(' ')[0].charAt(0).toUpperCase()}

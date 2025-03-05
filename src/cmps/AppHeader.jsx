@@ -121,7 +121,7 @@ export function AppHeader() {
                   className='user-btn'
                   onClick={() => setIsOpenNotification(open => !open)}>
                   {/* <img className='img-url' src={user.imgUrl} alt='' /> */}
-                  <span className='user-img'>
+                  <span className='user-img' style={{ backgroundColor: user.color }}>
                      {user.fullname.split(' ')[0].charAt(0).toUpperCase()}
                   </span>
                   <span>{user.fullname.split(' ')[0]}</span>

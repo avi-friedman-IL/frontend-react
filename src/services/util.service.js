@@ -101,6 +101,22 @@ export function getRandomColor() {
    return '#' + Math.floor(Math.random() * 16777215).toString(16)
 }
 
+export function getNiceColor() {
+   const niceColors = [
+      '#4A90E2', // כחול מים בהיר (Sky Blue)
+      '#2ECC71', // ירוק אמרלד עדין (Emerald Green)
+      '#F39C12', // כתום חם (Warm Orange)
+      '#9B59B6', // סגול ארגמן (Plum Purple)
+      '#3498DB', // כחול תכלת בהיר (Light Blue)
+      '#1ABC9C', // טורקיז רענן (Turquoise)
+      '#E74C3C', // אדום עז (Vibrant Red)
+      '#F1C40F', // צהוב זהוב (Golden Yellow)
+      '#34495E', // כחול-אפור כהה (Dark Slate Blue)
+      '#16A085', // ירוק-טורקיז עמוק (Deep Teal)
+   ]
+   return niceColors[Math.floor(Math.random() * niceColors.length)]
+}
+
 export function debounce(func, timeout = 300) {
    let timer
    return (...args) => {

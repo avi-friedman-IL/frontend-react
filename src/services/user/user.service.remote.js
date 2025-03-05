@@ -40,7 +40,6 @@ async function update(user) {
 
 async function googleLogin(credential) {
    const user = await httpService.post('auth/google', { token: credential })
-   // return user
    if (user) return saveLoggedinUser(user)
 }
 
@@ -51,9 +50,7 @@ async function login(userCred) {
 
 async function signup(userCred) {
    console.log('userCred:', userCred)
-   if (!userCred.imgUrl)
-      userCred.imgUrl =
-         'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
+   
    userCred.score = 10000
    userCred.isAdmin = true
 

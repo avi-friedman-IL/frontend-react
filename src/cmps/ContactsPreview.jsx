@@ -38,7 +38,7 @@ export function ContactsPreview({ contact, userId }) {
    return (
       <>
          {/* <img className='img-url' src={contact.imgUrl} alt={contact.fullname} /> */}
-         <span className='user-img'>
+         <span className='user-img' style={{ backgroundColor: contact.color }}>
             {contact.fullname.split(' ')[0].charAt(0).toUpperCase()}
          </span>
          <p>{contact.fullname}</p>

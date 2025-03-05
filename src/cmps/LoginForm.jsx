@@ -2,13 +2,13 @@ import { t } from 'i18next'
 import { useEffect, useState } from 'react'
 import { login, signup } from '../store/actions/user.actions'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
-
+import { getNiceColor } from '../services/util.service'
 export function LoginForm() {
    const [isSignup, setIsSignup] = useState(false)
    const [credentials, setCredentials] = useState({ username: '', password: ''})
 
    useEffect(() => {
-      isSignup && setCredentials({ username: '', password: '', fullname: '' })
+      isSignup && setCredentials({ username: '', password: '', fullname: '', color: getNiceColor() })
          
    }, [isSignup])
    function handleChange(ev) {

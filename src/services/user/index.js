@@ -1,8 +1,7 @@
 const { DEV, VITE_LOCAL } = import.meta.env
-
 import { userService as local } from './user.service.local'
 import { userService as remote } from './user.service.remote'
-
+import { getRandomColor } from '../util.service.js'
 function getEmptyUser() {
     return {
         username: '',
@@ -11,6 +10,7 @@ function getEmptyUser() {
         isAdmin: false,
         score: 100,
         img: '',
+        color: getRandomColor()
     }
 }
 
