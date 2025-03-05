@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { loadScripts } from '../store/actions/script.actions'
+import { loadScripts, removeScript } from '../store/actions/script.actions'
 import { t } from 'i18next'
 
 import { ScriptList } from '../cmps/ScriptList.jsx'
@@ -22,13 +22,22 @@ export function ScriptIndex() {
       }
    }
 
+   async function onRemove(ev, scriptId) {
+      ev.stopPropagation()
+      try {
+         await removeScript(scriptId)
+      } catch (err) {
+         console.log('Cannot remove script', err)
+      }
+   }
+
    if (!scripts) return <div>{t('loading')}</div>
    return (
       <section className='script-index'>
          <button onClick={() => setIsOpen(true)} className='add-btn btn1'>
             {t('Add Script')}
          </button>
-         <ScriptList scripts={scripts} />
+         <ScriptList scripts={scripts} onRemove={onRemove} />
          {isOpen && <AddScript setIsOpen={setIsOpen} />}
       </section>
    )
