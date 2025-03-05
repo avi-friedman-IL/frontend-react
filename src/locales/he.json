@@ -125,5 +125,8 @@
    "status": "סטטוס",
    "Export to Excel": "ייצא לאקסל",
    "Unknown": "לא ידוע",
-   "fromName": "מאת"
+   "fromName": "מאת",
+   "Name": "שם",
+   "Sort by": "מיין לפי",
+   "Search name or subject": "חיפוש שם או נושא"
 }

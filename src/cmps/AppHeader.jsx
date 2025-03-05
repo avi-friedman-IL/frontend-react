@@ -125,14 +125,15 @@ export function AppHeader() {
                      {user.fullname.split(' ')[0].charAt(0).toUpperCase()}
                   </span>
                   <span>{user.fullname.split(' ')[0]}</span>
-                  {
+                  {users?.find(currUser => currUser._id === user._id)
+                     ?.notifications?.length > 0 && (
                      <span className='notifications'>
                         {
                            users?.find(currUser => currUser._id === user._id)
                               ?.notifications?.length
                         }
                      </span>
-                  }
+                  )}
                </div>
             )}
             {isOpenNotification && (

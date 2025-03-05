@@ -49,18 +49,18 @@ export function NewMsg({ users, loggedinUser, setIsOpenNewMsg }) {
             setComplexFields(complexFields)
             setSend(true)
          }
-      }
-      if (value === '1') {
-         value = 'סירוב'
-      }
-      if (value === '2') {
-         value = 'לא עניתי'
-      }
-      if (value === '3') {
-         value = 'תרומה'
-      }
-      if (value === '4') {
-         value = 'המשך טיפול'
+         if (value === '1') {
+            value = 'סירוב'
+         }
+         if (value === '2') {
+            value = 'לא עניתי'
+         }
+         if (value === '3') {
+            value = 'תרומה'
+         }
+         if (value === '4') {
+            value = 'המשך טיפול'
+         }
       }
       setMsg({
          ...msg,
@@ -149,9 +149,7 @@ export function NewMsg({ users, loggedinUser, setIsOpenNewMsg }) {
          {currSubjectFields?.length > 0 && (
             <div className='field-container'>
                {currSubjectFields.map(field => (
-                  <div
-                     className='field-container'
-                     key={field.label}>
+                  <div className='field-container' key={field.label}>
                      {field.type === 'textarea' ? (
                         <textarea
                            className={`field-input`}

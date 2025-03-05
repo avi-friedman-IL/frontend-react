@@ -7,10 +7,10 @@ import { debounce } from 'lodash'
 
 export function MsgFilter({ msgs }) {
    const filterBy = useSelector(state => state.msgModule.filterBy)
-   
-   // Create a debounced version of setFilter for text search
+   console.log('filterBy:', filterBy)
+
    const debouncedSetFilter = useCallback(
-      debounce((filterBy) => {
+      debounce(filterBy => {
          setFilter(filterBy)
       }, 500),
       []
@@ -19,7 +19,7 @@ export function MsgFilter({ msgs }) {
    function handleChange(ev) {
       const field = ev.target.name
       const value = ev.target.value
-      
+
       if (field === 'text') {
          debouncedSetFilter({ ...filterBy, [field]: value })
       } else {
@@ -59,13 +59,43 @@ export function MsgFilter({ msgs }) {
             <label htmlFor='all'>{t('All')}</label>
          </div>
 
-         <input
-            className='search-input pad-1'
-            onChange={handleChange}
-            name='text'
-            type='text'
-            placeholder={t('Search')}
-         />
+         <div className='sort-by'>
+            <input
+               hidden
+               type='radio'
+               name='sortBy'
+               id='name'
+               value='name'
+               onChange={handleChange}
+            />
+            <label htmlFor='name'>{t('Name')}</label>
+            <input
+               hidden
+               type='radio'
+               name='sortBy'
+               id='date'
+               value='date'
+               onChange={handleChange}
+            />
+            <label htmlFor='date'>{t('Date')}</label>
+            <input
+               hidden
+               type='radio'
+               name='sortBy'
+               id='subject'
+               value='subject'
+               onChange={handleChange}
+            />
+            <label htmlFor='subject'>{t('Subject')}</label>
+
+         </div>
+            <input
+               className='search-input pad-1'
+               onChange={handleChange}
+               name='text'
+               type='text'
+               placeholder={t('Search name or subject')}
+            />
       </form>
    )
 }
