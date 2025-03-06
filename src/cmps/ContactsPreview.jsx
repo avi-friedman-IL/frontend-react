@@ -41,7 +41,7 @@ export function ContactsPreview({ contact, userId }) {
          <span className='user-img' style={{ backgroundColor: contact.color }}>
             {contact.fullname.split(' ')[0].charAt(0).toUpperCase()}
          </span>
-         <p>{contact.fullname}</p>
+         <p>{contact._id === userId ? t('me') : contact.fullname}</p>
          {countUnreadMsgs > 0 && (
             <span className='unread-msgs'>{countUnreadMsgs}</span>
          )}
