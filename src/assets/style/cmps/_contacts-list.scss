@@ -1,6 +1,7 @@
 .contacts-list{
     display: grid;
     gap: .5rem;
-
+    max-height: 500px;
+    overflow: auto;
     padding: .5rem;
 }
