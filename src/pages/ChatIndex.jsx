@@ -98,7 +98,6 @@ export function ChatIndex() {
    async function onRemove(chatId) {
       try {
          await removeChat(chatId)
-         showSuccessMsg('Chat removed')
       } catch (err) {
          console.log('Cannot remove chat', err)
          showErrorMsg('Cannot remove chat')

@@ -90,7 +90,7 @@ export async function signup(credentials) {
          type: SET_USER,
          user,
       })
-      // socketService.login(user._id)
+      socketService.login(user._id)
       return user
    } catch (err) {
       console.log('Cannot signup', err)
