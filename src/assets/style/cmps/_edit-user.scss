@@ -14,6 +14,7 @@
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     min-width: 320px;
     animation: formAppear 0.3s ease-out;
+    z-index: 10000000000000;
 
     h2 {
         color: #E2E8F0;
