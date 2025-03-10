@@ -106,12 +106,12 @@ export function AppHeader() {
                   </span>
                   <span>{t('msgs')}</span>
                </NavLink>
-               <NavLink to={'/users'}>
+               {user.isAdmin && <NavLink to={'/users'}>
                   <span className='icon'>
                      <MdOutlineManageAccounts />
                   </span>
                   <span>{t('users')}</span>
-               </NavLink>
+               </NavLink>}
             </nav>
          )}
          <div className='user-info' ref={languageRef}>

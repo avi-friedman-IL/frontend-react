@@ -16,6 +16,7 @@
 @use 'pages/script-details';
 @use 'pages/tips-index';
 @use 'pages/msg-index';
+@use 'pages/user-index';
 
 
 
@@ -62,5 +63,6 @@
 @use 'cmps/edit-user';
 @use 'cmps/user-preview';
 @use 'cmps/permissions-edit';
+@use 'cmps/user-list'
 
 
