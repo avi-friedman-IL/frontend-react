@@ -5,6 +5,7 @@ export const DECREMENT = 'DECREMENT'
 export const CHANGE_COUNT = 'CHANGE_COUNT'
 export const SET_USER = 'SET_USER'
 export const SET_WATCHED_USER = 'SET_WATCHED_USER'
+export const ADD_USER = 'ADD_USER'
 export const REMOVE_USER = 'REMOVE_USER'
 export const SET_USERS = 'SET_USERS'
 export const UPDATE_USER = 'UPDATE_USER'
@@ -34,6 +35,12 @@ export function userReducer(state = initialState, action) {
          break
       case SET_WATCHED_USER:
          newState = { ...state, watchedUser: action.user }
+         break
+      case ADD_USER:
+         newState = {
+            ...state,
+            users: [...state.users, action.user],
+         }
          break
       case REMOVE_USER:
          newState = {

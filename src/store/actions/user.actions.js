@@ -5,6 +5,7 @@ import { store } from '../store'
 import { showErrorMsg } from '../../services/event-bus.service'
 // import { LOADING_DONE, LOADING_START } from '../reducers/system.reducer'
 import {
+   ADD_USER,
    REMOVE_USER,
    SET_USER,
    SET_USERS,
@@ -25,6 +26,15 @@ export async function loadUsers() {
    }
 }
 
+export async function addUser(user) {
+   try {
+      const newUser = await userService.save(user)
+      store.dispatch({ type: ADD_USER, user: newUser })
+      return newUser
+   } catch (err) {
+      console.log('UserActions: err in addUser', err)
+   }
+}
 export async function removeUser(userId) {
    try {
       await userService.remove(userId)

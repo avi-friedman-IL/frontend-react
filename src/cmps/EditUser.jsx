@@ -1,0 +1,47 @@
+import { useState } from 'react'
+import { t } from 'i18next'
+import { MdClose } from 'react-icons/md'
+export function EditUser({ user, onUpdateUser, setIsOpenEditUser }) {
+   const [currUser, setCurrUser] = useState({ ...user })
+   function handleChange(ev) {
+      const field = ev.target.name
+      setCurrUser({ ...currUser, [field]: ev.target.value })
+   }
+   async function handleSave(ev) {
+      ev.preventDefault()
+      await onUpdateUser(currUser)
+      setIsOpenEditUser(false)
+   }
+
+   return (
+      <form className='edit-user'>
+         <label htmlFor='fullname'>{t('fullname')}</label>
+         <input
+            type='text'
+            name='fullname'
+            value={currUser.fullname || ''}
+            onChange={handleChange}
+         />
+         <label htmlFor='username'>{t('username')}</label>
+         <input
+            type='text'
+            name='username'
+            value={currUser.username || ''}
+            onChange={handleChange}
+         />
+         <label htmlFor='password'>{t('password')}</label>
+         <input
+            type='text'
+            name='password'
+            value={currUser.password || ''}
+            onChange={handleChange}
+         />
+         <button className='save-btn btn3' onClick={handleSave}>
+            {t('save')}
+         </button>
+         <button type='button' className='close-btn' onClick={() => setIsOpenEditUser(false)}>
+            <MdClose />
+         </button>
+      </form>
+   )
+}

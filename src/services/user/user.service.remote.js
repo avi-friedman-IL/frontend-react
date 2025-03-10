@@ -9,6 +9,7 @@ export const userService = {
    signup,
    getUsers,
    getById,
+   save,
    remove,
    update,
    getLoggedinUser,
@@ -22,6 +23,10 @@ async function getUsers() {
 async function getById(userId) {
    const user = await httpService.get(`user/${userId}`)
    return user
+}
+
+async function save(user) {
+   return httpService.post(`user`, user)
 }
 
 function remove(userId) {
@@ -49,11 +54,6 @@ async function login(userCred) {
 }
 
 async function signup(userCred) {
-   console.log('userCred:', userCred)
-   
-   userCred.score = 10000
-   userCred.isAdmin = true
-
    const user = await httpService.post('auth/signup', userCred)
    return saveLoggedinUser(user)
 }

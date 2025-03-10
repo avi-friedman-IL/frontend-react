@@ -30,9 +30,11 @@ export function RespectBtn() {
          />
          {user && (
             <button
-               className='respect-btn btn1'
+               className='respect-btn btn2'
                onClick={() => setIsOpenRespectForm(!isOpenRespectForm)}>
-               {isOpenRespectForm ? t('Close') : t('Tell friends')}
+               <span className='respect-btn-text'>
+                  {isOpenRespectForm ? t('Close') : t('Tell friends')}
+               </span>
                <span className='respect-btn-icon'>
                   {isOpenRespectForm ? (
                      <FaArrowRightLong />

@@ -12,24 +12,13 @@ import { ChatIndex } from './pages/ChatIndex'
 import { ObjectionIndex } from './pages/ObjectionIndex'
 
 import './assets/style/main.scss'
-import { t } from 'i18next'
 import { ObjectionDetails } from './pages/ObjectionDetails.jsx'
 import { ScriptIndex } from './pages/ScriptIndex.jsx'
 import { ScriptDetails } from './pages/ScriptDetails.jsx'
 import { MsgIndex } from './pages/MsgIndex.jsx'
+import { UserIndex } from './pages/UserIndex.jsx'
 import { RespectBtn } from './cmps/RespectBtn.jsx'
-
 export function RootCmp() {
-   // const { i18n } = useTranslation()
-
-   // useEffect(() => {
-   //    const defaultLanguage = 'he'
-   //    i18n.changeLanguage(defaultLanguage)
-
-   //    const direction = defaultLanguage === 'he' ? 'rtl' : 'ltr'
-   //    document.documentElement.setAttribute('dir', direction)
-   //    document.documentElement.setAttribute('lang', defaultLanguage)
-   // }, [i18n])
 
    return (
       <Provider store={store}>
@@ -37,7 +26,6 @@ export function RootCmp() {
             <AppHeader />
             <UserMsg />
             <RespectBtn />
-
             <Routes>
                <Route path='/' element={<HomePage />} />
                <Route path='/script' element={<ScriptIndex />} />
@@ -54,6 +42,7 @@ export function RootCmp() {
                <Route path='/chat' element={<ChatIndex />} />
                <Route path='/msg' element={<MsgIndex />} />
                <Route path='/members' element={<MembersIndex />} />
+               <Route path='/users' element={<UserIndex />} />
             </Routes>
          </main>
       </Provider>

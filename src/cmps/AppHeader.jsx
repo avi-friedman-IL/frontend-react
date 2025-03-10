@@ -9,11 +9,12 @@ import { NotificationList } from './NotificationList.jsx'
 import {
    MdLanguage,
    MdOutlineMailOutline,
+   MdOutlineManageAccounts,
    MdWifiCalling3,
 } from 'react-icons/md'
 import { IoHomeOutline } from 'react-icons/io5'
 import { BiChat } from 'react-icons/bi'
-
+import { RespectBtn } from './RespectBtn'
 import { Tooltip } from './Tooltip'
 
 export function AppHeader() {
@@ -105,17 +106,16 @@ export function AppHeader() {
                   </span>
                   <span>{t('msgs')}</span>
                </NavLink>
+               <NavLink to={'/users'}>
+                  <span className='icon'>
+                     <MdOutlineManageAccounts />
+                  </span>
+                  <span>{t('users')}</span>
+               </NavLink>
             </nav>
          )}
          <div className='user-info' ref={languageRef}>
-            {/* {user && (
-               <a
-                  className='language-btn'
-                  onClick={() => setIsOpenLanguage(open => !open)}>
-                  <MdLanguage />
-                  <span>{i18n.language === 'en' ? 'EN' : 'עברית'}</span>
-               </a>
-            )} */}
+           
             {user && (
                <div
                   className='user-btn'

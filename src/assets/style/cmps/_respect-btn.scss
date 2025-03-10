@@ -1,11 +1,25 @@
 .respect-btn-container {
     position: fixed;
-    bottom: 1rem;
-    right: 5rem;
+    bottom: 2rem;
+    right: 5.1rem;
     z-index: 10000000000;
 
     display: grid;
     gap: 1rem;
+
+    .respect-btn {
+        .respect-btn-text {
+            display: none;
+        }
+
+        &:hover {
+            .respect-btn-text {
+                display: block;
+            }
+        }
+    }
+
+
 
     .respect-form {
         display: grid;
@@ -24,7 +38,7 @@
         border-radius: .5rem;
         box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
 
-        z-index: 1;
+        z-index: -1;
         transition: all ease-in-out .2s;
         opacity: 0;
         transform: translateX(100%);
@@ -34,6 +48,7 @@
             opacity: 1;
             transform: translateX(0);
             visibility: visible;
+            z-index: 1;
         }
 
         input {
@@ -64,7 +79,5 @@
 
     }
 
-    .respect-btn {
-        width: 100%;
-    }
+
 }

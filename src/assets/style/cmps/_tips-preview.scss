@@ -1,11 +1,11 @@
 .tips-preview {
     //   min-width: 90vw;
-    background: linear-gradient(90deg, #3f934e, #3383ff, #ff33d4);
-    background-size: 300% 300%;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: gradientMove 2s forwards ease-in-out;
-    // color: #ffffff;
+    // background: linear-gradient(90deg, #3f934e, #3383ff, #ff33d4);
+    // background-size: 300% 300%;
+    // background-clip: text;
+    // -webkit-text-fill-color: transparent;
+    // animation: gradientMove 2s forwards ease-in-out;
+    color: #ffffff;
 
 
     @keyframes gradientMove {
