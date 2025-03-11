@@ -14,11 +14,11 @@
     transition: all 0.2s ease-in-out;
     border-radius: 8px;
     margin: 0.5rem 0;
-    
+
     &:hover {
         transform: translateY(-1px);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        
+
         .remove-btn {
             opacity: 1;
             transform: translateX(0);
@@ -40,7 +40,7 @@
         height: 2rem;
         border-radius: 50%;
         transition: all 0.2s ease;
-        
+
         svg {
             width: 1.2rem;
             height: 1.2rem;
@@ -49,11 +49,12 @@
 
     .done-btn {
         background: rgba($green, 0.1);
+
         svg {
             fill: $green;
             stroke: $green;
         }
-        
+
         &:hover {
             background: rgba($green, 0.2);
         }
@@ -61,10 +62,11 @@
 
     .undone-btn {
         background: rgba($pink, 0.1);
+
         svg {
             fill: $pink;
         }
-        
+
         &:hover {
             background: rgba($pink, 0.2);
         }
@@ -77,7 +79,7 @@
         display: flex;
         align-items: center;
         gap: 0.5rem;
-        
+
         span {
             background: $pink;
             color: white;
@@ -112,15 +114,15 @@
         opacity: 0;
         transform: translateX(10px);
         transition: all 0.2s ease;
-        
+
         &:hover {
             background: rgba($pink, 0.2);
         }
-        
+
         span {
             font-size: 0.9rem;
         }
-        
+
         svg {
             width: 1.1rem;
             height: 1.1rem;
@@ -135,12 +137,12 @@
         border-radius: 4px;
         cursor: pointer;
         transition: all 0.2s ease;
-        
+
         &:checked {
             background: $pink;
             border-color: $pink;
             position: relative;
-            
+
             &::after {
                 content: '';
                 position: absolute;
@@ -153,7 +155,7 @@
                 transform: rotate(45deg);
             }
         }
-        
+
         &:hover {
             border-color: $pink;
         }
@@ -202,8 +204,9 @@
         font-size: 0.9rem;
         color: $color-text;
         font-weight: 500;
-        
-        .date, .time {
+
+        .date,
+        .time {
             display: inline-block;
         }
     }
