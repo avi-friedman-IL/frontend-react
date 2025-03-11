@@ -22,9 +22,9 @@ export function AddScript({ setIsOpen }) {
    async function onSaveScript(ev) {
       ev.preventDefault()
       if (!script.title) return
+      setIsOpen(false)
       try {
          await updateScript(script)
-         setIsOpen(false)
       } catch (err) {
          console.log('Cannot save script', err)
       }

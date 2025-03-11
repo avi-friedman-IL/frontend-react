@@ -9,8 +9,8 @@ export function EditUser({ user, onUpdateUser, setIsOpenEditUser }) {
    }
    async function handleSave(ev) {
       ev.preventDefault()
-      await onUpdateUser(currUser)
       setIsOpenEditUser(false)
+      await onUpdateUser(currUser)
    }
 
    return (

@@ -10,8 +10,8 @@ export function PermissionsEdit({ user, onUpdateUser, setIsOpenPermissions }) {
    }
    async function handleSave(ev) {
       ev.preventDefault()
-      await onUpdateUser(currUser)
       setIsOpenPermissions(false)
+      await onUpdateUser(currUser)
    }
    return (
       <form className='permissions-edit'>

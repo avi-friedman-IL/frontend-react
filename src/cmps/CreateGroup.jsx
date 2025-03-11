@@ -51,6 +51,7 @@ export function CreateGroup({ user, users, contacts, setIsOpen }) {
 
    async function onSave() {
       if (!group.name) return
+      setIsOpen(false)
       const loggedUser = { ...user }
       const updatedUser = {
          ...loggedUser,
@@ -76,7 +77,6 @@ export function CreateGroup({ user, users, contacts, setIsOpen }) {
          console.log('Cannot create group', err)
       }
 
-      setIsOpen(false)
    }
 
    return (

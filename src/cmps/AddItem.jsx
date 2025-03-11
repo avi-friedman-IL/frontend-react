@@ -22,6 +22,7 @@ export function AddItem({ currObjection, setCurrObjection, setIsOpenAddItem }) {
 
    async function onSave(ev) {
       ev.preventDefault()
+      setIsOpenAddItem(false)
       const updatedItems = [...currObjection.items, newItem]
       try {
          await updateObjection({ ...currObjection, items: updatedItems })
@@ -30,7 +31,6 @@ export function AddItem({ currObjection, setCurrObjection, setIsOpenAddItem }) {
          console.log('Cannot add item', err)
          showErrorMsg('Cannot add item')
       }
-      setIsOpenAddItem(false)
    }
 
    return (

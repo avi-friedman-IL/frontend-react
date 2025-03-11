@@ -21,6 +21,7 @@ export function ItemEdit({ item, setOpenItemId, currObjection }) {
    async function onSave(ev) {
       ev.stopPropagation()
       ev.preventDefault()
+      setOpenItemId(null)
       const updatedItems = currObjection.items.map(currItem =>
          currItem.id === editedItem.id ? editedItem : currItem
       )
@@ -34,7 +35,6 @@ export function ItemEdit({ item, setOpenItemId, currObjection }) {
          showErrorMsg('Cannot save item')
       }
 
-      setOpenItemId(null)
    }
 
    return (
