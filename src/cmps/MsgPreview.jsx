@@ -16,6 +16,7 @@ export function MsgPreview({
 }) {
    const [currMsg, setCurrMsg] = useState({ ...msg })
    const [isOpenResponse, setIsOpenResponse] = useState(false)
+   const [isCheckedDone, setIsCheckedDone] = useState(currMsg.isDone)
 
    function formatTime() {
       return new Date(msg.createdAt).toLocaleTimeString([], {
@@ -25,10 +26,18 @@ export function MsgPreview({
    }
 
    function handleChange(ev) {
+      const type = ev.target.type
       const field = ev.target.name
-      const value = ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value
+      const value =
+         type === 'checkbox' ? ev.target.checked : ev.target.value
+
+      if (type === 'checkbox') {
+         if (value) setIsCheckedDone(false)
+         else setIsCheckedDone(true)
+      }
+
       setCurrMsg({ ...currMsg, [field]: value })
-      
+
       socketService.emit('msg-update', currMsg)
       const userToUpdate = users.find(user => user._id === msg.from)
       var updatedUser
@@ -79,7 +88,7 @@ export function MsgPreview({
                type='checkbox'
                id={msg._id}
                name='isDone'
-               checked={msg.isDone}
+               checked={isCheckedDone}
                onChange={handleChange}
                onInput={handleChange}
                onClick={ev => ev.stopPropagation()}
@@ -94,22 +103,22 @@ export function MsgPreview({
                </button>
             )}
          </div>
-         
+
          <p className='from'>
             {msg.fromName || t('Unknown')}
             {msg.responses?.length > 0 && (
                <span>{msg.responses.length + 1}</span>
             )}
          </p>
-         
+
          <div className='msg-content'>
             <p className='subject'>{t(msg.subject)}</p>
             <p className='content'>{msg.content}</p>
          </div>
 
-         <button 
+         <button
             className='remove-btn'
-            onClick={(ev) => {
+            onClick={ev => {
                ev.stopPropagation()
                onRemoveMsg(msg._id)
             }}
