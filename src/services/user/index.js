@@ -14,10 +14,16 @@ function getEmptyUser() {
     }
 }
 
+function getDefaultFilter() {
+    return {
+        text: '',
+        role: '',
+    }
+}
 const service = VITE_LOCAL === 'true' ? local : remote
 // const service = local
 // const service = remote
-export const userService = { ...service, getEmptyUser }
+export const userService = { ...service, getEmptyUser, getDefaultFilter }
 
 // Easy access to this service from the dev tools console
 // when using script - dev / dev:local

@@ -9,13 +9,15 @@ import {
 } from '../store/actions/user.actions.js'
 import { AddUser } from '../cmps/AddUser.jsx'
 import { t } from 'i18next'
+import { UserFilter } from '../cmps/UserFilter.jsx'
 
 export function UserIndex() {
    const users = useSelector(store => store.userModule.users)
+   const filterBy = useSelector(store => store.userModule.filterBy)
    const [isOpenAddUser, setIsOpenAddUser] = useState(false)
    async function loadCmp() {
       try {
-         await loadUsers()
+         await loadUsers(filterBy)
       } catch (err) {
          console.log('err', err)
       }
@@ -40,14 +42,10 @@ export function UserIndex() {
    }
    useEffect(() => {
       loadCmp()
-   }, [users?.length])
+   }, [users?.length, filterBy])
    return (
       <section className='user-index'>
-         <button
-            className='add-btn btn3'
-            onClick={() => setIsOpenAddUser(true)}>
-            {t('Add user')}
-         </button>
+         <UserFilter setIsOpenAddUser={setIsOpenAddUser} />
          <UserList
             users={users}
             onRemoveUser={onRemoveUser}

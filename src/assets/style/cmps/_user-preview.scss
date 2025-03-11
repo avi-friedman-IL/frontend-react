@@ -4,6 +4,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr) max-content;
     align-items: center;
+    height: max-content;
     padding: 1rem;
     border-radius: 12px;
     background-color: rgba(255, 255, 255, 0.08);

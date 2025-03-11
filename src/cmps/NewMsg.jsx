@@ -164,7 +164,7 @@ export function NewMsg({ users, loggedinUser, setIsOpenNewMsg }) {
                            {field.label}
                            <input
                               className={`field-input`}
-                              type={field.type}
+                              type={field.type === 'expiry' ? 'month' : field.type}
                               name={field.name}
                               placeholder={field.label}
                               value={msg[field.name] || ''}

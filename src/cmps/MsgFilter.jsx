@@ -7,7 +7,6 @@ import { debounce } from 'lodash'
 
 export function MsgFilter({ msgs }) {
    const filterBy = useSelector(state => state.msgModule.filterBy)
-   console.log('filterBy:', filterBy)
 
    const debouncedSetFilter = useCallback(
       debounce(filterBy => {

@@ -205,7 +205,7 @@ function getSubjects() {
                type: 'number',
                required: true,
             },
-            { name: 'expiry', label: 'תוקף', type: 'date', required: true },
+            { name: 'expiry', label: 'תוקף', type: 'expiry', required: true },
             {
                name: 'security',
                label: '3 ספרות',

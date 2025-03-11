@@ -7,6 +7,7 @@ import { showErrorMsg } from '../../services/event-bus.service'
 import {
    ADD_USER,
    REMOVE_USER,
+   SET_FILTER,
    SET_USER,
    SET_USERS,
    SET_WATCHED_USER,
@@ -14,10 +15,10 @@ import {
 } from '../reducers/user.reducer'
 import { socketService } from '../../services/socket.service'
 
-export async function loadUsers() {
+export async function loadUsers(filterBy = {}) {
    try {
       // store.dispatch({ type: LOADING_START })
-      const users = await userService.getUsers()
+      const users = await userService.getUsers(filterBy)
       store.dispatch({ type: SET_USERS, users })
    } catch (err) {
       console.log('UserActions: err in loadUsers', err)
@@ -131,6 +132,10 @@ export async function loadUser(userId) {
       showErrorMsg('Cannot load user')
       console.log('Cannot load user', err)
    }
+}
+
+export async function setFilter(filterBy) {
+   store.dispatch({ type: SET_FILTER, filterBy })
 }
 
 export function reconnectSocketIfUserExists() {

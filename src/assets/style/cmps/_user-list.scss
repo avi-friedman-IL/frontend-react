@@ -1,9 +1,11 @@
 .user-list {
     display: grid;
     gap: .5rem;
-    max-height: 95%;
+    align-content: start;
+    // max-height: 100%;
     overflow: auto;
-    padding-inline-end: 1rem;
+   padding-inline: 1rem;
+    padding-block-start: 3rem;
     
     &::-webkit-scrollbar {
         width: 6px;

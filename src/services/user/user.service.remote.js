@@ -16,8 +16,8 @@ export const userService = {
    saveLoggedinUser,
 }
 
-async function getUsers() {
-   return httpService.get(`user`)
+async function getUsers(filterBy = {}) {
+   return httpService.get(`user`, filterBy)
 }
 
 async function getById(userId) {

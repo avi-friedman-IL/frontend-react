@@ -9,12 +9,14 @@ export const ADD_USER = 'ADD_USER'
 export const REMOVE_USER = 'REMOVE_USER'
 export const SET_USERS = 'SET_USERS'
 export const UPDATE_USER = 'UPDATE_USER'
+export const SET_FILTER = 'SET_FILTER'
 export const SET_SCORE = 'SET_SCORE'
 
 const initialState = {
    count: 10,
    user: userService.getLoggedinUser(),
    users: [],
+   filterBy: userService.getDefaultFilter(),
    watchedUser: null,
 }
 
@@ -59,7 +61,9 @@ export function userReducer(state = initialState, action) {
       case SET_USERS:
          newState = { ...state, users: action.users }
          break
-
+      case SET_FILTER:
+         newState = { ...state, filterBy: action.filterBy }
+         break
       default:
          return state
    }

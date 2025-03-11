@@ -16,16 +16,17 @@ export function MsgPreview({
 }) {
    const [currMsg, setCurrMsg] = useState({ ...msg })
    const [isOpenResponse, setIsOpenResponse] = useState(false)
+
    function formatTime() {
       return new Date(msg.createdAt).toLocaleTimeString([], {
          hour: '2-digit',
          minute: '2-digit',
       })
    }
+
    function handleChange(ev) {
       const field = ev.target.name
-      const value =
-         ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value
+      const value = ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value
       setCurrMsg({ ...currMsg, [field]: value })
       
       socketService.emit('msg-update', currMsg)
@@ -71,12 +72,8 @@ export function MsgPreview({
 
    return (
       <section
-         className='msg-preview grid-col align-center pad-5'
-         onClick={
-            showMsgId === msg._id
-               ? () => setShowMsgId(null)
-               : () => setShowMsgId(msg._id)
-         }>
+         className='msg-preview'
+         onClick={() => setShowMsgId(showMsgId === msg._id ? null : msg._id)}>
          <div className='grid-col1'>
             <input
                type='checkbox'
@@ -88,35 +85,44 @@ export function MsgPreview({
                onClick={ev => ev.stopPropagation()}
             />
             {msg.isDone ? (
-               <button className='done-btn btn4'>
+               <button className='done-btn' title={t('Mark as undone')}>
                   <MdOutlineDone />
                </button>
             ) : (
-               <button className='undone-btn btn4'>
+               <button className='undone-btn' title={t('Mark as done')}>
                   <MdDoNotDisturb />
                </button>
             )}
-            <p className='from'>
-               {msg.fromName || t('Unknown')}
-               {msg.responses?.length > 0 && (
-                  <span>{msg.responses.length + 1}</span>
-               )}
-            </p>
          </div>
-         <p className='subject'>{t(msg.subject)}</p>
-         <p className='content'>{msg.content}</p>
-         <div className='msg-actions grid-col'>
-            <button className='remove-btn btn3' onClick={(ev) => {
+         
+         <p className='from'>
+            {msg.fromName || t('Unknown')}
+            {msg.responses?.length > 0 && (
+               <span>{msg.responses.length + 1}</span>
+            )}
+         </p>
+         
+         <div className='msg-content'>
+            <p className='subject'>{t(msg.subject)}</p>
+            <p className='content'>{msg.content}</p>
+         </div>
+
+         <button 
+            className='remove-btn'
+            onClick={(ev) => {
                ev.stopPropagation()
-               onRemoveMsg(msg._id)}}>
-               <span>{t('Delete')}</span>
-               <MdDelete />
-            </button>
-         </div>
+               onRemoveMsg(msg._id)
+            }}
+            title={t('Delete message')}>
+            <span>{t('Delete')}</span>
+            <MdDelete />
+         </button>
+
          <div className='msg-info'>
-            <span className='date'>{date}, </span>
-            <span className='time'>{time}</span>
+            <span className='date'>{date}</span>
+            <span className='time'>, {time}</span>
          </div>
+
          <MsgDetails
             msg={msg}
             users={users}
