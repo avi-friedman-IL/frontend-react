@@ -140,7 +140,7 @@ export function NewMsg({ users, loggedinUser, setIsOpenNewMsg }) {
                )}
                <div className='btn-container'>
                   {send && (
-                     <button type='submit' className='send-btn'>
+                     <button type='submit' className='send-btn btn2'>
                         {t('send')}
                      </button>
                   )}
@@ -178,7 +178,7 @@ export function NewMsg({ users, loggedinUser, setIsOpenNewMsg }) {
                   </div>
                ))}
                <div className='btn-container'>
-                  <button type='submit' className='send-btn'>
+                  <button type='submit' className='send-btn btn2'>
                      {t('send')}
                   </button>
                </div>

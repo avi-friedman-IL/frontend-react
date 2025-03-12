@@ -1,19 +1,21 @@
 @use '../base/vars' as *;
 
 .new-msg-form {
-    padding: 2rem;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    min-width: 500px;
-
     display: grid;
-    gap: 1rem;
-    z-index: 1000000;
+    gap: .5rem;
+    padding: 2.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(30px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    min-width: 320px;
+    animation: formAppear 0.3s ease-out;
+    z-index: 10000000000000;
 
     .field-container {
         position: relative;
@@ -54,62 +56,43 @@
             }
         }
 
-        .btn-container {
-            display: grid;
-            grid-template-columns: auto auto;
-            justify-content: space-between;
 
-            .prev-btn,.next-btn {
+    }
 
-                padding: 0.8rem 1.5rem;
-                background-color: $pink;
-                color: white;
-                border: none;
-                border-radius: 8px;
-                cursor: pointer;
-                transition: background-color 0.3s ease;
-    
-                &:hover {
-                    background-color: #ff1493;
-                }
-            }
+    p {
+        text-align: center;
+        color: #ffffff;
+    }
 
-            .next-btn {
-                grid-column: -1;
-            }
-
-            .send-btn {
-                padding: 0.8rem 1.5rem;
-                background-color:  $pink;
-                color: white;
-                border: none;
-                border-radius: 8px;
-                cursor: pointer;
-                transition: background-color 0.3s ease;
-
-                &:hover {
-                    background-color: #ff1493;
-                }
-            }
-        }
-
+    label {
+        display: block;
+        color: $color-text;
+        font-weight: 500;
     }
 
     input,
     select {
-        padding: 1rem;
-        font-size: 1rem;
-        border: 1px solid #e0e0e0;
-        border-radius: 8px;
         width: 100%;
-        background: white;
+        padding: 0.75rem;
+        background: rgb(255, 255, 255);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        color: $color-text;
+        font-size: 1rem;
+        transition: all 0.2s ease;
 
         &:focus {
             outline: none;
-            border-color: $pink;
-            box-shadow: 0 0 0 2px rgba($pink, 0.1);
+            border-color: rgba(79, 70, 229, 0.5);
+            // background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+        }
+
+        &::placeholder {
+            color: $color-text
         }
     }
+
 
 
 }
