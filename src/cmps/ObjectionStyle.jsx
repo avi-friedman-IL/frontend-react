@@ -1,6 +1,7 @@
 import { VscSymbolColor } from 'react-icons/vsc'
 import { updateObjection } from '../store/actions/objection.actions'
 import { showErrorMsg } from '../services/event-bus.service'
+import { t } from 'i18next'
 
 export function ObjectionStyle({ currObjection, setCurrObjection }) {
    function handleChange(ev) {
@@ -17,7 +18,7 @@ export function ObjectionStyle({ currObjection, setCurrObjection }) {
          await updateObjection(currObjection)
       } catch (err) {
          console.log('Cannot save objection', err)
-         showErrorMsg('Cannot save objection')
+         showErrorMsg(t('Cannot save objection'))
       }
    }
    return (

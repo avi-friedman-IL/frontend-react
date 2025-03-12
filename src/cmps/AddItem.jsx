@@ -29,7 +29,7 @@ export function AddItem({ currObjection, setCurrObjection, setIsOpenAddItem }) {
          showSuccessMsg('Item added successfully')
       } catch (err) {
          console.log('Cannot add item', err)
-         showErrorMsg('Cannot add item')
+         showErrorMsg(t('Cannot add item'))
       }
    }
 

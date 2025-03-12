@@ -49,7 +49,8 @@ export function HomePage() {
                />
          </header>
          {!user && (
-            <div className='login-container'>
+            // <div className='login-container'>
+            <div className='form2'>
                <LoginForm />
                <p>{t('Or')}</p>
                <LoginWithGoogle />

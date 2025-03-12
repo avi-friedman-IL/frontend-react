@@ -3,6 +3,7 @@ import { msgService } from '../services/msg'
 import { t } from 'i18next'
 import { socketService } from '../services/socket.service'
 import { MdClose } from 'react-icons/md'
+import { showErrorMsg } from '../services/event-bus.service'
 
 export function NewMsg({ users, loggedinUser, setIsOpenNewMsg }) {
    const [msg, setMsg] = useState(msgService.getEmptyMsg())
@@ -78,6 +79,7 @@ export function NewMsg({ users, loggedinUser, setIsOpenNewMsg }) {
          socketService.emit('msg-add', newMsg)
       } catch (err) {
          console.log('err:', err)
+         showErrorMsg(t('Cannot add msg'))
       }
    }
 

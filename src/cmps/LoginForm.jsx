@@ -5,11 +5,26 @@ import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 import { getNiceColor } from '../services/util.service'
 export function LoginForm() {
    const [isSignup, setIsSignup] = useState(false)
-   const [credentials, setCredentials] = useState({ username: '', password: ''})
+   const [credentials, setCredentials] = useState({
+      username: '',
+      password: '',
+      fullname:'',
+      color:'',
+   })
 
    useEffect(() => {
-      isSignup && setCredentials({ username: '', password: '', fullname: '', color: getNiceColor() })
-         
+      if (isSignup) {
+         setCredentials(prev => ({
+            ...prev,
+            color: getNiceColor(),
+         }))
+      } else {
+         setCredentials(prev => ({
+            ...prev,
+            fullname: '',
+            color: '',
+         }))
+      }
    }, [isSignup])
    function handleChange(ev) {
       const { name, value } = ev.target
@@ -24,10 +39,9 @@ export function LoginForm() {
       } catch (err) {
          console.log(t('Cannot login'), err)
          showErrorMsg(t('Cannot login'))
-        
       }
    }
-if (!credentials) return <div>Loading...</div>
+   if (!credentials) return <div>Loading...</div>
    return (
       <form className='login-form' onSubmit={onLogin}>
          <input
@@ -54,20 +68,18 @@ if (!credentials) return <div>Loading...</div>
             />
          )}
          <div className='form-btns'>
-            <button className='btn2' type='submit'>{t('Login')}</button>
+            <button className='btn2' type='submit'>
+               {isSignup ? t('Signup') : t('Login')}
+            </button>
             {!isSignup && (
-               <button
-                  className='btn2'
-                  onClick={() => setIsSignup(true)}>
-                  {t('Signup')}
+               <button className='btn2' onClick={() => setIsSignup(true)}>
+                  {t('New user? Signup')}
                </button>
             )}
 
             {isSignup && (
-               <button
-                  className='btn2'
-                  onClick={() => setIsSignup(false)}>
-                  {t('Back to login')}
+               <button className='btn2' onClick={() => setIsSignup(false)}>
+                  {t('Existing user? Login')}
                </button>
             )}
          </div>

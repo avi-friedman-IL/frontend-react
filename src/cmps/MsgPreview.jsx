@@ -4,6 +4,7 @@ import { t } from 'i18next'
 import { MdDelete, MdDoNotDisturb, MdOutlineDone } from 'react-icons/md'
 import { getDayOrDate, makeId } from '../services/util.service'
 import { MsgDetails } from './MsgDetails.jsx'
+import { showErrorMsg } from '../services/event-bus.service.js'
 
 export function MsgPreview({
    msg,
@@ -19,9 +20,9 @@ export function MsgPreview({
    const [isCheckedDone, setIsCheckedDone] = useState(msg.isDone)
 
    useEffect(() => {
-      setCurrMsg({ ...msg });
-      setIsCheckedDone(msg.isDone);
-   }, [msg]);
+      setCurrMsg({ ...msg })
+      setIsCheckedDone(msg.isDone)
+   }, [msg])
 
    function formatTime() {
       return new Date(msg.createdAt).toLocaleTimeString([], {
@@ -29,92 +30,60 @@ export function MsgPreview({
          minute: '2-digit',
       })
    }
+   async function handleChange(ev) {
+      const { name, type, checked, value } = ev.target
+      const fieldValue = type === 'checkbox' ? checked : value
 
-   // function handleChange(ev) {
-   //    const type = ev.target.type
-   //    const field = ev.target.name
-   //    const value =
-   //       type === 'checkbox' ? ev.target.checked : ev.target.value
+      const updatedMsg = { ...currMsg, [name]: fieldValue }
+      setCurrMsg(updatedMsg)
+      if (type === 'checkbox') setIsCheckedDone(fieldValue)
+      try {
+         socketService.emit('msg-update', updatedMsg)
+      } catch (err) {
+         console.log('Cannot update msg', err)
+         showErrorMsg(t('Cannot update msg'))
+      }
+      const userToUpdate = users.find(user => user._id === msg.from)
+      let updatedUser
 
-   //    if (type === 'checkbox') {
-   //       if (value) setIsCheckedDone(false)
-   //       else setIsCheckedDone(true)
-   //    }
-
-   //    setCurrMsg({ ...currMsg, [field]: value })
-
-   //    socketService.emit('msg-update', currMsg)
-   //    const userToUpdate = users.find(user => user._id === msg.from)
-   //    var updatedUser
-
-   //    if (field === 'isDone' && value === false) {
-   //       updatedUser = {
-   //          ...userToUpdate,
-   //          notifications: userToUpdate.notifications
-   //             ? [
-   //                  ...userToUpdate.notifications,
-   //                  {
-   //                     msgId: msg._id,
-   //                     id: makeId(),
-   //                     subject: msg.subject,
-   //                     text: `Your request in subject has been processed`,
-   //                  },
-   //               ]
-   //             : [
-   //                  {
-   //                     msgId: msg._id,
-   //                     id: makeId(),
-   //                     subject: msg.subject,
-   //                     text: `Your request in subject has been processed`,
-   //                  },
-   //               ],
-   //       }
-   //       socketService.emit('user-update', updatedUser)
-   //    } else if (field === 'isDone' && value === true) {
-   //       updatedUser = {
-   //          ...userToUpdate,
-   //          notifications: userToUpdate.notifications.filter(
-   //             notification => notification.msgId !== msg._id
-   //          ),
-   //       }
-   //       socketService.emit('user-update', updatedUser)
-   //    }
-   // }
-   function handleChange(ev) {
-      const { name, type, checked, value } = ev.target;
-      const fieldValue = type === 'checkbox' ? checked : value;
-   
-      const updatedMsg = { ...currMsg, [name]: fieldValue };
-      setCurrMsg(updatedMsg);
-      if (type === 'checkbox') setIsCheckedDone(fieldValue);
-   
-      socketService.emit('msg-update', updatedMsg);
-      const userToUpdate = users.find(user => user._id === msg.from);
-      let updatedUser;
-   
       if (name === 'isDone') {
          if (!fieldValue) {
             updatedUser = {
                ...userToUpdate,
-               notifications: userToUpdate.notifications?.filter(
-                  notification => notification.msgId !== msg._id
-               ) || [],
-            };
+               notifications:
+                  userToUpdate?.notifications?.filter(
+                     notification => notification.msgId !== msg._id
+                  ) || [],
+            }
          } else {
             updatedUser = {
                ...userToUpdate,
-               notifications: [
-                  ...(userToUpdate.notifications || []),
-                  {
-                     msgId: msg._id,
-                     id: makeId(),
-                     subject: msg.subject,
-                     text: `בקשתך בנושא נענתה`,
-                  },
-               ],
-            };
+               notifications: userToUpdate?.notifications
+                  ? [
+                       ...userToUpdate.notifications,
+                       {
+                          msgId: msg._id,
+                          id: makeId(),
+                          subject: msg.subject,
+                          text: `בקשתך בנושא נענתה`,
+                       },
+                    ]
+                  : [
+                       {
+                          msgId: msg._id,
+                          id: makeId(),
+                          subject: msg.subject,
+                          text: `בקשתך בנושא נענתה`,
+                       },
+                    ],
+            }
          }
-         socketService.emit('user-update', updatedUser);
+         try {
+            socketService.emit('user-update', updatedUser)
+         } catch (err) {
+            console.log('Cannot update user', err)
+            showErrorMsg(t('Cannot update user'))
+         }
       }
    }
 

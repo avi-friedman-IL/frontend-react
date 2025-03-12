@@ -166,5 +166,7 @@
    "user removed": "משתמש הוסר",
    "user removed error": "שגיאה בהסרת משתמש",
    "user updated": "משתמש עודכן",
-   "user updated error": "שגיאה בעדכון משתמש"
+   "user updated error": "שגיאה בעדכון משתמש",
+   "New user? Signup":"משתמש חדש? הירשם",
+   "Existing user? Login":"משתמש קיים? התחבר"
 }

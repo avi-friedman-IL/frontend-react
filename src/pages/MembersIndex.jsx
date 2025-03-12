@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { loadUser, loadUsers, updateLoggedUser } from '../store/actions/user.actions'
 import { MembersList } from '../cmps/MembersList'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
+import { t } from 'i18next'
 
 export function MembersIndex() {
    const users = useSelector(state => state.userModule.users)
@@ -33,7 +34,7 @@ export function MembersIndex() {
          showSuccessMsg('Added to contacts')
       } catch (err) {
          console.log('Cannot add user', err)
-         showErrorMsg('Cannot add user')
+         showErrorMsg(t('Cannot add user'))
       }
    }
 
@@ -50,7 +51,7 @@ export function MembersIndex() {
          showSuccessMsg('Deleted from contacts')
       } catch (err) {
          console.log('Cannot remove user', err)
-         showErrorMsg('Cannot remove user')
+         showErrorMsg(t('Cannot remove user'))
       }
    }
 

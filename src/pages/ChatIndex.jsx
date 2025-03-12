@@ -17,6 +17,7 @@ import {
 } from '../store/reducers/chat.reducer'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 import { updateLoggedUser, updateUser } from '../store/actions/user.actions'
+import { t } from 'i18next'
 
 export function ChatIndex() {
    const user = useSelector(state => state.userModule.user)
@@ -100,7 +101,7 @@ export function ChatIndex() {
          await removeChat(chatId)
       } catch (err) {
          console.log('Cannot remove chat', err)
-         showErrorMsg('Cannot remove chat')
+         showErrorMsg(t('Cannot remove chat'))
       }
    }
 
@@ -115,7 +116,7 @@ export function ChatIndex() {
          showSuccessMsg('Chat updated')
       } catch (err) {
          console.log('Cannot update chat', err)
-         showErrorMsg('Cannot update chat')
+         showErrorMsg(t('Cannot update chat'))
       }
    }
 
