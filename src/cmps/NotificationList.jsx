@@ -2,6 +2,7 @@ import { t } from 'i18next'
 import { NotificationPreview } from './NotificationPreview.jsx'
 import { socketService } from '../services/socket.service.js'
 import { useEffect, useState } from 'react'
+import { showErrorMsg } from '../services/event-bus.service.js'
 export function NotificationList({ users, user }) {
    const [notifications, setNotifications] = useState(null)
 
@@ -11,10 +12,15 @@ export function NotificationList({ users, user }) {
       setNotifications(userToUpdate.notifications)
    }, [user, users])
 
-   function onClear() {
+   async function onClear() {
       const userToUpdate = users.find(currUser => currUser._id === user._id)
       const updatedUser = { ...userToUpdate, notifications: [] }
-      socketService.emit('user-update', updatedUser)
+      try {
+         socketService.emit('user-update', updatedUser)
+      } catch (err) {
+         showErrorMsg('Cannot update user')
+         console.log('NotificationList: err in onClear', err)
+      }
    }
 
    if (!notifications?.length)

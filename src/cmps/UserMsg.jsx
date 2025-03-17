@@ -17,7 +17,6 @@ export function UserMsg() {
          }
          if (msg.type === 'respect') {
             return
-            // timeoutIdRef.current = setTimeout(closeMsg, 50000)
          } else timeoutIdRef.current = setTimeout(closeMsg, 3000)
       })
 
