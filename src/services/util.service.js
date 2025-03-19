@@ -38,7 +38,12 @@ export function getDayOrDate(dateNumber) {
    }
    return givenDate.toLocaleDateString()
 }
-
+export function formatTime(date) {
+   return new Date(date).toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit',
+   })
+}
 export function makeLorem(size = 100) {
    var words = [
       'The sky',
