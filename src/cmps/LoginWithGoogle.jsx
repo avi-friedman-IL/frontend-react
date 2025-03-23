@@ -1,7 +1,7 @@
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google'
 import { loginWithGoogle } from '../store/actions/user.actions'
 import { showSuccessMsg } from '../services/event-bus.service'
-
+import { t } from 'i18next'
 export function LoginWithGoogle() {
    async function onFailure(err) {
       console.log('Cannot login with google', err)
@@ -12,7 +12,7 @@ export function LoginWithGoogle() {
       try {
          const res = await loginWithGoogle(credential)
          if (res) {
-            showSuccessMsg('Logged in successfully')
+            showSuccessMsg(t('Logged in successfully'))
          }
       } catch (err) {
          console.log('Cannot login with google', err)

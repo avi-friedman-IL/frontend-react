@@ -5,13 +5,14 @@ import { useEffect, useState } from 'react'
 import { AiOutlineEdit } from 'react-icons/ai'
 import { t } from 'i18next'
 import { TipsEdit } from '../cmps/TipsEdit.jsx'
-import "@fontsource/rubik-doodle-shadow"; // טוען את הפונט
-
+import '@fontsource/rubik-doodle-shadow' // טוען את הפונט
+import { useSelector } from 'react-redux'
 
 export function TipsIndex() {
    const params = useParams()
    const [tips, setTips] = useState(null)
    const [isEdit, setIsEdit] = useState(false)
+   const user = useSelector(state => state.userModule.user)
 
    useEffect(() => {
       loadTips()
@@ -28,10 +29,14 @@ export function TipsIndex() {
 
    return (
       <section className='tips-index'>
-         <button className='edit-btn btn3' onClick={() => setIsEdit(!isEdit)}>
-            <span>{t('Edit Tips')}</span>
-            <AiOutlineEdit />
-         </button>
+         {user?.isAdmin && (
+            <button
+               className='edit-btn btn3'
+               onClick={() => setIsEdit(!isEdit)}>
+               <span>{t('Edit Tips')}</span>
+               <AiOutlineEdit />
+            </button>
+         )}
          {tips?.length > 0 && <TipsList tips={tips} />}
          {isEdit && <TipsEdit setIsEdit={setIsEdit} tips={tips} />}
       </section>

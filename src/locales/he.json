@@ -168,5 +168,19 @@
    "user updated": "משתמש עודכן",
    "user updated error": "שגיאה בעדכון משתמש",
    "New user? Signup":"משתמש חדש? הירשם",
-   "Existing user? Login":"משתמש קיים? התחבר"
+   "Existing user? Login":"משתמש קיים? התחבר",
+   "Added to contacts": "נוסף לרשימת אנשי הקשר",
+   "Cannot add user": "לא ניתן להוסיף משתמש",
+   "Deleted from contacts": "נמחק מרשימת אנשי הקשר",
+   "Cannot remove user": "לא ניתן למחוק משתמש",
+   "Cannot remove chat": "לא ניתן למחוק צ'אט",
+   "Chat updated": "הצ'אט עודכן בהצלחה",
+   "Cannot update chat": "לא ניתן לעדכן צ'אט",
+   "Item saved successfully": "הפריט נשמר בהצלחה",
+   "Cannot save item": "לא ניתן לשמור פריט",
+   "Item added successfully": "הפריט נוסף בהצלחה",
+   "Cannot add item": "לא ניתן להוסיף פריט",
+   "Cannot update user": "לא ניתן לעדכן משתמש",
+   "Tips saved successfully": "הטיפים נשמרים בהצלחה",
+   "Cannot save tips": "לא ניתן לשמור טיפים"
 }

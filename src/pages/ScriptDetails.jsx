@@ -10,10 +10,12 @@ import { ItemEdit } from '../cmps/ItemEdit.jsx'
 import { AiOutlineEdit } from 'react-icons/ai'
 import { MdTextDecrease, MdTextIncrease } from 'react-icons/md'
 import { Tooltip } from '../cmps/Tooltip.jsx'
+import { useSelector } from 'react-redux'
 
 export function ScriptDetails() {
    const params = useParams()
    const timeoutRef = useRef(null)
+   const user = useSelector(state => state.userModule.user)
 
    const [script, setScript] = useState(null)
    const [fontSize, setFontSize] = useState(24)
@@ -66,12 +68,12 @@ export function ScriptDetails() {
                      <h2 style={{ fontSize: `${fontSize * 2}px` }}>
                         {t(item.title)}
                      </h2>
-                     <button
+                     {user?.isAdmin && <button
                         className='btn3'
                         onClick={() => setOpenItemId(item.id)}>
                         <span>{t('Edit')}</span>
                         <AiOutlineEdit />
-                     </button>
+                     </button>}
                   </div>
                   {openItemId !== item.id && (
                      <p

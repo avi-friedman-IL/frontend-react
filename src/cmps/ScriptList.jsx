@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router'
 import { ScriptPreview } from './ScriptPreview.jsx'
 
-export function ScriptList({ scripts, onRemove }) {
+export function ScriptList({ scripts, onRemove, user }) {
    const navigate = useNavigate()
    return (
       <ul className='script-list'>
@@ -9,8 +9,8 @@ export function ScriptList({ scripts, onRemove }) {
             <li
                key={script._id}
                onClick={() => navigate(`details/${script._id}`)}>
-               <ScriptPreview script={script} onRemove={onRemove} />
-              
+               <ScriptPreview script={script} onRemove={onRemove} user={user} />
+
             </li>
          ))}
       </ul>

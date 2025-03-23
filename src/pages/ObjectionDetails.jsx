@@ -18,6 +18,7 @@ export function ObjectionDetails() {
    const params = useParams()
 
    const objections = useSelector(state => state.objectionModule.objections)
+   const user = useSelector(state => state.userModule.user)
 
    const [currObjection, setCurrObjection] = useState(null)
    const [openItemId, setOpenItemId] = useState(null)
@@ -71,15 +72,17 @@ export function ObjectionDetails() {
          <h1>{currObjection?.category}</h1>
 
          <div className='actions'>
-            <ObjectionStyle
+            {/* <ObjectionStyle
                currObjection={currObjection}
                setCurrObjection={setCurrObjection}
-            />
-            <button
-               className='add-btn btn2'
-               onClick={() => setIsOpenAddItem(true)}>
-               {t('add item')}
-            </button>
+            /> */}
+            {user?.isAdmin && (
+               <button
+                  className='add-btn btn2'
+                  onClick={() => setIsOpenAddItem(true)}>
+                  {t('add item')}
+               </button>
+            )}
          </div>
 
          {isOpenAddItem && (
@@ -116,12 +119,14 @@ export function ObjectionDetails() {
                               }}>
                               <IoCloseOutline />
                            </button>
-                           <button
-                              className='btn3'
-                              onClick={() => setOpenItemId(item.id)}>
-                              <span>{t('Edit')}</span>
-                              <AiOutlineEdit />
-                           </button>
+                           {user?.isAdmin && (
+                              <button
+                                 className='btn3'
+                                 onClick={() => setOpenItemId(item.id)}>
+                                 <span>{t('Edit')}</span>
+                                 <AiOutlineEdit />
+                              </button>
+                           )}
                         </div>
                      )}
 

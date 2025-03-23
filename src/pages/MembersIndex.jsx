@@ -31,7 +31,7 @@ export function MembersIndex() {
                : [{ _id, fullname, imgUrl }],
          }
          await updateLoggedUser(updatedUser)
-         showSuccessMsg('Added to contacts')
+         showSuccessMsg(t('Added to contacts'))
       } catch (err) {
          console.log('Cannot add user', err)
          showErrorMsg(t('Cannot add user'))
@@ -48,7 +48,7 @@ export function MembersIndex() {
             ),
          }
          await updateLoggedUser(updatedUser)
-         showSuccessMsg('Deleted from contacts')
+         showSuccessMsg(t('Deleted from contacts'))
       } catch (err) {
          console.log('Cannot remove user', err)
          showErrorMsg(t('Cannot remove user'))

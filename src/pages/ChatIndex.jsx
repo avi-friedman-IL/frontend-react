@@ -101,7 +101,7 @@ export function ChatIndex() {
          await removeChat(chatId)
       } catch (err) {
          console.log('Cannot remove chat', err)
-         showErrorMsg(t('Cannot remove chat'))
+         showErrorMsg(t('לא ניתן למחוק צ\'אט'))
       }
    }
 
@@ -113,10 +113,10 @@ export function ChatIndex() {
       try {
          await updateChat(chat)
          socketService.emit('chat-update', chat)
-         showSuccessMsg('Chat updated')
+         showSuccessMsg(t('הצ\'אט עודכן בהצלחה'))
       } catch (err) {
          console.log('Cannot update chat', err)
-         showErrorMsg(t('Cannot update chat'))
+         showErrorMsg(t('לא ניתן לעדכן צ\'אט'))
       }
    }
 

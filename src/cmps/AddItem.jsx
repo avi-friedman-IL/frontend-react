@@ -26,7 +26,7 @@ export function AddItem({ currObjection, setCurrObjection, setIsOpenAddItem }) {
       const updatedItems = [...currObjection.items, newItem]
       try {
          await updateObjection({ ...currObjection, items: updatedItems })
-         showSuccessMsg('Item added successfully')
+         showSuccessMsg(t('Item added successfully'))
       } catch (err) {
          console.log('Cannot add item', err)
          showErrorMsg(t('Cannot add item'))

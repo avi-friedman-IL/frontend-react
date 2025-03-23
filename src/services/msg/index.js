@@ -21,6 +21,9 @@ function getDefaultFilter() {
       text: '',
       subject: '',
       isDone: '',
+      loggedinUserId: userService.getLoggedinUser()?._id,
+      isAdmin: userService.getLoggedinUser()?.isAdmin,
+      isTeamManager: userService.getLoggedinUser()?.isTeamManager,
    }
 }
 

@@ -87,6 +87,7 @@ export function ContactsIndex() {
       await updateLoggedUser(updatedUser)
    }
 
+   const isAuthorized = user?.isAdmin || user?.isTeamManager
    return (
       <section className='contacts-index'>
          {isOpen && (
@@ -99,13 +100,13 @@ export function ContactsIndex() {
          )}
          <div className='list-header'>
             <h3>{t('groups')}</h3>
-            <button
+            {isAuthorized && <button
                className='btn2'
                onClick={() => setIsOpen(true)}
                onMouseEnter={handleMouseEnter}
                onMouseLeave={handleMouseLeave}>
                <RiChatNewLine />
-            </button>
+            </button>}
             {isTooltipOpen && (
                <Tooltip position={tooltipPos} text={t('create group')} />
             )}

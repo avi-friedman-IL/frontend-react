@@ -4,7 +4,7 @@ import { getScriptById, updateScript } from '../store/actions/script.actions'
 import { useParams } from 'react-router'
 import { makeId } from '../services/util.service'
 import { AiFillDelete } from 'react-icons/ai'
-
+import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service'
 export function TipsEdit({ setIsEdit, tips }) {
    const params = useParams()
    const [tipsToEdit, setTipsToEdit] = useState(tips?.length?[...tips]:[{ id: makeId(), text: '' }])
@@ -31,8 +31,10 @@ export function TipsEdit({ setIsEdit, tips }) {
          const updatedScript = { ...script, tips: tipsToEdit }
          await updateScript(updatedScript)
          setIsEdit(false)
+         showSuccessMsg(t('Tips saved successfully'))
       } catch (err) {
          console.log('Cannot save tips', err)
+         showErrorMsg(t('Cannot save tips'))
       }
    }
 

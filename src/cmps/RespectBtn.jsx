@@ -28,7 +28,7 @@ export function RespectBtn() {
             setIsOpenRespectForm={setIsOpenRespectForm}
             isOpenRespectForm={isOpenRespectForm}
          />
-         {user && (
+         {user?.isAdmin && (
             <button
                className='respect-btn btn2'
                onClick={() => setIsOpenRespectForm(!isOpenRespectForm)}>

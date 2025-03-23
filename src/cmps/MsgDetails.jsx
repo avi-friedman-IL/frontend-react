@@ -31,7 +31,7 @@ export function MsgDetails({
             </p>
          ))}
 
-         <div className='msg-details-btns'>
+         {/* <div className='msg-details-btns'>
             <button
                className='response-btn btn2'
                onClick={ev => {
@@ -40,7 +40,7 @@ export function MsgDetails({
                }}>
                {t('Response')}
             </button>
-         </div>
+         </div> */}
          {isOpenResponse && (
             <ResponseForm
                setIsOpenResponse={setIsOpenResponse}

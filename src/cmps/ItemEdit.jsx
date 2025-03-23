@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { updateObjection } from '../store/actions/objection.actions'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 import { IoCloseOutline } from 'react-icons/io5'
+import { t } from 'i18next'
 
 import { ItemStyle } from './ItemStyle.jsx'
 import { TextEditor } from './TextEditor.jsx'
@@ -29,10 +30,10 @@ export function ItemEdit({ item, setOpenItemId, currObjection }) {
          currObjection.title
             ? await updateScript({ ...currObjection, items: updatedItems })
             : await updateObjection({ ...currObjection, items: updatedItems })
-         showSuccessMsg('Item saved successfully')
+         showSuccessMsg(t('Item saved successfully'))
       } catch (err) {
          console.log('Cannot save item', err)
-         showErrorMsg('Cannot save item')
+         showErrorMsg(t('Cannot save item'))
       }
 
    }

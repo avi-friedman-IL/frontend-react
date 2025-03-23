@@ -9,6 +9,7 @@ import { AddScript } from '../cmps/AddScript.jsx'
 export function ScriptIndex() {
    const scripts = useSelector(state => state.scriptModule.scripts)
    const [isOpen, setIsOpen] = useState(false)
+   const user = useSelector(state => state.userModule.user)
 
    useEffect(() => {
       load()
@@ -34,10 +35,10 @@ export function ScriptIndex() {
    if (!scripts) return <div>{t('loading')}</div>
    return (
       <section className='script-index'>
-         <button onClick={() => setIsOpen(true)} className='add-btn btn1'>
+         {user?.isAdmin && <button onClick={() => setIsOpen(true)} className='add-btn btn1'>
             {t('Add Script')}
-         </button>
-         <ScriptList scripts={scripts} onRemove={onRemove} />
+         </button>}
+         <ScriptList scripts={scripts} onRemove={onRemove} user={user} />
          {isOpen && <AddScript setIsOpen={setIsOpen} />}
       </section>
    )

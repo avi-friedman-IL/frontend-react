@@ -47,6 +47,7 @@ export function MsgIndex() {
    }, [])
 
    async function load() {
+      console.log('filterBy:', filterBy)
       try {
          await loadMsgs(filterBy)
          if (!users?.length) await loadUsers()
@@ -145,10 +146,10 @@ export function MsgIndex() {
                <IoMdAdd />
             </span>
          </button>
-         <button className="export-btn btn1" onClick={exportToExcel}>
+        {loggedinUser?.isAdmin && <button className="export-btn btn1" onClick={exportToExcel}>
             {t('Export to Excel')}
             <BsFileEarmarkExcelFill />
-         </button>
+         </button>}
       </section>
    )
 }

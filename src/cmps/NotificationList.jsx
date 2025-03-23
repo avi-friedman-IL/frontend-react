@@ -18,7 +18,7 @@ export function NotificationList({ users, user }) {
       try {
          socketService.emit('user-update', updatedUser)
       } catch (err) {
-         showErrorMsg('Cannot update user')
+         showErrorMsg(t('Cannot update user'))
          console.log('NotificationList: err in onClear', err)
       }
    }
