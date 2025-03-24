@@ -9,7 +9,15 @@ const CLOUD_KEY = '929267318661154'
 const CLOUD_SECRET = 'F488b_zzRLS3Sh2Efrfr-8_oHLI'
 
 async function query(filterBy = {}) {
-  return httpService.get(`msg`, filterBy)
+  if (filterBy.isAdmin) {
+    return httpService.get(`msg`, filterBy)
+  }
+  
+  const userFilter = {
+    ...filterBy,
+    userId: filterBy.userId
+  }
+  return httpService.get(`msg`, userFilter)
 }
 
 function getById(msgId) {

@@ -12,7 +12,11 @@ export const SET_ALL_MSGS = 'SET_ALL_MSGS'
 const initialState = {
    msgs: [],
    allMsgs: [],
-   filterBy: msgService.getDefaultFilter(),
+   filterBy: {
+      txt: '',
+      userId: null,
+      isAdmin: false
+   },
    isLoading: false,
    lastMsg: null,
 }

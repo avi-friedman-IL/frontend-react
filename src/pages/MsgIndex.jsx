@@ -31,8 +31,10 @@ export function MsgIndex() {
    const [isOpenNewMsg, setIsOpenNewMsg] = useState(false)
    const [showMsgId, setShowMsgId] = useState(null)
    useEffect(() => {
-      load()
-   }, [msgs?.length, filterBy])
+      if (loggedinUser) {
+         load()
+      }
+   }, [msgs?.length, filterBy, loggedinUser])
 
    useEffect(() => {
       if (!socketService.isConnected()) socketService.setup()
@@ -47,12 +49,16 @@ export function MsgIndex() {
    }, [])
 
    async function load() {
-      console.log('filterBy:', filterBy)
       try {
-         await loadMsgs(filterBy)
+         const initialFilter = {
+            ...filterBy,
+            userId: loggedinUser._id,
+            isAdmin: loggedinUser.isAdmin
+         }
+         await loadMsgs(initialFilter)
          if (!users?.length) await loadUsers()
-      } catch {
-         console.log('Cannot load')
+      } catch (err) {
+         console.log('Cannot load messages:', err)
       }
    }
 
