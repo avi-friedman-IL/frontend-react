@@ -8,10 +8,9 @@
     grid-template-areas:
         "contacts-index chat-list"
         "contacts-index chat-input";
-
-
-    // background-color: $bg-color-chat;
+        
     background-color: white;
+    background-clip: padding-box;
 
     color: $color-text;
 }

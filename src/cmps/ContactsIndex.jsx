@@ -27,6 +27,8 @@ export function ContactsIndex() {
    const [isOpen, setIsOpen] = useState(false)
    const [isTooltipOpen, setIsTooltipOpen] = useState(false)
    const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 })
+   const [isShowGroups, setIsShowGroups] = useState(false)
+   const [isShowChats, setIsShowChats] = useState(true)
 
    const timeoutRef = useRef(null)
 
@@ -87,7 +89,10 @@ export function ContactsIndex() {
       await updateLoggedUser(updatedUser)
    }
 
-   const isAuthorized = user?.isAdmin || user?.isTeamManager
+   const isAuthorizedGroup =
+      isShowGroups && (user?.isAdmin || user?.isTeamManager)
+   const isAuthorizedChats =
+      isShowChats && (user?.isAdmin || user?.isTeamManager)
    return (
       <section className='contacts-index'>
          {isOpen && (
@@ -98,39 +103,59 @@ export function ContactsIndex() {
                setIsOpen={setIsOpen}
             />
          )}
-         <div className='list-header'>
-            <h3>{t('groups')}</h3>
-            {isAuthorized && <button
-               className='btn2'
-               onClick={() => setIsOpen(true)}
-               onMouseEnter={handleMouseEnter}
-               onMouseLeave={handleMouseLeave}>
-               <RiChatNewLine />
-            </button>}
-            {isTooltipOpen && (
-               <Tooltip position={tooltipPos} text={t('create group')} />
-            )}
-         </div>
-
-         <GroupList
-            groups={user.groups}
-            toGroupId={toGroupId}
-            onGroupPicker={onGroupPicker}
-            userId={user._id}
-            onRemoveGroup={onRemoveGroup}
-         />
-         <div className='list-header'>
-            <h3>{t('chats')}</h3>
-            <button className='btn2'>
-               <RiChatNewLine />
+         <div className='contacts-header'>
+            <button
+               className={`select-btn ${isShowGroups ? 'active' : ''}`}
+               onClick={() => {
+                  setIsShowGroups(true)
+                  setIsShowChats(false)
+               }}>
+               {t('groups')}
+            </button>
+            <button
+               className={`select-btn ${isShowChats ? 'active' : ''}`}
+               onClick={() => {
+                  setIsShowGroups(false)
+                  setIsShowChats(true)
+               }}>
+               {t('chats')}
             </button>
          </div>
-         <ContactsList
-            contacts={users}
-            toUserId={toUserId}
-            userId={user._id}
-            onContactPicker={onContactPicker}
-         />
+            {isAuthorizedGroup && (
+               <button
+                  className='create-btn'
+                  onClick={() => setIsOpen(true)}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}>
+                  {t('create group')}
+                  <RiChatNewLine />
+               </button>
+            )}
+            {/* {isTooltipOpen && (
+               <Tooltip position={tooltipPos} text={t('create group')} />
+            )} */}
+         {isShowGroups && (
+            <GroupList
+               groups={user.groups}
+               toGroupId={toGroupId}
+               onGroupPicker={onGroupPicker}
+               userId={user._id}
+               onRemoveGroup={onRemoveGroup}
+            />
+         )}
+         {/* <div className='list-header'>
+               <button className='create-btn'>
+                  <RiChatNewLine />
+               </button>
+            </div> */}
+         {isShowChats && (
+            <ContactsList
+               contacts={users}
+               toUserId={toUserId}
+               userId={user._id}
+               onContactPicker={onContactPicker}
+            />
+         )}
       </section>
    )
 }

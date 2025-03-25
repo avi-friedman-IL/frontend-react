@@ -15,7 +15,7 @@ export function GroupList({ groups, toGroupId, userId, onGroupPicker, onRemoveGr
                      onClick={() => onGroupPicker(group.id)}>
                      <GroupPreview group={group} userId={userId} />
                      <button
-                        className='btn2'
+                        className=''
                         onClick={ev => {
                            ev.stopPropagation()
                            onRemoveGroup(group.id)

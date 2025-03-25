@@ -12,13 +12,12 @@ export function ChatList({ chats, user, users, onRemove, onUpdate }) {
 
    return (
       <ul className='chat-list'>
-          {chats.length === 0 && (
-            <div className='bg-icon'>
-               <img
-                  src='https://res.cloudinary.com/dcymxvtnd/image/upload/v1737468159/ydamq97cqradrdjgxyn5.png'
-                  alt=''
-               />
-            </div>
+         {chats.length === 0 && (
+            <img
+               className='logo'
+               src='https://res.cloudinary.com/dcymxvtnd/image/upload/v1740566743/phherpui8pthmojx02k1.png'
+               alt='logo'
+            />
          )}
          {chats.map((chat, idx) => (
             <li
@@ -36,23 +35,25 @@ export function ChatList({ chats, user, users, onRemove, onUpdate }) {
                   onUpdate={onUpdate}
                />
                {chat.fromUserId !== user._id && (
-                  // <img
-                  //    className='img-url'
-                  //    src={
-                  //       users.length &&
-                  //       users.find(user => user._id === chat.fromUserId).imgUrl
-                  //    }
-                  //    alt=''
-                  // />
-                  <span className='user-img' style={{ backgroundColor: users.length && users.find(user => user._id === chat.fromUserId).color }}>
+                  <span
+                     className='user-img'
+                     style={{
+                        backgroundColor:
+                           users.length &&
+                           users.find(user => user._id === chat.fromUserId)
+                              .color,
+                     }}>
                      {users.length &&
-                        users.find(user => user._id === chat.fromUserId)
-                           .fullname.split(' ')[0].charAt(0).toUpperCase()}
+                        users
+                           .find(user => user._id === chat.fromUserId)
+                           .fullname.split(' ')[0]
+                           .charAt(0)
+                           .toUpperCase()}
                   </span>
                )}
             </li>
          ))}
-         
+
          <div ref={endOfMessagesRef} />
       </ul>
    )

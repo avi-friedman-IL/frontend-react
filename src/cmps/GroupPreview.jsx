@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { socketService } from '../services/socket.service'
 import { IoIosContacts } from 'react-icons/io'
+import { MdGroup } from 'react-icons/md'
 
 export function GroupPreview({ group, userId }) {
    const { t } = useTranslation()
@@ -42,10 +43,12 @@ export function GroupPreview({ group, userId }) {
    return (
       <>
          {group.imgUrl ? (
-            <img className='img-url' src={group.imgUrl} alt='' />
+            <img className='user-img' src={group.imgUrl} alt='' />
          ) : (
-            <span className='img-url'>
-               <IoIosContacts />
+            <span className='user-img'>
+               {/* <IoIosContacts /> */}
+               {/* <MdGroup /> */}
+               {group.name.charAt(0).toUpperCase()}
             </span>
          )}
          <h4>{group.name}</h4>

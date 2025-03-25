@@ -10,27 +10,20 @@
   justify-items: start;
   align-items: center;
 
-  // padding: 1.5rem;
   border-radius: 4px;
-  background-color: grey;
+  // opacity: 0;
+  transform: translateX(150%); // Changed to translateY for vertical movement
+  transition: transform 600ms;
 
-  color: white;
-  font-size: 0.9em;
-
-  opacity: 0;
-  translate: 150%;
-  transition: 600ms;
-
-  p {
-    // padding: 1rem;
-    font-size: 1.2rem;
-    font-weight: bold;
-  }
+  // p {
+  //   font-size: 2.2rem;
+  //   font-weight: bold;
+  // }
 }
 
 .user-msg.visible {
   opacity: 1;
-  translate: 0;
+  transform: translateX(0); // Changed to translateY for vertical movement
 }
 
 .user-msg button {
@@ -50,13 +43,12 @@
 .user-msg.success {
   padding: 1rem;
   background: linear-gradient(135deg, #2196F3, #64B5F6);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  // border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 128, 0, 0.2);
   color: white;
   font-weight: 600;
   z-index: 1000;
-  transition: background 0.3s ease;
 
   &:hover {
     background: linear-gradient(135deg, #1976D2, #42A5F5);
@@ -72,17 +64,30 @@
 
 .user-msg.respect {
   background: linear-gradient(135deg, #6EE7B7, #3B82F6);
-  // border: 2px solid #2563EB;
   border-radius: 8px;
-  z-index: 1000;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
+  padding: 3rem 1rem;
   text-align: center;
   font-family: 'Arial', sans-serif;
   font-weight: 600;
+  font-size: 2rem;
   color: white;
-  animation: bounce 1s infinite;
+  animation: bounce 2s infinite;
+  z-index: 1000;
   transition: 0.3s ease;
+  // position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '🙏';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 5rem;
+    opacity: 0.2;
+    animation: prayingHandsBackground 2s infinite;
+  }
 
   &::after {
     content: '';
@@ -92,21 +97,33 @@
     transform: translateX(-50%);
     width: 50px;
     height: 50px;
-    background-size: contain;
-    background-repeat: no-repeat;
+    // background-size: contain;
+    // background-repeat: no-repeat;
     animation: prayingHands 1.5s ease-out infinite;
   }
 
   @keyframes bounce {
-
-    0%,
-    100% {
+    0%, 100% {
       transform: translateY(0);
     }
-
     50% {
       transform: translateY(-3px);
     }
+  }
+}
+
+@keyframes prayingHandsBackground {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.2;
   }
 }
 

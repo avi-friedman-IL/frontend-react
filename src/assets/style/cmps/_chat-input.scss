@@ -6,7 +6,7 @@
     display: grid;
     grid-template-columns: max-content 1fr max-content;
     max-width: 100%;
-    background-color: transparent;
+    background-color: #f8f9fa;
     box-shadow: -1px -1px 0px 0px rgba(210, 210, 220, 0.9);
 
     .chat-input-actions {
@@ -20,17 +20,30 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 24px;
-        height: 24px;
+        width: 32px;
+        height: 32px;
         border-radius: 50%;
-        background-color: $gray1;
+        // background-color: $gray1;
         color: white;
-        font-size: 16px;
+        font-size: 18px;
         cursor: pointer;
         border: none;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         
         &:hover {
             background-color: color.scale($gray1, $lightness: -10%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+
+            svg {
+                fill: #f8f9fa;
+                stroke: #f8f9fa;
+            }
+        }
+
+        &:active {
+            transform: translateY(0);
         }
     }
 
@@ -97,17 +110,46 @@
     }
 
     .emoji-btn {
-        display: grid;
+        display: flex;
         align-items: center;
-        height: 100%;
-        padding-inline: 1rem;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        color: white;
+        font-size: 18px;
         cursor: pointer;
+        border: none;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        
+        &:hover {
+            background-color: color.scale($gray1, $lightness: -10%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 
+            svg {
+                fill: #f8f9fa;
+                stroke: #f8f9fa;
+            }
+        }
+
+        &:active {
+            transform: translateY(0);
+        }
         svg {
             display: grid;
             fill: $gray1;
             stroke: $gray1;
+            width: 20px;
+            height: 20px;
+            transition: all 0.2s ease;
         }
+
+        // &:hover svg {
+        //     fill: color.scale($gray1, $lightness: -10%);
+        //     stroke: color.scale($gray1, $lightness: -10%);
+        // }
     }
 
     input {
