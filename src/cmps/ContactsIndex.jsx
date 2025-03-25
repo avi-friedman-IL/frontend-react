@@ -21,6 +21,7 @@ import { socketService } from '../services/socket.service.js'
 export function ContactsIndex() {
    const user = useSelector(state => state.userModule.user)
    const users = useSelector(state => state.userModule.users)
+   const contacts = user.isAdmin || user.isTeamManager ? users : user.contacts
 
    const [toUserId, setToUserId] = useState(null)
    const [toGroupId, setToGroupId] = useState(null)
@@ -99,7 +100,7 @@ export function ContactsIndex() {
             <CreateGroup
                user={user}
                users={users}
-               contacts={users}
+               contacts={contacts}
                setIsOpen={setIsOpen}
             />
          )}
@@ -150,7 +151,7 @@ export function ContactsIndex() {
             </div> */}
          {isShowChats && (
             <ContactsList
-               contacts={users}
+               contacts={contacts}
                toUserId={toUserId}
                userId={user._id}
                onContactPicker={onContactPicker}

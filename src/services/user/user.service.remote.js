@@ -16,7 +16,7 @@ export const userService = {
    saveLoggedinUser,
 }
 
-async function getUsers(filterBy = {}) {
+export async function getUsers(filterBy = {}) {
    return httpService.get(`user`, filterBy)
 }
 
@@ -54,6 +54,13 @@ async function login(userCred) {
 }
 
 async function signup(userCred) {
+   const users = await getUsers()
+   const contacts = users.filter(u => u.isAdmin || u.isTeamManager)
+   const contactsToAdd = contacts.map(c => ({
+      _id: c._id,
+      fullname: c.fullname,
+   }))
+   userCred.contacts = contactsToAdd
    const user = await httpService.post('auth/signup', userCred)
    return saveLoggedinUser(user)
 }
