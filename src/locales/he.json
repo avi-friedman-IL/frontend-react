@@ -181,6 +181,7 @@
    "Item added successfully": "הפריט נוסף בהצלחה",
    "Cannot add item": "לא ניתן להוסיף פריט",
    "Cannot update user": "לא ניתן לעדכן משתמש",
-   "Tips saved successfully": "הטיפים נשמרים בהצלחה",
-   "Cannot save tips": "לא ניתן לשמור טיפים"
+   "Tips saved successfully": "הטיפים נשמרו בהצלחה",
+   "Cannot save tips": "לא ניתן לשמור טיפים",
+   "Title": "כותרת"
 }

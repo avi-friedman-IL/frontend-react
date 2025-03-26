@@ -11,6 +11,15 @@
     height: calc(100vh - 80.36px);
     overflow-y: auto;
     scrollbar-width: none;
+
+    .logo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: logo-spring 2.5s infinite;
+    }
+
     .chat-container,
     .chat-container-from-me {
         display: grid;
@@ -66,5 +75,26 @@
                 right: -4.5rem;
             }
         }
+    }
+}
+
+@keyframes logo-spring {
+    0% {
+        transform: translate(-50%, -50%)
+    }
+
+    20% {
+        transform: translate(-50%, -60%)
+    }
+
+    40% {
+        transform: translate(-50%, -40%)
+    }
+
+    80% {
+        transform: translate(-50%, -50%)
+    }
+    100% {
+        transform: translate(-50%, -50%)
     }
 }

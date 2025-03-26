@@ -5,9 +5,12 @@ import { useParams } from 'react-router'
 import { makeId } from '../services/util.service'
 import { AiFillDelete } from 'react-icons/ai'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service'
+import { MdClose } from 'react-icons/md'
 export function TipsEdit({ setIsEdit, tips }) {
    const params = useParams()
-   const [tipsToEdit, setTipsToEdit] = useState(tips?.length?[...tips]:[{ id: makeId(), text: '' }])
+   const [tipsToEdit, setTipsToEdit] = useState(
+      tips?.length ? [...tips] : [{ id: makeId(), text: '' }]
+   )
 
    function onAddTip(ev) {
       ev.preventDefault()
@@ -76,8 +79,8 @@ export function TipsEdit({ setIsEdit, tips }) {
             <button className='btn1' onClick={onSave}>
                {t('Save')}
             </button>
-            <button className='btn1' onClick={onClose}>
-               {t('Close')}
+            <button type='button' className='close-btn' onClick={onClose}>
+               <MdClose />
             </button>
          </div>
       </form>
