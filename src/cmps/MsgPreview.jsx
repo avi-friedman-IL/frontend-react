@@ -30,60 +30,60 @@ export function MsgPreview({
          minute: '2-digit',
       })
    }
-   async function handleChange(ev) {
-      const { name, type, checked, value } = ev.target
-      const fieldValue = type === 'checkbox' ? checked : value
-
-      const updatedMsg = { ...currMsg, [name]: fieldValue }
+   async function handleCheckboxChange(ev) {
+      const { name, checked } = ev.target
+      const updatedMsg = { ...currMsg, [name]: checked }
       setCurrMsg(updatedMsg)
-      if (type === 'checkbox') setIsCheckedDone(fieldValue)
+      setIsCheckedDone(checked)
       try {
          socketService.emit('msg-update', updatedMsg)
       } catch (err) {
          console.log('Cannot update msg', err)
          showErrorMsg(t('Cannot update msg'))
       }
+      handleUserUpdate(checked)
+   }
+
+   async function handleUserUpdate(checked) {
       const userToUpdate = users.find(user => user._id === msg.from)
       let updatedUser
-
-      if (name === 'isDone' && userToUpdate) {
-         if (!fieldValue) {
-            updatedUser = {
-               ...userToUpdate,
-               notifications:
-                  userToUpdate?.notifications?.filter(
-                     notification => notification.msgId !== msg._id
-                  ) || [],
-            }
-         } else {
-            updatedUser = {
-               ...userToUpdate,
-               notifications: userToUpdate?.notifications
-                  ? [
-                       ...userToUpdate.notifications,
-                       {
-                          msgId: msg._id,
-                          id: makeId(),
-                          subject: msg.subject,
-                          text: `בקשתך בנושא נענתה`,
-                       },
-                    ]
-                  : [
-                       {
-                          msgId: msg._id,
-                          id: makeId(),
-                          subject: msg.subject,
-                          text: `בקשתך בנושא נענתה`,
-                       },
-                    ],
-            }
+      if (!userToUpdate) return
+      if (!checked) {
+         updatedUser = {
+            ...userToUpdate,
+            notifications:
+               userToUpdate?.notifications?.filter(
+                  notification => notification.msgId !== msg._id
+               ) || [],
          }
-         try {
-            socketService.emit('user-update', updatedUser)
-         } catch (err) {
-            console.log('Cannot update user', err)
-            showErrorMsg(t('Cannot update user'))
+      } else {
+         updatedUser = {
+            ...userToUpdate,
+            notifications: userToUpdate?.notifications
+               ? [
+                    ...userToUpdate.notifications,
+                    {
+                       msgId: msg._id,
+                       id: makeId(),
+                       subject: msg.subject,
+                       text: `בקשתך בנושא נענתה`,
+                    },
+                 ]
+               : [
+                    {
+                       msgId: msg._id,
+                       id: makeId(),
+                       subject: msg.subject,
+                       text: `בקשתך בנושא נענתה`,
+                    },
+                 ],
          }
+      }
+      try {
+         socketService.emit('user-update', updatedUser)
+      } catch (err) {
+         console.log('Cannot update user', err)
+         showErrorMsg(t('Cannot update user'))
       }
    }
 
@@ -100,8 +100,7 @@ export function MsgPreview({
                id={msg._id}
                name='isDone'
                checked={isCheckedDone}
-               onChange={handleChange}
-               // onInput={handleChange}
+               onChange={handleCheckboxChange}
                onClick={ev => ev.stopPropagation()}
             />
             {isCheckedDone ? (
