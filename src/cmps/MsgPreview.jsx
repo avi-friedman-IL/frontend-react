@@ -46,7 +46,7 @@ export function MsgPreview({
       const userToUpdate = users.find(user => user._id === msg.from)
       let updatedUser
 
-      if (name === 'isDone') {
+      if (name === 'isDone' && userToUpdate) {
          if (!fieldValue) {
             updatedUser = {
                ...userToUpdate,
