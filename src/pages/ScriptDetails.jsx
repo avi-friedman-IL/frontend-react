@@ -51,8 +51,7 @@ export function ScriptDetails() {
       setIsTooltipOpen(false)
    }
 
-   if (!script) return <div className='loading'>Loading...</div>
-   //  return <div className='loading'>{t('Loading...')}</div>
+   if (!script) return <div className='loading'>{t('Loading...')}</div>
    return (
       <section className='script-details'>
          {isTooltipOpen && <Tooltip text={tooltipText} position={tooltipPos} />}
