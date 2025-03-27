@@ -29,8 +29,6 @@ input:focus {
     position: absolute;
     top: 0%;
     left: 0%;
-    // transform: translate(-50%, -50%);
-    // z-index: -1;
 }
 
 .btn1 {
@@ -146,7 +144,6 @@ input:focus {
 }
 
 .add-btn {
-    // margin-block-end: 1rem;
     padding: 0.75rem 1.5rem;
     border-radius: 8px;
     background: linear-gradient(135deg, #4F46E5, #7C3AED);
@@ -326,8 +323,6 @@ input:focus {
         }
     }
 
-
-
     .form-btn {
         width: 100%;
         padding: 0.75rem;
@@ -341,36 +336,17 @@ input:focus {
     }
 }
 
-.form3{
-    
+.form3 {
+
     textarea {
         width: 100%;
         resize: none;
         border-radius: 8px;
         padding: .5rem;
-        
+
         font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
-        // &:hover {
-            
-        //     // position: fixed;
-        //     // top: 50%;
-        //     // left: 50%;
-        //     // transform: translate(-50%,-50%);
-        //     font-size: 2rem;
-        //     width: 60vw;
-        //     height: 60vh;
-        //     outline: none;
-        //     border-color: $pink;
-        // }
-        
         &:focus {
-            // transition: all .5s ease-in-out;
-            
-            // position: fixed;
-            // top: 50%;
-            // left: 50%;
-            // transform: translate(-50%,-50%);
             border-radius: 8px;
             font-size: 2rem;
             width: 60vw;
@@ -381,7 +357,37 @@ input:focus {
     }
 }
 
+.loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 80px;
+    height: 80px;
+    color: white;
 
+    &::after {
+        content: " ";
+        display: block;
+        border-radius: 50%;
+        width: 0;
+        height: 0;
+        margin: 8px;
+        box-sizing: border-box;
+        border: 32px solid $pink;
+        border-color: $pink transparent $pink transparent;
+        animation: loading 1.2s infinite;
+    }
+}
+
+@keyframes loading {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
 
 .grid {
     display: grid;

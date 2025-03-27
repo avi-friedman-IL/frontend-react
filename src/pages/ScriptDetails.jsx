@@ -51,12 +51,13 @@ export function ScriptDetails() {
       setIsTooltipOpen(false)
    }
 
-   if (!script) return <div>Loading...</div>
+   if (!script) return <div className='loading'>Loading...</div>
+   //  return <div className='loading'>{t('Loading...')}</div>
    return (
       <section className='script-details'>
          {isTooltipOpen && <Tooltip text={tooltipText} position={tooltipPos} />}
          <TipsIndex />
-         
+
          <ul className='items'>
             {script.items.map(item => (
                <li
@@ -68,12 +69,14 @@ export function ScriptDetails() {
                      <h2 style={{ fontSize: `${fontSize * 2}px` }}>
                         {t(item.title)}
                      </h2>
-                     {user?.isAdmin && <button
-                        className='btn3'
-                        onClick={() => setOpenItemId(item.id)}>
-                        <span>{t('Edit')}</span>
-                        <AiOutlineEdit />
-                     </button>}
+                     {user?.isAdmin && (
+                        <button
+                           className='btn3'
+                           onClick={() => setOpenItemId(item.id)}>
+                           <span>{t('Edit')}</span>
+                           <AiOutlineEdit />
+                        </button>
+                     )}
                   </div>
                   {openItemId !== item.id && (
                      <p
