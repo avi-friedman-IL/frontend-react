@@ -21,7 +21,10 @@ import { socketService } from '../services/socket.service.js'
 export function ContactsIndex() {
    const user = useSelector(state => state.userModule.user)
    const users = useSelector(state => state.userModule.users)
-   const contacts = user.isAdmin || user.isTeamManager ? users : user.contacts
+   const contacts =
+      user.isAdmin || user.isTeamManager
+         ? users
+         : users.filter(u => u.isAdmin || u.isTeamManager)
 
    const [toUserId, setToUserId] = useState(null)
    const [toGroupId, setToGroupId] = useState(null)
@@ -122,19 +125,17 @@ export function ContactsIndex() {
                {t('chats')}
             </button>
          </div>
-            {isAuthorizedGroup && (
-               <button
-                  className='create-btn'
-                  onClick={() => setIsOpen(true)}
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}>
-                  {t('create group')}
-                  <RiChatNewLine />
-               </button>
-            )}
-            {/* {isTooltipOpen && (
-               <Tooltip position={tooltipPos} text={t('create group')} />
-            )} */}
+         {isAuthorizedGroup && (
+            <button
+               className='create-btn'
+               onClick={() => setIsOpen(true)}
+               onMouseEnter={handleMouseEnter}
+               onMouseLeave={handleMouseLeave}>
+               {t('create group')}
+               <RiChatNewLine />
+            </button>
+         )}
+
          {isShowGroups && (
             <GroupList
                groups={user.groups}
@@ -144,11 +145,7 @@ export function ContactsIndex() {
                onRemoveGroup={onRemoveGroup}
             />
          )}
-         {/* <div className='list-header'>
-               <button className='create-btn'>
-                  <RiChatNewLine />
-               </button>
-            </div> */}
+
          {isShowChats && (
             <ContactsList
                contacts={contacts}
