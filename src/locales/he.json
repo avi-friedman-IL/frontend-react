@@ -184,5 +184,8 @@
    "Tips saved successfully": "הטיפים נשמרו בהצלחה",
    "Cannot save tips": "לא ניתן לשמור טיפים",
    "Title": "כותרת",
-   "Loading...": "טוען..."
+   "Loading...": "טוען...",
+   "back": "חזרה",
+   "Msg sent": "הודעה נשלחה",
+   "Select category": "בחר קטגוריה"
 }

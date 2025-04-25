@@ -20,6 +20,7 @@ import { IoMdAdd } from 'react-icons/io'
 import * as XLSX from 'xlsx'
 import { saveAs } from 'file-saver'
 import { BsFileEarmarkExcelFill } from 'react-icons/bs'
+import { TemplateIndex } from '../cmps/TemplateIndex.jsx'
 
 export function MsgIndex() {
    const dispatch = useDispatch()
@@ -30,6 +31,7 @@ export function MsgIndex() {
 
    const [isOpenNewMsg, setIsOpenNewMsg] = useState(false)
    const [showMsgId, setShowMsgId] = useState(null)
+   const [isShowTemplate, setIsShowTemplate] = useState(false)
    useEffect(() => {
       if (loggedinUser) {
          load()
@@ -130,6 +132,10 @@ export function MsgIndex() {
       <section className='msg-index grid'>
          <MsgFilter msgs={msgs} />
          <MsgSidebar />
+         {isShowTemplate && (
+            <TemplateIndex setIsShowTemplate={setIsShowTemplate}
+            />
+         )}
          {isOpenNewMsg && (
             <NewMsg
                users={users}
@@ -146,7 +152,7 @@ export function MsgIndex() {
             setShowMsgId={setShowMsgId}
             loggedinUser={loggedinUser}
          />
-         <button className='add-btn btn1' onClick={() => setIsOpenNewMsg(true)}>
+         <button className='add-btn btn1' onClick={() => setIsShowTemplate(true)}>
             {t('New Message')}
             <span>
                <IoMdAdd />

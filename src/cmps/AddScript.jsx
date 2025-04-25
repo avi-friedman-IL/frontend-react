@@ -33,7 +33,7 @@ export function AddScript({ setIsOpen }) {
 
    return (
       // <section className='add-script'>
-      <form className='form2 form3' onSubmit={onSaveScript}>
+      <form className='form3' onSubmit={onSaveScript}>
          <textarea
             name='title'
             value={script.title}
