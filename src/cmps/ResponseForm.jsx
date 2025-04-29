@@ -14,6 +14,7 @@ export function ResponseForm({
    const [response, setResponse] = useState({
       id: makeId(),
       from: loggedInUser?._id,
+      fromName: loggedInUser?.fullname,
       to: msg.from === loggedInUser?._id ? msg.to : msg.from,
       content: '',
       createdAt: Date.now(),
@@ -27,7 +28,10 @@ export function ResponseForm({
       ev.preventDefault()
       ev.stopPropagation()
 
-      const updatedMsg = { ...msg, responses: [...msg.responses, response] }
+      const updatedMsg = {
+         ...msg,
+         responses: msg.responses ? [...msg.responses, response] : [response],
+      }
       socketService.emit('msg-update', updatedMsg)
       setIsOpenResponse(false)
    }
@@ -46,6 +50,7 @@ export function ResponseForm({
             </button>
             <button
                className='btn1'
+               type='button'
                onClick={ev => {
                   ev.stopPropagation()
                   setIsOpenResponse(false)

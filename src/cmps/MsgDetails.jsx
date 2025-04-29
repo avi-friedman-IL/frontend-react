@@ -1,6 +1,7 @@
 import { t } from 'i18next'
 import { ResponseForm } from './ResponseForm'
 import { getDayOrDate } from '../services/util.service'
+import { MdOutlineReply } from 'react-icons/md'
 
 export function MsgDetails({
    msg,
@@ -24,14 +25,35 @@ export function MsgDetails({
    )
    const from = users.find(user => user._id === msg.from)?.fullname || 'Unknown'
    return (
-      <div className={`msg-details ${showMsgId === msg._id ? 'open' : ''}`}>
-         {msgFieldsToShow.map(key => (
-            <p key={key}>
-               {t(key)}: {msg[key]}
-            </p>
-         ))}
+      <div
+         className={`msg-details-container ${
+            showMsgId === msg._id ? 'open' : ''
+         }`}>
+         <div className='msg-details'>
+            {msgFieldsToShow.map(key => (
+               <p key={key}>
+                  {t(key)}: {msg[key]}
+               </p>
+            ))}
+         </div>
 
-         {/* <div className='msg-details-btns'>
+         {msg.responses?.length > 0 && (
+            <div className='msg-details-responses-container grid gap-1'>
+               {msg.responses.map(response => (
+                  <div className='msg-details-response grid gap-5' key={response.id}>
+                     <h3>{t('response')}:</h3>
+                     <p>
+                        {t('from')}:{response.fromName}
+                     </p>
+                     <p className='color-pink'>
+                        {response.content}
+                     </p>
+                  </div>
+               ))}
+            </div>
+         )}
+
+         <div className='msg-details-btns'>
             <button
                className='response-btn btn2'
                onClick={ev => {
@@ -39,8 +61,9 @@ export function MsgDetails({
                   setIsOpenResponse(true)
                }}>
                {t('Response')}
+               <MdOutlineReply />
             </button>
-         </div> */}
+         </div>
          {isOpenResponse && (
             <ResponseForm
                setIsOpenResponse={setIsOpenResponse}

@@ -161,7 +161,7 @@
         }
     }
 
-    .msg-details {
+    .msg-details-container {
         display: none;
         grid-column: 1 / -1;
         gap: 1.5rem;
@@ -171,6 +171,10 @@
         border-radius: 8px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 
+        .msg-details {
+            display: grid;
+            gap: .5rem;
+        }
         &.open {
             display: grid;
         }
