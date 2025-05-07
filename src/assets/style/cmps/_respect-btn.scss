@@ -2,7 +2,6 @@
     position: fixed;
     bottom: 2rem;
     right: 5.1rem;
-    // z-index: 10000000000;
     z-index: 1;
 
     display: grid;
@@ -20,10 +19,10 @@
         }
     }
 
-
-
     .respect-form {
-        display: none;
+        position: fixed;
+        bottom: 5rem;
+        display: grid;
         justify-items: center;
         align-items: center;
         gap: 1rem;
@@ -40,17 +39,17 @@
         box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
 
         z-index: -1;
-        // transition: all ease-in-out .2s;
         opacity: 0;
-        // transform: translateX(100%);
+        transform: translateY(20px);
+        transition: all 0.3s ease-in-out;
+
         visibility: hidden;
-        animation: formAppear 0.3s ease-in-out;
+
         &.open {
-            display: grid;
-            opacity: 1;
-            transform: translateX(0);
             visibility: visible;
             z-index: 1;
+            opacity: 1;
+            transform: translateY(0);
         }
 
         input {
@@ -78,8 +77,5 @@
                 width: 100%;
             }
         }
-
     }
-
-
 }
