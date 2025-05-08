@@ -47,6 +47,9 @@ export function ContactsIndex() {
             { toUserId: null, toGroupId: toGroupId, fromUserId: user._id } || {}
          )
       load()
+      return () => {
+         setFilter({ toUserId: null, toGroupId: null, fromUserId: user._id })
+      }
    }, [toUserId, toGroupId])
 
    async function load() {

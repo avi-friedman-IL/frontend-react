@@ -130,6 +130,7 @@ export function ChatIndex() {
             users={users}
             onRemove={onRemove}
             onUpdate={onUpdate}
+            filterBy={filterBy}
          />
          <ContactsIndex />
          <ChatInput

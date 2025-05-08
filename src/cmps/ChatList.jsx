@@ -1,15 +1,16 @@
 import { useEffect, useRef } from 'react'
 import { ChatPreview } from './ChatPreview'
 
-export function ChatList({ chats, user, users, onRemove, onUpdate }) {
+export function ChatList({ chats, user, users, onRemove, onUpdate, filterBy }) {
    const endOfMessagesRef = useRef(null)
 
    useEffect(() => {
       if (endOfMessagesRef.current) {
          endOfMessagesRef.current.scrollIntoView({ behavior: 'smooth' })
       }
-   }, [chats])
+   }, [chats.length])
 
+   if (!filterBy?.toUserId && !filterBy?.toGroupId) return
    return (
       <ul className='chat-list'>
          {chats.length === 0 && (
