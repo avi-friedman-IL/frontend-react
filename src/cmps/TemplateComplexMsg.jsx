@@ -63,6 +63,11 @@ export function TemplateComplexMsg({
          </select>
          {status && (
             <div className='fields'>
+               <input type='text' name='phone'
+                  placeholder={t('Phone number')}
+                  value={msg.phone || ''}
+                  onChange={handleChange}
+               />
                {fields.length > 0 &&
                   fields.map(field => (
                      <div key={field.id}>
