@@ -63,9 +63,16 @@ export function TemplateComplexMsg({
          </select>
          {status && (
             <div className='fields'>
+               <label htmlFor='phone'>{t('Phone number')}</label>
                <input type='text' name='phone'
                   placeholder={t('Phone number')}
                   value={msg.phone || ''}
+                  onChange={handleChange}
+               />
+               <label htmlFor='collection'>{t('collection name')}</label>
+               <input type='text' name='collection'
+                  placeholder={t('collection name')}
+                  value={msg.collection || ''}
                   onChange={handleChange}
                />
                {fields.length > 0 &&
