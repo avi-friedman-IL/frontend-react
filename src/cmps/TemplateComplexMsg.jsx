@@ -52,8 +52,8 @@ export function TemplateComplexMsg({
    }, [status])
 
    return (
-      <section className='template-complex-msg grid gap-1'>
-         <select onChange={handleChangeStatus} value={template.status}>
+      <form className='template-complex-msg grid gap-1' onSubmit={onSend}>
+         <select onChange={handleChangeStatus} value={template.status} required>
             <option value=''>{t('Select category')}</option>
             {template.statuses.map(status => (
                <option key={status.name} value={status.name}>
@@ -68,12 +68,14 @@ export function TemplateComplexMsg({
                   placeholder={t('Phone number')}
                   value={msg.phone || ''}
                   onChange={handleChange}
+                  required
                />
                <label htmlFor='collection'>{t('collection name')}</label>
                <input type='text' name='collection'
                   placeholder={t('collection name')}
                   value={msg.collection || ''}
                   onChange={handleChange}
+                  required
                />
                {fields.length > 0 &&
                   fields.map(field => (
@@ -86,6 +88,7 @@ export function TemplateComplexMsg({
                               placeholder={field.label}
                               value={msg[field.name] || ''}
                               onChange={handleChange}
+                              required={field.required}
                            />
                         ) : (
                            <input
@@ -95,15 +98,16 @@ export function TemplateComplexMsg({
                               placeholder={field.label}
                               value={msg[field.name] || ''}
                               onChange={handleChange}
+                              required={field.required}
                            />
                         )}
                      </div>
                   ))}
             </div>
          )}
-         <button title={t('Send')} className='form-btn' onClick={onSend}>
+         <button title={t('Send')} className='form-btn' type='submit'>
             {t('Send')}
          </button>
-      </section>
+      </form>
    )
 }

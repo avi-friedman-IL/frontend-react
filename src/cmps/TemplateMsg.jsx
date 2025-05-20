@@ -12,7 +12,8 @@ export function TemplateMsg({ template, setTemplate, setIsShowTemplate }) {
       const { name, value } = e.target
       setMsg({ ...msg, [name]: value })
    }
-   async function onSend() {
+   async function onSend(e) {
+      e.preventDefault()
       try {
          const newMsg = {
             ...msg,
@@ -24,7 +25,7 @@ export function TemplateMsg({ template, setTemplate, setIsShowTemplate }) {
          }
          socketService.emit('msg-add', newMsg)
          showSuccessMsg(t('Msg sent'))
-         setTemplate(null)
+         // setTemplate(null)
          setIsShowTemplate(false)
       } catch (err) {
          console.log('err:', err)
@@ -43,7 +44,7 @@ export function TemplateMsg({ template, setTemplate, setIsShowTemplate }) {
    }
 
    return (
-      <div className='template-msg grid gap-1'>
+      <form className='template-msg grid gap-1' onSubmit={onSend}>
          {template.fields.map(field => (
             <div key={field.id}>
                <label htmlFor={field.id}>{field.label}</label>
@@ -54,6 +55,7 @@ export function TemplateMsg({ template, setTemplate, setIsShowTemplate }) {
                      placeholder={field.label}
                      value={msg[field.name] || ''}
                      onChange={handleChange}
+                     required={field.required}
                   />
                ) : (
                   <input
@@ -63,13 +65,14 @@ export function TemplateMsg({ template, setTemplate, setIsShowTemplate }) {
                      placeholder={field.label}
                      value={msg[field.name] || ''}
                      onChange={handleChange}
+                     required={field.required}
                   />
                )}
             </div>
          ))}
-         <button title={t('Send')} className='form-btn' onClick={onSend}>
+         <button title={t('Send')} className='form-btn' type='submit'>
             {t('Send')}
          </button>
-      </div>
+      </form>
    )
 }
