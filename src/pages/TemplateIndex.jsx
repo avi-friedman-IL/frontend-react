@@ -1,18 +1,23 @@
 import { useSelector } from 'react-redux'
-import { loadTemplates } from '../store/actions/template.actions.js'
-import { TemplateList } from './TemplateList.jsx'
-import { IoMdClose } from 'react-icons/io'
+import {
+   loadTemplates,
+   removeTemplate,
+} from '../store/actions/template.actions.js'
+
 import { useEffect, useState } from 'react'
-import { TemplateMsg } from './TemplateMsg.jsx'
 import { t } from 'i18next'
-export function TemplateIndex({ setIsShowTemplate }) {
+import { Link } from 'react-router-dom'
+import { TemplateList } from '../cmps/TemplateList.jsx'
+import { TemplateMsg } from '../cmps/TemplateMsg.jsx'
+export function TemplateIndex() {
+   const user = useSelector(state => state.userModule.user)
    const templates = useSelector(state => state.templateModule.templates)
    const [template, setTemplate] = useState(null)
    const [selectedTemplateId, setSelectedTemplateId] = useState(null)
 
    useEffect(() => {
       loadCmp()
-   }, [templates?.length])
+   }, [])
 
    useEffect(() => {
       if (selectedTemplateId) {
@@ -29,31 +34,45 @@ export function TemplateIndex({ setIsShowTemplate }) {
          console.log('err', err)
       }
    }
+
+   async function deleteTemplate(ev, templateId) {
+      ev.stopPropagation()
+      const isConfirmed = window.confirm(t('Are you sure you want to delete this template?'))
+      if (!isConfirmed) return
+      try {
+         await removeTemplate(templateId)
+      } catch (err) {
+         console.log('err', err)
+      }
+   }
+
    if (!templates?.length) return <div className='loading'>Loading...</div>
    return (
-      <section className='template-index form2'>
+      <section className='template-index'>
+         {user?.isAdmin && <Link to='/template/edit' className='btn1'>
+            {t('Add template')}
+         </Link>}
          {!template && (
             <TemplateList
+               user={user}
                templates={templates}
-               setIsShowTemplate={setIsShowTemplate}
                setSelectedTemplateId={setSelectedTemplateId}
+               deleteTemplate={deleteTemplate}
             />
          )}
          {template && (
             <button
                className='btn1'
                onClick={() => {
-                  setIsShowTemplate(true)
                   setSelectedTemplateId(null)
                   setTemplate(null)
                }}>
                {t('back')}
             </button>
          )}
-         {template && <TemplateMsg template={template} setTemplate={setTemplate} setIsShowTemplate={setIsShowTemplate} />}
-         <button className='close-btn' onClick={() => setIsShowTemplate(false)}>
-            <IoMdClose />
-         </button>
+         {template && (
+            <TemplateMsg template={template} setTemplate={setTemplate} />
+         )}
       </section>
    )
 }

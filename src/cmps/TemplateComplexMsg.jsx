@@ -3,13 +3,15 @@ import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { socketService } from '../services/socket.service'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service'
+import { useNavigate } from 'react-router'
 
 
 export function TemplateComplexMsg({
    template,
    setTemplate,
-   setIsShowTemplate,
+   // setIsShowTemplate,
 }) {
+   const navigate = useNavigate()
    const user = useSelector(storeState => storeState.userModule.user)
    const [status, setStatus] = useState(null)
    const [fields, setFields] = useState([])
@@ -35,7 +37,8 @@ export function TemplateComplexMsg({
          socketService.emit('msg-add', newMsg)
          showSuccessMsg(t('Msg sent'))
          setTemplate(null)
-         setIsShowTemplate(false)
+         navigate('/msg')
+         // setIsShowTemplate(false)
       } catch (err) {
          console.log('err:', err)
          showErrorMsg(t('Cannot add msg'))
@@ -52,8 +55,8 @@ export function TemplateComplexMsg({
    }, [status])
 
    return (
-      <form className='template-complex-msg grid gap-1' onSubmit={onSend}>
-         <select onChange={handleChangeStatus} value={template.status} required>
+      <form className='template-complex-msg grid gap-1 form2' onSubmit={onSend}>
+         <select className='select' onChange={handleChangeStatus} value={template.status} required>
             <option value=''>{t('Select category')}</option>
             {template.statuses.map(status => (
                <option key={status.name} value={status.name}>
@@ -63,15 +66,15 @@ export function TemplateComplexMsg({
          </select>
          {status && (
             <div className='fields'>
-               <label htmlFor='phone'>{t('Phone number')}</label>
-               <input type='text' name='phone'
+               <label className='label' htmlFor='phone'>{t('Phone number')}</label>
+               <input className='input' type='text' name='phone'
                   placeholder={t('Phone number')}
                   value={msg.phone || ''}
                   onChange={handleChange}
                   required
                />
-               <label htmlFor='collection'>{t('collection name')}</label>
-               <input type='text' name='collection'
+               <label className='label' htmlFor='collection'>{t('collection name')}</label>
+               <input className='input' type='text' name='collection'
                   placeholder={t('collection name')}
                   value={msg.collection || ''}
                   onChange={handleChange}
@@ -80,9 +83,10 @@ export function TemplateComplexMsg({
                {fields.length > 0 &&
                   fields.map(field => (
                      <div key={field.id}>
-                        <label htmlFor={field.id}>{field.label}</label>
+                        <label className='label' htmlFor={field.id}>{field.label}</label>
                         {field.type === 'textarea' ? (
                            <textarea
+                              className='textarea'
                               id={field.id}
                               name={field.name}
                               placeholder={field.label}
@@ -92,6 +96,7 @@ export function TemplateComplexMsg({
                            />
                         ) : (
                            <input
+                              className='input'
                               type={field.type}
                               id={field.id}
                               name={field.name}

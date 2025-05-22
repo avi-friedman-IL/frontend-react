@@ -191,5 +191,19 @@
    "from": "מאת",
    "response": "תשובה",
    "Phone number": "מספר טלפון",
-   "collection name": "שם המגבית"
+   "collection name": "שם המגבית",
+   "label": "תיאור",
+   "required": "נדרש",
+   "type": "סוג",
+   "text": "טקסט",
+   "number": "מספר",
+   "textarea": "טקסט רחב",
+   "select type of field": "בחר סוג שדה",
+   "fields": "שדות",
+   "Required field": "שדה חובה",
+   "Not required field": "שדה לא חובה",
+   "Remove field": "הסר שדה",
+   "Add field": "הוסף שדה",
+   "Are you sure you want to delete this template?": "אתה בטוח שאתה רוצה למחוק את התבנית הזו?",
+   "Are you sure you want to delete this script?": "אתה בטוח שאתה רוצה למחוק את התסריט הזה?"
 }

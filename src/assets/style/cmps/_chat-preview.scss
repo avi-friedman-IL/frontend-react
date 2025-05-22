@@ -9,6 +9,8 @@
     position: relative;
 
     width: max-content;
+    max-width: 300px;
+    overflow-wrap: break-word;
     padding: .5rem;
     padding-inline: 1rem;
     border-radius: 0 .5rem .5rem .5rem;

@@ -20,7 +20,7 @@ import { IoMdAdd } from 'react-icons/io'
 import * as XLSX from 'xlsx'
 import { saveAs } from 'file-saver'
 import { BsFileEarmarkExcelFill } from 'react-icons/bs'
-import { TemplateIndex } from '../cmps/TemplateIndex.jsx'
+import { Link } from 'react-router-dom'
 
 export function MsgIndex() {
    const dispatch = useDispatch()
@@ -55,7 +55,7 @@ export function MsgIndex() {
          const initialFilter = {
             ...filterBy,
             userId: loggedinUser._id,
-            isAdmin: loggedinUser.isAdmin
+            isAdmin: loggedinUser.isAdmin,
          }
          await loadMsgs(initialFilter)
          if (!users?.length) await loadUsers()
@@ -98,10 +98,10 @@ export function MsgIndex() {
 
    function exportToExcel() {
       // הכנת הנתונים לקובץ Excel
-      const dataToExport = msgs.map((msg) => ({
+      const dataToExport = msgs.map(msg => ({
          נושא: msg.subject,
          סטטוס: msg.status,
-         מאת: users.find((user) => user._id === msg.from)?.fullname || 'לא ידוע',
+         מאת: users.find(user => user._id === msg.from)?.fullname || 'לא ידוע',
          תאריך: new Date(msg.createdAt).toLocaleString(),
          [t('collection')]: msg.collection,
          [t('phone')]: msg.phone,
@@ -111,20 +111,22 @@ export function MsgIndex() {
          [t('problem')]: msg.problem,
          [t('comment')]: msg.comment,
          [t('note')]: msg.note,
-         
-         
+
          // הוסף כאן עוד שדות לפי הצורך
-      }));
+      }))
 
       // יצירת גיליון עבודה
-      const worksheet = XLSX.utils.json_to_sheet(dataToExport);
-      const workbook = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(workbook, worksheet, 'Messages');
+      const worksheet = XLSX.utils.json_to_sheet(dataToExport)
+      const workbook = XLSX.utils.book_new()
+      XLSX.utils.book_append_sheet(workbook, worksheet, 'Messages')
 
       // יצירת קובץ Excel והורדה
-      const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-      const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
-      saveAs(blob, `Messages-${new Date().toLocaleDateString()}.xlsx`);
+      const excelBuffer = XLSX.write(workbook, {
+         bookType: 'xlsx',
+         type: 'array',
+      })
+      const blob = new Blob([excelBuffer], { type: 'application/octet-stream' })
+      saveAs(blob, `Messages-${new Date().toLocaleDateString()}.xlsx`)
    }
 
    if (!msgs) return <div>Loading...</div>
@@ -132,17 +134,19 @@ export function MsgIndex() {
       <section className='msg-index grid'>
          <MsgFilter msgs={msgs} />
          <MsgSidebar />
-         {isShowTemplate && (
-            <TemplateIndex setIsShowTemplate={setIsShowTemplate}
-            />
-         )}
-         {isOpenNewMsg && (
+         {/* {isShowTemplate && (
+            <TemplateIndex setIsShowTemplate={setIsShowTemplate} />
+         )} */}
+         <Link className='add-btn btn1' to='/template'>
+            {t('New Message')}
+         </Link>
+         {/* {isOpenNewMsg && (
             <NewMsg
                users={users}
                setIsOpenNewMsg={setIsOpenNewMsg}
                loggedinUser={loggedinUser}
             />
-         )}
+         )} */}
          <MsgList
             msgs={msgs}
             users={users}
@@ -152,16 +156,20 @@ export function MsgIndex() {
             setShowMsgId={setShowMsgId}
             loggedinUser={loggedinUser}
          />
-         <button className='add-btn btn1' onClick={() => setIsShowTemplate(true)}>
+         {/* <button
+            className='add-btn btn1'
+            onClick={() => setIsShowTemplate(true)}>
             {t('New Message')}
             <span>
                <IoMdAdd />
             </span>
-         </button>
-        {loggedinUser?.isAdmin && <button className="export-btn btn1" onClick={exportToExcel}>
-            {t('Export to Excel')}
-            <BsFileEarmarkExcelFill />
-         </button>}
+         </button> */}
+         {loggedinUser?.isAdmin && (
+            <button className='export-btn btn1' onClick={exportToExcel}>
+               {t('Export to Excel')}
+               <BsFileEarmarkExcelFill />
+            </button>
+         )}
       </section>
    )
 }

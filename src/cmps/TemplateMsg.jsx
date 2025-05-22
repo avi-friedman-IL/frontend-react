@@ -4,9 +4,15 @@ import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service'
 import { TemplateComplexMsg } from './TemplateComplexMsg.jsx'
 import { t } from 'i18next'
 import { useSelector } from 'react-redux'
-export function TemplateMsg({ template, setTemplate, setIsShowTemplate }) {
+import { useNavigate } from 'react-router'
+export function TemplateMsg({
+   template,
+   setTemplate,
+   // setIsShowTemplate
+}) {
    const [msg, setMsg] = useState({})
    const user = useSelector(storeState => storeState.userModule.user)
+   const navigate = useNavigate()
 
    function handleChange(e) {
       const { name, value } = e.target
@@ -25,8 +31,9 @@ export function TemplateMsg({ template, setTemplate, setIsShowTemplate }) {
          }
          socketService.emit('msg-add', newMsg)
          showSuccessMsg(t('Msg sent'))
+         navigate('/msg')
          // setTemplate(null)
-         setIsShowTemplate(false)
+         // setIsShowTemplate(false)
       } catch (err) {
          console.log('err:', err)
          showErrorMsg(t('Cannot add msg'))
@@ -38,18 +45,21 @@ export function TemplateMsg({ template, setTemplate, setIsShowTemplate }) {
          <TemplateComplexMsg
             template={template}
             setTemplate={setTemplate}
-            setIsShowTemplate={setIsShowTemplate}
+            // setIsShowTemplate={setIsShowTemplate}
          />
       )
    }
 
    return (
-      <form className='template-msg grid gap-1' onSubmit={onSend}>
+      <form className='template-msg grid gap-1 form2' onSubmit={onSend}>
          {template.fields.map(field => (
             <div key={field.id}>
-               <label htmlFor={field.id}>{field.label}</label>
+               <label className='label' htmlFor={field.id}>
+                  {field.label}
+               </label>
                {field.type === 'textarea' ? (
                   <textarea
+                     className='textarea'
                      id={field.id}
                      name={field.name}
                      placeholder={field.label}
@@ -59,6 +69,7 @@ export function TemplateMsg({ template, setTemplate, setIsShowTemplate }) {
                   />
                ) : (
                   <input
+                     className='input'
                      type={field.type}
                      id={field.id}
                      name={field.name}

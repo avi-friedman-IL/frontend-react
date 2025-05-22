@@ -1,13 +1,17 @@
+import { t } from "i18next";
+
 export function TemplatePreview({
    template,
-   setIsShowTemplate,
    setSelectedTemplateId,
+   deleteTemplate,
+   user,
 }) {
    return (
       <section
-         className='template-preview card'
+         className='template-preview'
          onClick={() => setSelectedTemplateId(template._id)}>
          <h1>{template.title}</h1>
+         {user?.isAdmin && <button className="form-btn" onClick={(ev) => deleteTemplate(ev, template._id)}>{t('Delete')}</button>}
       </section>
    )
 }

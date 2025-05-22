@@ -17,6 +17,9 @@
 @use 'pages/tips-index';
 @use 'pages/msg-index';
 @use 'pages/user-index';
+@use 'pages/template-index';
+@use 'pages/template-edit';
+
 
 
 
@@ -63,6 +66,7 @@
 @use 'cmps/edit-user';
 @use 'cmps/user-preview';
 @use 'cmps/permissions-edit';
-@use 'cmps/user-list'
-
+@use 'cmps/user-list';
+@use 'cmps/template-list';
+@use 'cmps/template-preview';
 

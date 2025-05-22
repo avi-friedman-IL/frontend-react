@@ -10,7 +10,7 @@ import { MembersIndex } from './pages/MembersIndex'
 import { UserMsg } from './cmps/UserMsg'
 import { ChatIndex } from './pages/ChatIndex'
 import { ObjectionIndex } from './pages/ObjectionIndex'
-
+import { TemplateEdit } from './pages/TemplateEdit.jsx'
 import './assets/style/main.scss'
 import { ObjectionDetails } from './pages/ObjectionDetails.jsx'
 import { ScriptIndex } from './pages/ScriptIndex.jsx'
@@ -18,6 +18,7 @@ import { ScriptDetails } from './pages/ScriptDetails.jsx'
 import { MsgIndex } from './pages/MsgIndex.jsx'
 import { UserIndex } from './pages/UserIndex.jsx'
 import { RespectBtn } from './cmps/RespectBtn.jsx'
+import { TemplateIndex } from './pages/TemplateIndex.jsx'
 export function RootCmp() {
 
    return (
@@ -43,6 +44,8 @@ export function RootCmp() {
                <Route path='/msg' element={<MsgIndex />} />
                <Route path='/members' element={<MembersIndex />} />
                <Route path='/users' element={<UserIndex />} />
+               <Route path='/template' element={<TemplateIndex />} />
+               <Route path='/template/edit' element={<TemplateEdit />} />
             </Routes>
          </main>
       </Provider>
