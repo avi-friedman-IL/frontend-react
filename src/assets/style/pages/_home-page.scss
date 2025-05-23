@@ -3,6 +3,7 @@
 .home-page {
     position: relative;
     display: grid;
+    grid-template-rows: 15vh 1fr 15vh;
     height: 100vh;
     padding: 1rem;
 
@@ -80,10 +81,11 @@
     }
 
     .home-nav {
+        grid-row: 2;
         display: grid;
         justify-content: center;
         align-items: center;
-        grid-template-columns: repeat(3, 400px);
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 2rem;
 
         padding: 1rem;
@@ -95,9 +97,12 @@
 
         a {
             display: grid;
+            align-content: center;
+            justify-items: center;
             gap: 1rem;
 
-            height: max-content;
+            // height: max-content;
+            height: 100%;
             padding: 2rem;
             border-radius: 1.8rem;
             font-size: 2.5rem;
