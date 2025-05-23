@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { scriptService } from '../services/script'
-import { updateScript } from '../store/actions/script.actions'
+import { addScript, updateScript } from '../store/actions/script.actions'
 import { t } from 'i18next'
 import { MdClose } from 'react-icons/md'
 
@@ -25,15 +25,14 @@ export function AddScript({ setIsOpen }) {
       if (!script.title) return
       setIsOpen(false)
       try {
-         await updateScript(script)
+         await addScript(script)
       } catch (err) {
          console.log('Cannot save script', err)
       }
    }
 
    return (
-      // <section className='add-script'>
-      <form className='form3' onSubmit={onSaveScript}>
+      <form className='add-script-form form3' onSubmit={onSaveScript}>
          <textarea
             name='title'
             value={script.title}

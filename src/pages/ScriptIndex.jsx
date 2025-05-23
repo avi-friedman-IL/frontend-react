@@ -13,7 +13,7 @@ export function ScriptIndex() {
 
    useEffect(() => {
       load()
-   }, [scripts?.length])
+   }, [])
 
    async function load() {
       try {
@@ -25,6 +25,8 @@ export function ScriptIndex() {
 
    async function onRemove(ev, scriptId) {
       ev.stopPropagation()
+      const isConfirmed = window.confirm(t('Are you sure you want to delete this script?'))
+      if (!isConfirmed) return
       try {
          await removeScript(scriptId)
       } catch (err) {
