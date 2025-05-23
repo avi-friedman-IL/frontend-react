@@ -100,7 +100,7 @@ export function TemplateEdit() {
             onChange={handleChange}
          />
 
-         <h2>{t('fields')}</h2>
+         <h2>{t('fields')}:</h2>
          <div className='fields'>
             {template.fields.map(field => (
                <div key={field.id} className='field grid gap-1'>

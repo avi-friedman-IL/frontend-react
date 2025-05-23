@@ -1,10 +1,11 @@
 .template-preview {
+    position: relative;
     display: grid;
     gap: 1rem;
     align-items: center;
 
     height: 100%;
-    padding: 1rem;
+    padding: 3rem;
     background: #f2f6fc;
     color: #A8A8BD;
     cursor: pointer;
@@ -12,5 +13,15 @@
     margin: 0.5rem 0;
     text-align: center;
     font-size: 1.5rem;
+    transition: transform 0.3s ease-in-out;
+    .delete-btn {
+        position: absolute;
+        top: .3rem;
+        left: .3rem;
+    }
+
+    &:hover {
+        transform: scale(.95);
+    }
 }
 

@@ -11,7 +11,7 @@ export function TemplatePreview({
          className='template-preview'
          onClick={() => setSelectedTemplateId(template._id)}>
          <h1>{template.title}</h1>
-         {user?.isAdmin && <button className="form-btn" onClick={(ev) => deleteTemplate(ev, template._id)}>{t('Delete')}</button>}
+         {user?.isAdmin && <button className="delete-btn btn1" onClick={(ev) => deleteTemplate(ev, template._id)}>{t('Delete')}</button>}
       </section>
    )
 }
