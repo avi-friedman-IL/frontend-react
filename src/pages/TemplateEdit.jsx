@@ -47,7 +47,7 @@ export function TemplateEdit() {
          setTemplate({
             ...template,
             fields: template.fields.map(f =>
-               f.id === id ? { ...f, [field]: value } : f
+               f.id === id ? { ...f, [field]: value, label: f.name } : f
             ),
          })
       } else {
@@ -57,13 +57,8 @@ export function TemplateEdit() {
 
    async function handleSubmit(ev) {
       ev.preventDefault()
-      console.log('template', template)
-      const templateToSave = {
-         ...template,
-         name: template.title,
-      }
       try {
-         await addTemplate(templateToSave)
+         await addTemplate(template)
          navigate(-1)
       } catch (err) {
          console.log('err', err)
@@ -112,8 +107,8 @@ export function TemplateEdit() {
                         id={field.id}
                         type='text'
                         placeholder={t('label')}
-                        name='label'
-                        value={field.label}
+                        name='name'
+                        value={field.name}
                         onChange={handleChange}
                      />
                   </label>
