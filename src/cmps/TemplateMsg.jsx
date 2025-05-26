@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router'
 export function TemplateMsg({
    template,
    setTemplate,
-   // setIsShowTemplate
 }) {
    const [msg, setMsg] = useState({})
    const user = useSelector(storeState => storeState.userModule.user)
@@ -32,8 +31,6 @@ export function TemplateMsg({
          socketService.emit('msg-add', newMsg)
          showSuccessMsg(t('Msg sent'))
          navigate('/msg')
-         // setTemplate(null)
-         // setIsShowTemplate(false)
       } catch (err) {
          console.log('err:', err)
          showErrorMsg(t('Cannot add msg'))
@@ -45,7 +42,6 @@ export function TemplateMsg({
          <TemplateComplexMsg
             template={template}
             setTemplate={setTemplate}
-            // setIsShowTemplate={setIsShowTemplate}
          />
       )
    }
