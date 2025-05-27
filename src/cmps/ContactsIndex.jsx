@@ -1,11 +1,7 @@
 import { useSelector } from 'react-redux'
 import { ContactsList } from './ContactsList'
-import { useEffect, useRef, useState } from 'react'
-import {
-   loadAllChats,
-   loadChats,
-   setFilter,
-} from '../store/actions/chat.actions'
+import { useEffect, useState } from 'react'
+import { setFilter } from '../store/actions/chat.actions'
 import {
    loadUsers,
    updateLoggedUser,
@@ -15,12 +11,12 @@ import { CreateGroup } from './CreateGroup.jsx'
 import { GroupList } from './GroupList.jsx'
 import { t } from 'i18next'
 import { RiChatNewLine } from 'react-icons/ri'
-import { Tooltip } from './Tooltip.jsx'
 import { socketService } from '../services/socket.service.js'
 
 export function ContactsIndex() {
    const user = useSelector(state => state.userModule.user)
    const users = useSelector(state => state.userModule.users)
+   const filterBy = useSelector(state => state.chatModule.filterBy)
    const contacts =
       user.isAdmin || user.isTeamManager
          ? users
@@ -29,48 +25,32 @@ export function ContactsIndex() {
    const [toUserId, setToUserId] = useState(null)
    const [toGroupId, setToGroupId] = useState(null)
    const [isOpen, setIsOpen] = useState(false)
-   const [isTooltipOpen, setIsTooltipOpen] = useState(false)
-   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 })
    const [isShowGroups, setIsShowGroups] = useState(false)
    const [isShowChats, setIsShowChats] = useState(true)
-
-   const timeoutRef = useRef(null)
 
    useEffect(() => {
       toUserId &&
          setFilter(
-            { toUserId: toUserId, toGroupId: null, fromUserId: user._id } || {}
+            {
+               toUserId: toUserId,
+               toGroupId: null,
+               fromUserId: user._id,
+            } || {}
          )
 
       toGroupId &&
          setFilter(
-            { toUserId: null, toGroupId: toGroupId, fromUserId: user._id } || {}
+            {
+               toUserId: null,
+               toGroupId: toGroupId,
+               fromUserId: user._id,
+            } || {}
          )
-      load()
-      return () => {
-         setFilter({ toUserId: null, toGroupId: null, fromUserId: user._id })
-      }
    }, [toUserId, toGroupId])
 
-   async function load() {
-      try {
-         if (!users.length) await loadUsers()
-      } catch (err) {
-         console.log('Cannot load users', err)
-      }
-   }
-
-   function handleMouseEnter(ev) {
-      timeoutRef.current = setTimeout(() => {
-         setIsTooltipOpen(true)
-      }, 500)
-      setTooltipPos({ x: ev.pageX + 10, y: ev.pageY + 10 })
-   }
-
-   function handleMouseLeave() {
-      clearTimeout(timeoutRef.current)
-      setIsTooltipOpen(false)
-   }
+   useEffect(() => {
+      loadUsers()
+   }, [])
 
    function onGroupPicker(groupId) {
       setToUserId(null)
@@ -129,11 +109,7 @@ export function ContactsIndex() {
             </button>
          </div>
          {isAuthorizedGroup && (
-            <button
-               className='create-btn'
-               onClick={() => setIsOpen(true)}
-               onMouseEnter={handleMouseEnter}
-               onMouseLeave={handleMouseLeave}>
+            <button className='create-btn' onClick={() => setIsOpen(true)}>
                {t('create group')}
                <RiChatNewLine />
             </button>
@@ -152,7 +128,8 @@ export function ContactsIndex() {
          {isShowChats && (
             <ContactsList
                contacts={contacts}
-               toUserId={toUserId}
+               // toUserId={toUserId}
+               toUserId={filterBy.toUserId}
                userId={user._id}
                onContactPicker={onContactPicker}
             />
