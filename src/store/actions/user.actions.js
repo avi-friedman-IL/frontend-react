@@ -16,7 +16,6 @@ import {
 import { socketService } from '../../services/socket.service'
 
 export async function loadUsers(filterBy = {}) {
-   console.log('filterBy', filterBy)
    try {
       // store.dispatch({ type: LOADING_START })
       const users = await userService.getUsers(filterBy)
