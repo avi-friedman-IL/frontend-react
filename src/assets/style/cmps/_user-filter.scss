@@ -1,0 +1,24 @@
+.user-filter {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 1rem;
+
+    padding: 1rem;
+    background-color: #f8f9fa;
+
+    .input {
+        width: 100%;
+        padding: 1rem;
+        border: 1px solid #ced4da;
+        &::placeholder {
+            color: #6c757d;        }
+    }
+
+    &.contacts {
+        padding: .5rem;
+
+        .input {
+            grid-column: 1/3;
+        }
+    }
+}
