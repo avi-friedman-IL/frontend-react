@@ -20,7 +20,7 @@ export function ContactsIndex() {
    const users = useSelector(state => state.userModule.users)
    const chatFilter = useSelector(state => state.chatModule.filterBy)
    const userFilter = useSelector(state => state.userModule.filterBy)
- 
+
    const [toUserId, setToUserId] = useState(null)
    const [toGroupId, setToGroupId] = useState(null)
    const [isOpen, setIsOpen] = useState(false)
