@@ -56,6 +56,7 @@ export function userReducer(state = initialState, action) {
             users: state.users.map(user =>
                user._id === action.user._id ? action.user : user
             ),
+            user: state.user._id === action.user._id ? action.user : state.user
          }
          break
       case SET_USERS:
