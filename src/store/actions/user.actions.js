@@ -7,7 +7,7 @@ import { showErrorMsg } from '../../services/event-bus.service'
 import {
    ADD_USER,
    REMOVE_USER,
-   SET_FILTER,
+   SET_USER_FILTER,
    SET_USER,
    SET_USERS,
    SET_WATCHED_USER,
@@ -16,6 +16,7 @@ import {
 import { socketService } from '../../services/socket.service'
 
 export async function loadUsers(filterBy = {}) {
+   console.log('filterBy', filterBy)
    try {
       // store.dispatch({ type: LOADING_START })
       const users = await userService.getUsers(filterBy)
@@ -134,8 +135,8 @@ export async function loadUser(userId) {
    }
 }
 
-export async function setFilter(filterBy) {
-   store.dispatch({ type: SET_FILTER, filterBy })
+export async function setUserFilter(filterBy) {
+   return store.dispatch({ type: SET_USER_FILTER, filterBy })
 }
 
 export function reconnectSocketIfUserExists() {

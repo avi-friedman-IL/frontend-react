@@ -50,7 +50,7 @@ export function UserIndex() {
    }, [users?.length, filterBy])
    return (
       <section className='user-index'>
-         <UserFilter setIsOpenAddUser={setIsOpenAddUser} />
+         <UserFilter setIsOpenAddUser={setIsOpenAddUser} cmp='users' />
          <UserList
             users={users}
             onRemoveUser={onRemoveUser}

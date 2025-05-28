@@ -1,14 +1,16 @@
 import { t } from 'i18next'
 import { useSelector } from 'react-redux'
-import { setFilter } from '../store/actions/user.actions'
+import { setUserFilter } from '../store/actions/user.actions'
 import { useCallback } from 'react'
 import { debounce } from 'lodash'
-export function UserFilter({ setIsOpenAddUser }) {
+import { useParams } from 'react-router-dom'
+export function UserFilter({ setIsOpenAddUser, cmp }) {
+   const params = useParams()
    const filterBy = useSelector(store => store.userModule.filterBy)
 
    const debouncedSetFilter = useCallback(
       debounce(filterBy => {
-         setFilter(filterBy)
+         setUserFilter(filterBy)
       }, 500),
       []
    )
@@ -17,20 +19,25 @@ export function UserFilter({ setIsOpenAddUser }) {
       if (name === 'text') {
          debouncedSetFilter({ ...filterBy, [name]: value })
       } else {
-         setFilter({ ...filterBy, [name]: value })
+         setUserFilter({ ...filterBy, [name]: value })
       }
    }
    return (
-      <div className='user-filter grid-col align-center gap-1'>
-         <button className='add-btn' onClick={() => setIsOpenAddUser(true)}>
-            {t('Add user')}
-         </button>
+      <div
+         className={`user-filter ${cmp === 'contacts' ? 'contacts' : 'pad-1'}`}>
+         {cmp === 'users' && (
+            <button className='add-btn' onClick={() => setIsOpenAddUser(true)}>
+               {t('Add user')}
+            </button>
+         )}
+
          <input
-            className='search-input pad-1'
+            className='input pad-1'
             onChange={handleChange}
             name='text'
             type='text'
             placeholder={t('Search by name')}
+            autoFocus
             // value={filterBy.text || ''}
          />
       </div>

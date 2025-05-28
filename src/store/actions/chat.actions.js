@@ -5,7 +5,7 @@ import {
    REMOVE_CHAT,
    SET_CHAT,
    UPDATE_CHAT,
-   SET_FILTER,
+   SET_CHAT_FILTER,
    SET_LOADING,
    SET_ALL_CHATS,
 } from '../reducers/chat.reducer'
@@ -72,8 +72,8 @@ export async function updateChat(chat) {
    }
 }
 
-export async function setFilter(filterBy) {
-   store.dispatch({ type: SET_FILTER, filterBy })
+export async function setChatFilter(filterBy) {
+   return store.dispatch({ type: SET_CHAT_FILTER, filterBy })
 }
 
 // Command Creators:

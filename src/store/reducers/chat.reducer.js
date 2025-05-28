@@ -5,7 +5,7 @@ export const SET_CHAT = 'SET_CHAT'
 export const REMOVE_CHAT = 'REMOVE_CHAT'
 export const ADD_CHAT = 'ADD_CHAT'
 export const UPDATE_CHAT = 'UPDATE_CHAT'
-export const SET_FILTER = 'SET_FILTER'
+export const SET_CHAT_FILTER = 'SET_CHAT_FILTER'
 export const SET_LOADING = 'SET_LOADING'
 export const SET_ALL_CHATS = 'SET_ALL_CHATS'
 
@@ -40,7 +40,7 @@ export function chatReducer(state = initialState, action) {
          )
          newState = { ...state, chats }
          break
-      case SET_FILTER:
+      case SET_CHAT_FILTER:
          newState = { ...state, filterBy: action.filterBy }
          break
       case SET_LOADING:

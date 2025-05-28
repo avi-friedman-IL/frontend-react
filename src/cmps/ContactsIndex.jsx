@@ -1,7 +1,8 @@
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { ContactsList } from './ContactsList'
 import { useEffect, useState } from 'react'
-import { setFilter } from '../store/actions/chat.actions'
+import { setChatFilter } from '../store/actions/chat.actions'
+import { setUserFilter } from '../store/actions/user.actions'
 import {
    loadUsers,
    updateLoggedUser,
@@ -12,11 +13,14 @@ import { GroupList } from './GroupList.jsx'
 import { t } from 'i18next'
 import { RiChatNewLine } from 'react-icons/ri'
 import { socketService } from '../services/socket.service.js'
-
+import { UserFilter } from './UserFilter.jsx'
 export function ContactsIndex() {
    const user = useSelector(state => state.userModule.user)
    const users = useSelector(state => state.userModule.users)
-   const filterBy = useSelector(state => state.chatModule.filterBy)
+   const chatFilter = useSelector(state => state.chatModule.filterBy)
+   const userFilter = useSelector(state => state.userModule.filterBy)
+   console.log('chatFilter', chatFilter)
+   console.log('userFilter', userFilter)
    const contacts =
       user.isAdmin || user.isTeamManager
          ? users
@@ -29,28 +33,28 @@ export function ContactsIndex() {
    const [isShowChats, setIsShowChats] = useState(true)
 
    useEffect(() => {
-      toUserId &&
-         setFilter(
-            {
-               toUserId: toUserId,
-               toGroupId: null,
-               fromUserId: user._id,
-            } || {}
-         )
-
-      toGroupId &&
-         setFilter(
-            {
-               toUserId: null,
-               toGroupId: toGroupId,
-               fromUserId: user._id,
-            } || {}
-         )
-   }, [toUserId, toGroupId])
+      const filter = { isAdmin: user.isAdmin, text: userFilter.text }
+      setUserFilter(filter)
+      loadUsers(filter)
+   }, [userFilter.text])
 
    useEffect(() => {
-      loadUsers()
-   }, [])
+      if (toUserId) {
+         setChatFilter({
+            toUserId: toUserId,
+            toGroupId: null,
+            fromUserId: user._id,
+         })
+      }
+
+      if (toGroupId) {
+         setChatFilter({
+            toUserId: null,
+            toGroupId: toGroupId,
+            fromUserId: user._id,
+         })
+      }
+   }, [toUserId, toGroupId])
 
    function onGroupPicker(groupId) {
       setToUserId(null)
@@ -108,6 +112,7 @@ export function ContactsIndex() {
                {t('chats')}
             </button>
          </div>
+         {isShowChats && <UserFilter cmp='contacts' />}
          {isAuthorizedGroup && (
             <button className='create-btn' onClick={() => setIsOpen(true)}>
                {t('create group')}
@@ -127,9 +132,9 @@ export function ContactsIndex() {
 
          {isShowChats && (
             <ContactsList
-               contacts={contacts}
+               contacts={users}
                // toUserId={toUserId}
-               toUserId={filterBy.toUserId}
+               toUserId={chatFilter.toUserId}
                userId={user._id}
                onContactPicker={onContactPicker}
             />
