@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { ContactsList } from './ContactsList'
 import { useEffect, useState } from 'react'
 import { setChatFilter } from '../store/actions/chat.actions'
@@ -14,18 +14,13 @@ import { t } from 'i18next'
 import { RiChatNewLine } from 'react-icons/ri'
 import { socketService } from '../services/socket.service.js'
 import { UserFilter } from './UserFilter.jsx'
+
 export function ContactsIndex() {
    const user = useSelector(state => state.userModule.user)
    const users = useSelector(state => state.userModule.users)
    const chatFilter = useSelector(state => state.chatModule.filterBy)
    const userFilter = useSelector(state => state.userModule.filterBy)
-   console.log('chatFilter', chatFilter)
-   console.log('userFilter', userFilter)
-   const contacts =
-      user.isAdmin || user.isTeamManager
-         ? users
-         : users.filter(u => u.isAdmin || u.isTeamManager)
-
+ 
    const [toUserId, setToUserId] = useState(null)
    const [toGroupId, setToGroupId] = useState(null)
    const [isOpen, setIsOpen] = useState(false)
@@ -74,7 +69,6 @@ export function ContactsIndex() {
    }
 
    async function onRemoveGroup(groupId) {
-      const group = user.groups.find(group => group._id === groupId)
       const updatedGroups = user.groups.filter(group => group.id !== groupId)
       const updatedUser = { ...user, groups: updatedGroups }
       await updateLoggedUser(updatedUser)
@@ -90,7 +84,7 @@ export function ContactsIndex() {
             <CreateGroup
                user={user}
                users={users}
-               contacts={contacts}
+               contacts={users}
                setIsOpen={setIsOpen}
             />
          )}
@@ -123,7 +117,7 @@ export function ContactsIndex() {
          {isShowGroups && (
             <GroupList
                groups={user.groups}
-               toGroupId={toGroupId}
+               toGroupId={chatFilter.toGroupId}
                onGroupPicker={onGroupPicker}
                userId={user._id}
                onRemoveGroup={onRemoveGroup}
@@ -133,7 +127,6 @@ export function ContactsIndex() {
          {isShowChats && (
             <ContactsList
                contacts={users}
-               // toUserId={toUserId}
                toUserId={chatFilter.toUserId}
                userId={user._id}
                onContactPicker={onContactPicker}
