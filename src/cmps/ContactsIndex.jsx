@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { ContactsList } from './ContactsList'
 import { useEffect, useState } from 'react'
 import { setChatFilter } from '../store/actions/chat.actions'
@@ -16,6 +16,7 @@ import { socketService } from '../services/socket.service.js'
 import { UserFilter } from './UserFilter.jsx'
 
 export function ContactsIndex() {
+   const dispatch = useDispatch()
    const user = useSelector(state => state.userModule.user)
    const users = useSelector(state => state.userModule.users)
    const chatFilter = useSelector(state => state.chatModule.filterBy)
@@ -26,6 +27,7 @@ export function ContactsIndex() {
    const [isOpen, setIsOpen] = useState(false)
    const [isShowGroups, setIsShowGroups] = useState(false)
    const [isShowChats, setIsShowChats] = useState(true)
+   const [groupsToShow, setGroupsToShow] = useState(null)
 
    useEffect(() => {
       const filter = { isAdmin: user.isAdmin, text: userFilter.text }
@@ -51,6 +53,20 @@ export function ContactsIndex() {
       }
    }, [toUserId, toGroupId])
 
+   useEffect(() => {
+      getGroupsToShow()
+   }, [users])
+
+   useEffect(() => {
+      socketService.on('user-update', updatedUser => {
+         dispatch({ type: 'UPDATE_USER', user: updatedUser })
+      })
+
+      return () => {
+         socketService.off('user-update')
+      }
+   }, [])
+
    function onGroupPicker(groupId) {
       setToUserId(null)
       setToGroupId(groupId)
@@ -71,7 +87,22 @@ export function ContactsIndex() {
    async function onRemoveGroup(groupId) {
       const updatedGroups = user.groups.filter(group => group.id !== groupId)
       const updatedUser = { ...user, groups: updatedGroups }
-      await updateLoggedUser(updatedUser)
+      try {
+         await updateLoggedUser(updatedUser)
+         socketService.emit('user-update', updatedUser)
+      } catch (err) {
+         console.log('Cannot remove group', err)
+      }
+   }
+
+   function getGroupsToShow() {
+      const usersWithGroups = users.filter(user => user.groups?.length > 0)
+      const groups = usersWithGroups.map(user => user.groups).flat()
+      const groupsToWatch = groups.filter(group =>
+         group.members.map(member => member._id).includes(user._id)
+      )
+      setGroupsToShow(groupsToWatch)
+      return groupsToWatch
    }
 
    const isAuthorizedGroup =
@@ -116,7 +147,8 @@ export function ContactsIndex() {
 
          {isShowGroups && (
             <GroupList
-               groups={user.groups}
+               // groups={user.groups}
+               groups={user.groups?.length ? user.groups : groupsToShow}
                toGroupId={chatFilter.toGroupId}
                onGroupPicker={onGroupPicker}
                userId={user._id}

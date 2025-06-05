@@ -52,31 +52,18 @@ export function CreateGroup({ user, users, contacts, setIsOpen }) {
    async function onSave() {
       if (!group.name) return
       setIsOpen(false)
-      const loggedUser = { ...user }
       const updatedUser = {
-         ...loggedUser,
-         groups: loggedUser?.groups?.length
-            ? [...loggedUser.groups, group]
+         ...user,
+         groups: user?.groups?.length
+            ? [...user.groups, group]
             : [group],
       }
-
-      users.forEach(async currUser => {
-         if (group.members.some(member => member._id === currUser._id)) {
-            currUser.groups = currUser?.groups?.length
-               ? [...currUser.groups, group]
-               : [group]
-            const updatedUser = { ...currUser, groups: currUser.groups }
-            await updateUser(updatedUser)
-            socketService.emit('updateLoggedUser', updatedUser)
-         }
-      })
-
       try {
          await updateLoggedUser(updatedUser)
+         socketService.emit('user-update', updatedUser)
       } catch (err) {
          console.log('Cannot create group', err)
       }
-
    }
 
    return (

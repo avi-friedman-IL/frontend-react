@@ -156,7 +156,7 @@ export function ChatInput({ toUserId, toGroupId, user }) {
       }
    }
 
-   if (!toUserId && !toGroupId) return
+   if (!toUserId && !toGroupId || toGroupId && !user.groups?.length) return
    return (
       <div className='chat-input'>
          <div className='chat-input-actions'>
