@@ -1,7 +1,15 @@
-import { RiCloseLine } from 'react-icons/ri'
+import { FaTrash } from 'react-icons/fa'
 import { GroupPreview } from './GroupPreview.jsx'
+import { t } from 'i18next'
 
-export function GroupList({ groups, toGroupId, userId, onGroupPicker, onRemoveGroup }) {
+export function GroupList({
+   groups,
+   toGroupId,
+   userId,
+   onGroupPicker,
+   onRemoveGroup,
+   user,
+}) {
    return (
       <>
          <ul className='contacts-list'>
@@ -14,14 +22,16 @@ export function GroupList({ groups, toGroupId, userId, onGroupPicker, onRemoveGr
                      key={idx}
                      onClick={() => onGroupPicker(group.id)}>
                      <GroupPreview group={group} userId={userId} />
-                     <button
-                        className=''
-                        onClick={ev => {
-                           ev.stopPropagation()
-                           onRemoveGroup(group.id)
-                        }}>
-                        <RiCloseLine />
-                     </button>
+                     {user.groups?.length > 0 && (
+                        <button
+                           className='delete-btn'
+                           onClick={ev => {
+                              ev.stopPropagation()
+                              onRemoveGroup(group.id)
+                           }}>
+                           {t('Delete')}
+                        </button>
+                     )}
                   </li>
                ))}
          </ul>

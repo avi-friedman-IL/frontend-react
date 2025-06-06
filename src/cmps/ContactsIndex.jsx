@@ -85,6 +85,7 @@ export function ContactsIndex() {
    }
 
    async function onRemoveGroup(groupId) {
+      if (!user.groups?.length) return
       const updatedGroups = user.groups.filter(group => group.id !== groupId)
       const updatedUser = { ...user, groups: updatedGroups }
       try {
@@ -151,6 +152,7 @@ export function ContactsIndex() {
                groups={user.groups?.length ? user.groups : groupsToShow}
                toGroupId={chatFilter.toGroupId}
                onGroupPicker={onGroupPicker}
+               user={user}
                userId={user._id}
                onRemoveGroup={onRemoveGroup}
             />
