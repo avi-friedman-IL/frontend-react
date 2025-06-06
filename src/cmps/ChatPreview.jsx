@@ -55,20 +55,21 @@ export function ChatPreview({ chat, user, users, onRemove, onUpdate }) {
                         />
                      </a>
                      <div className='file-actions'>
-                        <a
+                        {/* <a
                            href={chat.file.url}
                            className='view-btn'
                            target='_blank'
                            rel='noopener noreferrer'>
                            <MdVisibility /> הצג
-                        </a>
+                        </a> */}
                         <a
                            href={chat.file.downloadUrl || getDownloadUrl(chat.file.url)}
                            className='download-btn'
                            download={chat.file.name}
                            target='_blank'
                            rel='noopener noreferrer'>
-                           <FiDownload /> הורד
+                           {/* <FiDownload /> */}
+                           הורד
                         </a>
                      </div>
                   </div>
@@ -91,7 +92,8 @@ export function ChatPreview({ chat, user, users, onRemove, onUpdate }) {
                            download={chat.file.name}
                            target='_blank'
                            rel='noopener noreferrer'>
-                           <FiDownload /> הורד
+                           {/* <FiDownload /> */}
+                            הורד
                         </a>
                      </div>
                   </div>
@@ -101,20 +103,21 @@ export function ChatPreview({ chat, user, users, onRemove, onUpdate }) {
                         {chat.file.name} ({chat.file.size ? (chat.file.size / 1024).toFixed(2) : '0'} KB)
                      </div>
                      <div className='file-actions'>
-                        <a
+                        {/* <a
                            href={chat.file.viewUrl || chat.file.url}
                            className='view-btn'
                            target='_blank'
                            rel='noopener noreferrer'>
                            <MdVisibility /> הצג
-                        </a>
+                        </a> */}
                         <a
                            href={chat.file.downloadUrl || getDownloadUrl(chat.file.url)}
                            className='download-btn'
                            download={chat.file.name}
                            target='_blank'
                            rel='noopener noreferrer'>
-                           <FiDownload /> הורד
+                           {/* <FiDownload />  */}
+                           הורד
                         </a>
                      </div>
                   </div>
