@@ -1,13 +1,7 @@
 import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
-import {
-   addMsg,
-   loadMsgs,
-   removeMsg,
-   updateMsg,
-} from '../store/actions/msg.actions.js'
+import { loadMsgs, removeMsg } from '../store/actions/msg.actions.js'
 import { MsgList } from '../cmps/MsgList.jsx'
-import { NewMsg } from '../cmps/NewMsg.jsx'
 import { MsgSidebar } from '../cmps/MsgSidebar.jsx'
 import { MsgFilter } from '../cmps/MsgFilter.jsx'
 import { loadUsers } from '../store/actions/user.actions.js'
@@ -16,7 +10,6 @@ import { useDispatch } from 'react-redux'
 import { ADD_MSG, UPDATE_MSG } from '../store/reducers/msg.reducer.js'
 import { t } from 'i18next'
 import { UPDATE_USER } from '../store/reducers/user.reducer.js'
-import { IoMdAdd } from 'react-icons/io'
 import * as XLSX from 'xlsx'
 import { saveAs } from 'file-saver'
 import { BsFileEarmarkExcelFill } from 'react-icons/bs'
@@ -29,14 +22,12 @@ export function MsgIndex() {
    const loggedinUser = useSelector(state => state.userModule.user)
    const filterBy = useSelector(state => state.msgModule.filterBy)
 
-   const [isOpenNewMsg, setIsOpenNewMsg] = useState(false)
    const [showMsgId, setShowMsgId] = useState(null)
-   const [isShowTemplate, setIsShowTemplate] = useState(false)
    useEffect(() => {
       if (loggedinUser) {
          load()
       }
-   }, [msgs?.length, filterBy, loggedinUser])
+   }, [filterBy, loggedinUser])
 
    useEffect(() => {
       if (!socketService.isConnected()) socketService.setup()
@@ -98,22 +89,15 @@ export function MsgIndex() {
 
    function exportToExcel() {
       // הכנת הנתונים לקובץ Excel
-      const dataToExport = msgs.map(msg => ({
-         נושא: msg.subject,
-         סטטוס: msg.status,
-         מאת: users.find(user => user._id === msg.from)?.fullname || 'לא ידוע',
-         תאריך: new Date(msg.createdAt).toLocaleString(),
-         [t('collection')]: msg.collection,
-         [t('phone')]: msg.phone,
-         [t('nowName')]: msg.nowName,
-         [t('realName')]: msg.realName,
-         [t('realPhone')]: msg.realPhone,
-         [t('problem')]: msg.problem,
-         [t('comment')]: msg.comment,
-         [t('note')]: msg.note,
-
-         // הוסף כאן עוד שדות לפי הצורך
-      }))
+      const dataToExport = msgs.map(msg => {
+         const msgToExport = {
+            ...msg,
+            createdAt: new Date(msg.createdAt).toLocaleString(),
+            _id: null,
+            from: null
+         }
+         return msgToExport
+      })
 
       // יצירת גיליון עבודה
       const worksheet = XLSX.utils.json_to_sheet(dataToExport)
@@ -134,19 +118,11 @@ export function MsgIndex() {
       <section className='msg-index grid'>
          <MsgFilter msgs={msgs} />
          <MsgSidebar />
-         {/* {isShowTemplate && (
-            <TemplateIndex setIsShowTemplate={setIsShowTemplate} />
-         )} */}
+
          <Link className='add-btn btn1' to='/template'>
             {t('New Message')}
          </Link>
-         {/* {isOpenNewMsg && (
-            <NewMsg
-               users={users}
-               setIsOpenNewMsg={setIsOpenNewMsg}
-               loggedinUser={loggedinUser}
-            />
-         )} */}
+
          <MsgList
             msgs={msgs}
             users={users}
@@ -156,14 +132,7 @@ export function MsgIndex() {
             setShowMsgId={setShowMsgId}
             loggedinUser={loggedinUser}
          />
-         {/* <button
-            className='add-btn btn1'
-            onClick={() => setIsShowTemplate(true)}>
-            {t('New Message')}
-            <span>
-               <IoMdAdd />
-            </span>
-         </button> */}
+
          {loggedinUser?.isAdmin && (
             <button className='export-btn btn1' onClick={exportToExcel}>
                {t('Export to Excel')}
