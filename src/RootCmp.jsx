@@ -1,12 +1,9 @@
 import { Provider } from 'react-redux'
 import { Route, Routes } from 'react-router'
-import { useEffect } from 'react'
 
-import { useTranslation } from 'react-i18next'
 import { store } from './store/store'
 import { HomePage } from './pages/HomePage'
 import { AppHeader } from './cmps/AppHeader'
-import { MembersIndex } from './pages/MembersIndex'
 import { UserMsg } from './cmps/UserMsg'
 import { ChatIndex } from './pages/ChatIndex'
 import { ObjectionIndex } from './pages/ObjectionIndex'
@@ -42,7 +39,6 @@ export function RootCmp() {
                <Route path='/script/details/:id' element={<ScriptDetails />} />
                <Route path='/chat' element={<ChatIndex />} />
                <Route path='/msg' element={<MsgIndex />} />
-               <Route path='/members' element={<MembersIndex />} />
                <Route path='/users' element={<UserIndex />} />
                <Route path='/template' element={<TemplateIndex />} />
                <Route path='/template/edit' element={<TemplateEdit />} />
