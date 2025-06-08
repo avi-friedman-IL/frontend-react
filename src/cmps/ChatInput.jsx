@@ -156,7 +156,8 @@ export function ChatInput({ toUserId, toGroupId, user }) {
       }
    }
 
-   if (!toUserId && !toGroupId || toGroupId && !user.groups?.length) return
+   const isOwner = toGroupId && user.groups?.find(group => group.id === toGroupId)?.owner === user._id
+   if (!toUserId && !toGroupId || toGroupId && !isOwner) return
    return (
       <div className='chat-input'>
          <div className='chat-input-actions'>

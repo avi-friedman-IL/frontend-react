@@ -11,7 +11,7 @@ import { t } from 'i18next'
 import { socketService } from '../services/socket.service'
 
 export function CreateGroup({ user, users, contacts, setIsOpen }) {
-   const [group, setGroup] = useState({ id: '', name: '', members: [] })
+   const [group, setGroup] = useState({ id: '', name: '', members: [], owner: user._id })
    const createRef = useRef(null)
 
    useEffect(() => {

@@ -148,8 +148,7 @@ export function ContactsIndex() {
 
          {isShowGroups && (
             <GroupList
-               // groups={user.groups}
-               groups={user.groups?.length ? user.groups : groupsToShow}
+               groups={groupsToShow}
                toGroupId={chatFilter.toGroupId}
                onGroupPicker={onGroupPicker}
                user={user}
