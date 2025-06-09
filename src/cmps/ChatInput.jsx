@@ -102,17 +102,26 @@ export function ChatInput({ toUserId, toGroupId, user }) {
       })
    }
 
+   async function getFileData() {
+      if (!selectedFile) return null
+      try {
+         const fileData = await new Promise((resolve, reject) => {
+            const reader = new FileReader()
+            reader.onload = () => resolve(reader.result)
+            reader.onerror = () => reject(new Error('Error reading file'))
+            reader.readAsDataURL(selectedFile)
+         })
+         return fileData
+      } catch (error) {
+         console.error('Error reading file:', error)
+         return null
+      }
+   }
+
    async function onSend() {
       try {
-         let fileData = null
-         if (selectedFile) {
-            // קריאת תוכן הקובץ כ-base64
-            fileData = await new Promise((resolve) => {
-               const reader = new FileReader()
-               reader.onload = () => resolve(reader.result)
-               reader.readAsDataURL(selectedFile)
-            })
-         }
+         const fileData = await getFileData()
+
          const chat = toUserId
             ? {
                  toUserId: toUserId,
@@ -144,11 +153,11 @@ export function ChatInput({ toUserId, toGroupId, user }) {
                       }
                     : null,
               }
-         if (socketService.isConnected()) {
-            if (!msg.trim() && !selectedFile) return
-            socketService.emit('offTyping')
-            socketService.emit('chat-add', chat)
-         }
+         // if (socketService.isConnected()) {
+         if (!msg.trim() && !selectedFile) return
+         socketService.emit('offTyping')
+         socketService.emit('chat-add', chat)
+         // }
          setMsg('')
          removeFile()
       } catch (err) {
@@ -156,8 +165,10 @@ export function ChatInput({ toUserId, toGroupId, user }) {
       }
    }
 
-   const isOwner = toGroupId && user.groups?.find(group => group.id === toGroupId)?.owner === user._id
-   if (!toUserId && !toGroupId || toGroupId && !isOwner) return
+   const isOwner =
+      toGroupId &&
+      user.groups?.find(group => group.id === toGroupId)?.owner === user._id
+   if ((!toUserId && !toGroupId) || (toGroupId && !isOwner)) return
    return (
       <div className='chat-input'>
          <div className='chat-input-actions'>
@@ -166,7 +177,7 @@ export function ChatInput({ toUserId, toGroupId, user }) {
                fileInputRef={fileInputRef}
             />
             {filePreview && (
-               <FilePreview 
+               <FilePreview
                   selectedFile={selectedFile}
                   filePreview={filePreview}
                   removeFile={removeFile}
