@@ -25,7 +25,7 @@ export function TrainingDetails() {
                 <h1>{training.title}</h1>
                 <ul className="training-details-items">
                     {training.items.map(item => (
-                        <li key={item.id}>{item.text}</li>
+                        <li dangerouslySetInnerHTML={{ __html: item.text }} key={item.id}></li>
                     ))}
                 </ul>
             </div>

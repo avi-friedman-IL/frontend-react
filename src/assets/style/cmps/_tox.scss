@@ -1,0 +1,17 @@
+  .tox {
+    svg {
+        stroke: inherit;
+        fill: inherit;
+        &:hover {
+            background-color: inherit;
+        }
+    }
+
+    .tox-tinymce {
+        height: 100%;
+    }
+    .tox-statusbar {
+        display: none;
+    }
+}
+   

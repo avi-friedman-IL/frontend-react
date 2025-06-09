@@ -6,6 +6,10 @@
         grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
         gap: 1rem;
 
+        padding: 1rem 0;
+        max-height: 80vh;
+        overflow-y: auto;
+
         li {
             display: grid;
             gap: 1rem;
