@@ -6,6 +6,7 @@ import { objectionReducer } from './reducers/objection.reducer'
 import { scriptReducer } from './reducers/script.reducer'
 import { msgReducer } from './reducers/msg.reducer'
 import { templateReducer } from './reducers/template.reducer'
+import { trainingReducer } from './reducers/training.reducer'
 const rootReducer = combineReducers({
     scriptModule: scriptReducer,
     objectionModule: objectionReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     userModule: userReducer,
     msgModule: msgReducer,
     templateModule: templateReducer,
+    trainingModule: trainingReducer,
 })
 
 

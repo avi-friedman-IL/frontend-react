@@ -7,14 +7,14 @@ import { useTranslation } from 'react-i18next'
 import { NotificationList } from './NotificationList.jsx'
 
 import {
-   MdLanguage,
    MdOutlineMailOutline,
    MdOutlineManageAccounts,
    MdWifiCalling3,
+   MdModelTraining,
 } from 'react-icons/md'
+
 import { IoHomeOutline } from 'react-icons/io5'
 import { BiChat } from 'react-icons/bi'
-import { RespectBtn } from './RespectBtn'
 import { Tooltip } from './Tooltip'
 
 export function AppHeader() {
@@ -106,6 +106,12 @@ export function AppHeader() {
                   </span>
                   <span>{t('msgs')}</span>
                </NavLink>
+               <NavLink to={'/training'}>
+                  <span className='icon'>
+                     <MdModelTraining />
+                  </span>
+                  <span>{t('trainings')}</span>
+               </NavLink>
                {user.isAdmin && <NavLink to={'/users'}>
                   <span className='icon'>
                      <MdOutlineManageAccounts />
@@ -120,7 +126,6 @@ export function AppHeader() {
                <div
                   className='user-btn'
                   onClick={() => setIsOpenNotification(open => !open)}>
-                  {/* <img className='img-url' src={user.imgUrl} alt='' /> */}
                   <span className='user-img' style={{ backgroundColor: user.color }}>
                      {user.fullname.split(' ')[0].charAt(0).toUpperCase()}
                   </span>

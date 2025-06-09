@@ -16,6 +16,10 @@ import { MsgIndex } from './pages/MsgIndex.jsx'
 import { UserIndex } from './pages/UserIndex.jsx'
 import { RespectBtn } from './cmps/RespectBtn.jsx'
 import { TemplateIndex } from './pages/TemplateIndex.jsx'
+import { TrainingIndex } from './pages/TrainingIndex.jsx'
+import { TrainingEdit } from './pages/TrainingEdit.jsx'
+import { TrainingDetails } from './pages/TrainingDetails.jsx'
+
 export function RootCmp() {
 
    return (
@@ -42,6 +46,10 @@ export function RootCmp() {
                <Route path='/users' element={<UserIndex />} />
                <Route path='/template' element={<TemplateIndex />} />
                <Route path='/template/edit' element={<TemplateEdit />} />
+               <Route path='/training' element={<TrainingIndex />} />
+               <Route path='/training/edit' element={<TrainingEdit />} />
+               <Route path='/training/edit/:id' element={<TrainingEdit />} />
+               <Route path='/training/details/:id' element={<TrainingDetails />} /> 
             </Routes>
          </main>
       </Provider>

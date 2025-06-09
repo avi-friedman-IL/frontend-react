@@ -560,3 +560,19 @@ input[type="checkbox"] {
         background-color: rgba(245, 101, 101, 0.2);
     }
 }
+
+.edit-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    border: none;
+    background-color: rgba(66, 153, 225, 0.1);
+    color: #63B3ED;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background-color: rgba(66, 153, 225, 0.2);
+    }
+}

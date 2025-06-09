@@ -1,0 +1,30 @@
+@use '../base/vars' as *;
+
+.training-list {
+    ul {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+        gap: 1rem;
+
+        li {
+            display: grid;
+            gap: 1rem;
+            padding: 3rem;
+            border-radius: 1rem;
+            background-image: radial-gradient(at bottom left, #030029 0%, rgba(135, 115, 203, 0.2509803922) 100%);
+            box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
+
+            .training-list-actions {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+                gap: 1rem;
+            }
+
+            &:hover {
+                transform: translateY(-10px);
+            }
+        }
+    }
+
+}

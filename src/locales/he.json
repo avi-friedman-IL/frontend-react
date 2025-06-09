@@ -207,5 +207,9 @@
    "Are you sure you want to delete this template?": "אתה בטוח שאתה רוצה למחוק את התבנית הזו?",
    "Are you sure you want to delete this script?": "אתה בטוח שאתה רוצה למחוק את התסריט הזה?",
    "Add message template": "הוסף תבנית הודעה",
-   "Select subject:": "בחר נושא:"
+   "Select subject:": "בחר נושא:",
+   "addTraining": "הוסף הדרכה",
+   "trainings": "הדרכות",
+   "edit": "ערוך",
+   "remove item": "הסר פריט"
 }

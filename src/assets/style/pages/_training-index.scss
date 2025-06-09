@@ -1,0 +1,13 @@
+.training-index {
+    display: grid;
+    gap: 1rem;
+
+    padding: 1rem;
+
+    .add-training {
+        display: grid;
+        align-items: center;
+        justify-content: center;
+        width: max-content;
+    }
+}

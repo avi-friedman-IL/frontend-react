@@ -19,9 +19,9 @@
 @use 'pages/user-index';
 @use 'pages/template-index';
 @use 'pages/template-edit';
-
-
-
+@use 'pages/training-index';
+@use 'pages/training-edit';
+@use 'pages/training-details';
 
 /* components */
 @use 'cmps/add-item-form';
@@ -70,4 +70,5 @@
 @use 'cmps/user-filter';
 @use 'cmps/template-list';
 @use 'cmps/template-preview';
-
+@use 'cmps/training-list';
+@use 'cmps/training-preview.scss';
