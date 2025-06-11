@@ -24,7 +24,7 @@ export function ChatPreview({ chat, user, users, onRemove, onUpdate }) {
       if (!url) return '';
       if (url.includes('fl_attachment')) return url;
       // Add additional parameters to ensure proper file download
-      return url.replace('/upload/', '/upload/fl_attachment,fl_force_download/');
+      return url.replace('/upload/', '/upload/fl_attachment,fl_force_download,fl_progressive/');
    }
    
    return (
