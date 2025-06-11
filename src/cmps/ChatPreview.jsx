@@ -20,11 +20,11 @@ export function ChatPreview({ chat, user, users, onRemove, onUpdate }) {
       (chat.file.name && chat.file.name.toLowerCase().endsWith('.pdf'))
    )
    
-   // יצירת URL להורדה במידה וחסר
    const getDownloadUrl = (url) => {
       if (!url) return '';
       if (url.includes('fl_attachment')) return url;
-      return url.replace('/upload/', '/upload/fl_attachment/');
+      // Add additional parameters to ensure proper file download
+      return url.replace('/upload/', '/upload/fl_attachment,fl_force_download/');
    }
    
    return (

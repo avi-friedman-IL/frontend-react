@@ -111,6 +111,7 @@ export function ChatInput({ toUserId, toGroupId, user }) {
             reader.onerror = () => reject(new Error('Error reading file'))
             reader.readAsDataURL(selectedFile)
          })
+         console.log('fileData', fileData)
          return fileData
       } catch (error) {
          console.error('Error reading file:', error)
