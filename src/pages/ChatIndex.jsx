@@ -30,7 +30,7 @@ export function ChatIndex() {
 
    useEffect(() => {
       load()
-   }, [chats.length, filterBy?.toUserId, filterBy?.toGroupId])
+   }, [filterBy])
 
    useEffect(() => {
       if (!socketService.isConnected()) {
@@ -46,7 +46,7 @@ export function ChatIndex() {
          socketService.off('chat-remove', onRemoveFromStore)
          socketService.off('updateLoggedUser', onUpdateLoggedUser)
       }
-   }, [filterBy?.toUserId, filterBy?.toGroupId])
+   }, [filterBy])
 
    async function load() {
       if (isLoading) return
@@ -101,7 +101,7 @@ export function ChatIndex() {
          await removeChat(chatId)
       } catch (err) {
          console.log('Cannot remove chat', err)
-         showErrorMsg(t('לא ניתן למחוק צ\'אט'))
+         showErrorMsg(t("לא ניתן למחוק צ'אט"))
       }
    }
 
@@ -113,17 +113,16 @@ export function ChatIndex() {
       try {
          await updateChat(chat)
          socketService.emit('chat-update', chat)
-         showSuccessMsg(t('הצ\'אט עודכן בהצלחה'))
+         showSuccessMsg(t("הצ'אט עודכן בהצלחה"))
       } catch (err) {
          console.log('Cannot update chat', err)
-         showErrorMsg(t('לא ניתן לעדכן צ\'אט'))
+         showErrorMsg(t("לא ניתן לעדכן צ'אט"))
       }
    }
 
    if (!chats || !users || !filterBy) return
    return (
       <section className='chat-index'>
-        
          <ChatList
             chats={chats}
             user={user}

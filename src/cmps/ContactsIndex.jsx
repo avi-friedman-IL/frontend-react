@@ -19,6 +19,7 @@ export function ContactsIndex() {
    const dispatch = useDispatch()
    const user = useSelector(state => state.userModule.user)
    const users = useSelector(state => state.userModule.users)
+   const chats = useSelector(state => state.chatModule.chats)
    const chatFilter = useSelector(state => state.chatModule.filterBy)
    const userFilter = useSelector(state => state.userModule.filterBy)
 
@@ -51,7 +52,7 @@ export function ContactsIndex() {
             fromUserId: user._id,
          })
       }
-   }, [toUserId, toGroupId])
+   }, [toUserId, toGroupId, chats.length])
 
    useEffect(() => {
       getGroupsToShow()
