@@ -31,7 +31,7 @@ export function ContactsIndex() {
    const [groupsToShow, setGroupsToShow] = useState(null)
 
    useEffect(() => {
-      const filter = { isAdmin: user.isAdmin, text: userFilter.text }
+      const filter = { isAdmin: user.isAdmin, text: userFilter.text, gender: user.gender }
       setUserFilter(filter)
       loadUsers(filter)
    }, [userFilter.text])

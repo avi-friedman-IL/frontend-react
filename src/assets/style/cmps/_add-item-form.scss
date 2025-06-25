@@ -49,3 +49,52 @@
         gap: .5rem;
     }
 }
+
+// סגנונות לשדה מגדר
+.gender-selector {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    
+    label {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: #333;
+        margin-bottom: 0.25rem;
+    }
+    
+    .gender-select {
+        width: 100%;
+        padding: 0.5rem;
+        font-family: 'Roboto', sans-serif;
+        border: 1px solid #ededed;
+        border-radius: 4px;
+        background-color: white;
+        color: #333;
+        cursor: pointer;
+        
+        &:focus {
+            outline: none;
+            border: 1px solid #007bff;
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+        }
+        
+        option {
+            padding: 0.5rem;
+            background-color: white;
+            color: #333;
+        }
+    }
+}
+
+// סגנונות לטופסי משתמש
+.add-user, .edit-user {
+    .gender-selector {
+        margin-bottom: 1rem;
+    }
+    
+    .gender-select {
+        font-size: 0.9rem;
+    }
+}

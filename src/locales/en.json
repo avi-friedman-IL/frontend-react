@@ -1,3 +1,7 @@
 {
-    "daysOfWeek": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    "daysOfWeek": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    "Gender": "Gender",
+    "Male": "Male",
+    "Female": "Female",
+    "All genders": "All genders"
 }

@@ -1,12 +1,18 @@
 import { useState } from 'react'
 import { t } from 'i18next'
 import { MdClose } from 'react-icons/md'
+
 export function EditUser({ user, onUpdateUser, setIsOpenEditUser }) {
-   const [currUser, setCurrUser] = useState({ ...user })
+   const [currUser, setCurrUser] = useState({ 
+      ...user, 
+      gender: user.gender || 'male'
+   })
+   
    function handleChange(ev) {
       const field = ev.target.name
       setCurrUser({ ...currUser, [field]: ev.target.value })
    }
+   
    async function handleSave(ev) {
       ev.preventDefault()
       setIsOpenEditUser(false)
@@ -36,6 +42,19 @@ export function EditUser({ user, onUpdateUser, setIsOpenEditUser }) {
             value={currUser.password || ''}
             onChange={handleChange}
          />
+         
+         <label htmlFor='gender'>{t('Gender')}</label>
+         <select
+            name='gender'
+            id='gender'
+            value={currUser.gender || 'male'}
+            onChange={handleChange}
+            className="gender-select"
+         >
+            <option value="male">{t('Male')}</option>
+            <option value="female">{t('Female')}</option>
+         </select>
+         
          <button className='save-btn btn3' onClick={handleSave}>
             {t('save')}
          </button>
