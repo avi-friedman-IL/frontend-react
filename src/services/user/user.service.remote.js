@@ -3,7 +3,6 @@ import { httpService } from '../http.service'
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
 
 export const userService = {
-   googleLogin,
    login,
    logout,
    signup,
@@ -43,24 +42,12 @@ async function update(user) {
    return updatedUser
 }
 
-async function googleLogin(credential) {
-   const user = await httpService.post('auth/google', { token: credential })
-   if (user) return saveLoggedinUser(user)
-}
-
 async function login(userCred) {
    const user = await httpService.post('auth/login', userCred)
    if (user) return saveLoggedinUser(user)
 }
 
 async function signup(userCred) {
-   const users = await getUsers()
-   const contacts = users.filter(u => u.isAdmin || u.isTeamManager)
-   const contactsToAdd = contacts.map(c => ({
-      _id: c._id,
-      fullname: c.fullname,
-   }))
-   userCred.contacts = contactsToAdd
    const user = await httpService.post('auth/signup', userCred)
    return saveLoggedinUser(user)
 }
@@ -76,13 +63,6 @@ function getLoggedinUser() {
 }
 
 function saveLoggedinUser(user) {
-   // user = {
-   //     _id: user._id,
-   //     fullname: user.fullname || user.name,
-   //     imgUrl: user.imgUrl,
-   //     score: user.score,
-   //     isAdmin: user.isAdmin,
-   // }
    sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
    return user
 }

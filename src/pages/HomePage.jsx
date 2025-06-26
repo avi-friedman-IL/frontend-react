@@ -1,7 +1,5 @@
 import { useSelector } from 'react-redux'
-import { LoginWithGoogle } from '../cmps/LoginWithGoogle'
 import { loadUsers, logout } from '../store/actions/user.actions'
-import { IoHomeOutline, IoChatbubbleEllipsesOutline } from 'react-icons/io5'
 import { MdWifiCalling3 } from 'react-icons/md'
 import { BiChat } from 'react-icons/bi'
 import { MdOutlineMailOutline } from 'react-icons/md'
@@ -43,19 +41,15 @@ export function HomePage() {
                   {t('logout')}
                </button>
             )}
-               {/* <IoChatbubbleEllipsesOutline /> */}
-               <img className='logo'
-                  // src='https://res.cloudinary.com/dcymxvtnd/image/upload/v1737468159/ydamq97cqradrdjgxyn5.png'
-                  src='https://res.cloudinary.com/dcymxvtnd/image/upload/v1740566743/phherpui8pthmojx02k1.png'
-                  alt=''
-               />
+            <img
+               className='logo'
+               src='https://res.cloudinary.com/dcymxvtnd/image/upload/v1740566743/phherpui8pthmojx02k1.png'
+               alt=''
+            />
          </header>
          {!user && (
-            // <div className='login-container'>
             <div className='form2'>
                <LoginForm />
-               {/* <p>{t('Or')}</p>
-               <LoginWithGoogle /> */}
             </div>
          )}
 
