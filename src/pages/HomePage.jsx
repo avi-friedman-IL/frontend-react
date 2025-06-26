@@ -19,7 +19,9 @@ export function HomePage() {
 
    async function load() {
       try {
-         await loadUsers()
+         if (user) {
+            await loadUsers()
+         }
       } catch (err) {
          console.log('HomePage: err in load', err)
       }

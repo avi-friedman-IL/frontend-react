@@ -47,7 +47,7 @@ export function AppHeader() {
       return () => {
          document.removeEventListener('mousedown', handleClickOutside)
       }
-   }, [users, user])
+   }, [])
 
    function changeLanguage(lang) {
       document.body.dir = lang === 'he' ? 'rtl' : 'ltr'

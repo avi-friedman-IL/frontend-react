@@ -28,7 +28,7 @@ export function UserMsg() {
          unsubscribe()
          // socketService.off(SOCKET_EVENT_REVIEW_ABOUT_YOU)
       }
-   }, [msg?.type])
+   }, [])
 
    function closeMsg() {
       setMsg(null)
