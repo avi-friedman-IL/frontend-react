@@ -2,9 +2,11 @@ export const SET_SCRIPTS = 'SET_SCRIPTS'
 export const REMOVE_SCRIPT = 'REMOVE_SCRIPT'
 export const ADD_SCRIPT = 'ADD_SCRIPT'
 export const UPDATE_SCRIPT = 'UPDATE_SCRIPT'
+export const SET_FILTER = 'SET_FILTER'
 
 const initialState = {
    scripts: [],
+   filterBy: {}
 }
 
 export function scriptReducer(state = initialState, action) {
@@ -26,6 +28,9 @@ export function scriptReducer(state = initialState, action) {
                 script._id === action.script._id ? action.script : script
             )
             newState = { ...state, scripts }
+            break
+        case SET_FILTER:
+            newState = { ...state, filterBy: action.filterBy }
             break
         default:
             state

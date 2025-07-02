@@ -200,6 +200,12 @@
    "textarea": "טקסט רחב",
    "Gender": "מגדר",
    "Male": "גבר",
-   "Female": "אישה",
-   "All genders": "כל המגדרים"
+   "Female": "אשה",
+   "All genders": "כל המגדרים",
+   "male": "גבר",
+   "female": "אשה",
+   "Select Gender": "בחר מגדר",
+   "Edit Script": "ערוך תסריט",
+   "remove item": "הסר פריט",
+   "Add Training": "הוסף הדרכה"
 }

@@ -1,5 +1,3 @@
-import { trainingService } from "../../services/training"
-import { userService } from "../../services/user"
 
 export const SET_TRAINING = 'SET_TRAINING'
 export const REMOVE_TRAINING = 'REMOVE_TRAINING'

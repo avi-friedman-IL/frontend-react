@@ -6,7 +6,7 @@ import { scriptService } from '../services/script'
 import { ObjectionIndex } from './ObjectionIndex'
 import { TipsIndex } from './TipsIndex.jsx'
 import { BiEdit } from 'react-icons/bi'
-import { ItemEdit } from '../cmps/ItemEdit.jsx'
+// import { ItemEdit } from '../cmps/ItemEdit.jsx'
 import { AiOutlineEdit } from 'react-icons/ai'
 import { MdTextDecrease, MdTextIncrease } from 'react-icons/md'
 import { Tooltip } from '../cmps/Tooltip.jsx'
@@ -19,14 +19,14 @@ export function ScriptDetails() {
 
    const [script, setScript] = useState(null)
    const [fontSize, setFontSize] = useState(24)
-   const [openItemId, setOpenItemId] = useState(null)
+   // const [openItemId, setOpenItemId] = useState(null)
    const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 })
    const [tooltipText, setTooltipText] = useState('')
    const [isTooltipOpen, setIsTooltipOpen] = useState(false)
 
    useEffect(() => {
       loadScript()
-   }, [params.id, openItemId])
+   }, [params.id]) // removed openItemId dependency
 
    async function loadScript() {
       try {
@@ -58,6 +58,11 @@ export function ScriptDetails() {
          <TipsIndex />
 
          <ul className='items'>
+            {user?.isAdmin && (
+               <Link className='edit-btn' to={`/script/edit/${script._id}`}>
+                  {t('Edit Script')}
+               </Link>
+            )}
             {script.items.map(item => (
                <li
                   id={item.id}
@@ -68,29 +73,29 @@ export function ScriptDetails() {
                      <h2 style={{ fontSize: `${fontSize * 2}px` }}>
                         {t(item.title)}
                      </h2>
-                     {user?.isAdmin && (
+                     {/* {user?.isAdmin && (
                         <button
                            className='btn3'
                            onClick={() => setOpenItemId(item.id)}>
                            <span>{t('Edit')}</span>
                            <AiOutlineEdit />
                         </button>
-                     )}
+                     )} */}
                   </div>
-                  {openItemId !== item.id && (
-                     <p
-                        autoFocus
-                        className='content'
-                        dangerouslySetInnerHTML={{ __html: item.content }}
-                     />
-                  )}
-                  {openItemId === item.id && (
+                  {/* {openItemId !== item.id && ( */}
+                  <p
+                     autoFocus
+                     className='content'
+                     dangerouslySetInnerHTML={{ __html: item.content }}
+                  />
+                  {/* )} */}
+                  {/* {openItemId === item.id && (
                      <ItemEdit
                         item={item}
                         setOpenItemId={setOpenItemId}
                         currObjection={script}
                      />
-                  )}
+                  )} */}
                </li>
             ))}
          </ul>

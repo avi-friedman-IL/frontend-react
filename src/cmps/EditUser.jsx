@@ -47,12 +47,14 @@ export function EditUser({ user, onUpdateUser, setIsOpenEditUser }) {
          <select
             name='gender'
             id='gender'
-            value={currUser.gender || 'male'}
+            value={currUser.gender || ''}
             onChange={handleChange}
-            className="gender-select"
+            className="select"
+            required
          >
-            <option value="male">{t('Male')}</option>
-            <option value="female">{t('Female')}</option>
+            <option value="">{t('Select Gender')}</option>
+            <option value="male">{t('male')}</option>
+            <option value="female">{t('female')}</option>
          </select>
          
          <button className='save-btn btn3' onClick={handleSave}>

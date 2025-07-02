@@ -8,7 +8,7 @@ function getEmptyUser() {
         username: '',
         password: '',
         fullname: '',
-        gender: 'male',
+        gender: '',
         isAdmin: false,
         score: 100,
         img: '',

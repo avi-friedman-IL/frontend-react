@@ -5,6 +5,7 @@ import {
    REMOVE_SCRIPT,
    SET_SCRIPTS,
    UPDATE_SCRIPT,
+   SET_FILTER,
 } from '../reducers/script.reducer'
 
 export async function loadScripts(filterBy = {}) {
@@ -57,6 +58,10 @@ export async function updateScript(script) {
       console.log('Cannot save script', err)
       throw err
    }
+}
+
+export function setFilter(filterBy) {
+   return { type: SET_FILTER, filterBy }
 }
 
 function getCmdSetScripts(scripts) {

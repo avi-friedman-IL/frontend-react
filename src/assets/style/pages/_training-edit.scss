@@ -9,6 +9,8 @@
 
     .training-edit-header {
         display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
 
         input {
             font-size: 2rem;

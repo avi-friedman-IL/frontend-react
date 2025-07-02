@@ -1,6 +1,10 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
-import { addTraining, loadTraining, updateTraining } from '../store/actions/training.actions'
+import {
+   addTraining,
+   loadTraining,
+   updateTraining,
+} from '../store/actions/training.actions'
 import { t } from 'i18next'
 import { makeId } from '../services/util.service'
 import { Editor } from '@tinymce/tinymce-react'
@@ -21,7 +25,7 @@ export function TrainingEdit() {
       } else {
          setTraining({
             title: '',
-            items: [getEmptyItem()]
+            items: [getEmptyItem()],
          })
       }
    }
@@ -29,11 +33,11 @@ export function TrainingEdit() {
    function getEmptyItem() {
       return {
          id: makeId(),
-         text: ''
+         text: '',
       }
    }
 
- async  function onSave(ev) {
+   async function onSave(ev) {
       ev.preventDefault()
       try {
          if (params.id) {
@@ -54,7 +58,12 @@ export function TrainingEdit() {
 
    function handleChangeItem(value, editor, itemId) {
       const content = editor.getContent()
-      setTraining(prevTraining => ({ ...prevTraining, items: prevTraining.items.map(item => item.id === itemId ? { ...item, text: content } : item) }))
+      setTraining(prevTraining => ({
+         ...prevTraining,
+         items: prevTraining.items.map(item =>
+            item.id === itemId ? { ...item, text: content } : item
+         ),
+      }))
    }
 
    function handleChange(ev) {
@@ -63,51 +72,90 @@ export function TrainingEdit() {
    }
 
    function handleRemoveItem(itemId) {
-      setTraining(prevTraining => ({ ...prevTraining, items: prevTraining.items.filter(item => item.id !== itemId) }))
+      setTraining(prevTraining => ({
+         ...prevTraining,
+         items: prevTraining.items.filter(item => item.id !== itemId),
+      }))
    }
 
    function handleAddItem() {
-      setTraining(prevTraining => ({ ...prevTraining, items: [...prevTraining.items, getEmptyItem()] }))
+      setTraining(prevTraining => ({
+         ...prevTraining,
+         items: [...prevTraining.items, getEmptyItem()],
+      }))
    }
 
    if (!training) return <div>Loading...</div>
 
    return (
-      <form className="training-edit" onSubmit={onSave}>
-         <div className="training-edit-header">
-            <input className='input' type="text" name='title' value={training.title} onChange={handleChange} placeholder={t('title')} />
+      <form className='training-edit' onSubmit={onSave}>
+         <div className='training-edit-header'>
+            <input
+               className='input'
+               type='text'
+               name='title'
+               value={training.title}
+               onChange={handleChange}
+               placeholder={t('title')}
+               required
+            />
+            <select
+               className='select'
+               name='gender'
+               value={training.gender}
+               onChange={handleChange}
+               required>
+               <option value=''>{t('Select Gender')}</option>
+               <option value='male'>{t('male')}</option>
+               <option value='female'>{t('female')}</option>
+            </select>
          </div>
-         <div className="training-edit-items">
-         {training.items?.map(item => (
-            <div key={item.id} className='training-edit-item'>
-               <Editor
-               className='tox'
-               apiKey='4t0jqmbiio9yuhkttljns4bgklv2e5783neoz12pg40tqje8'
-               onInit={(evt, editor) => {
-                  editorRef.current = editor
-               }}
-               initialValue={item.text}
-               init={{
-                  language: 'he_IL',
-                  directionality: 'rtl',
-                  menubar: false,
-                  skin: 'oxide',
-                  content_css: '/src/assets/style/cmps/_tox.scss',
-                  toolbar: 'fontsize | forecolor backcolor | removeformat',
-                  branding: false,
-                  resize: false,
-               }}
-               onBlur={(value, editor, itemId) => handleChangeItem(value, editor, item.id)}
-               editorRef={editorRef}
-               />
-               {/* <textarea className='textarea' type="text" id={item.id} name='text' value={item.text} onChange={handleChangeItem} placeholder={t('item')} /> */}
-               <button className='add-btn' type="button" onClick={() => handleRemoveItem(item.id)}>{t('remove item')}</button>
-            </div>
-         ))}
+         <div className='training-edit-items'>
+            {training.items?.map(item => (
+               <div key={item.id} className='training-edit-item'>
+                  <Editor
+                     className='tox'
+                     apiKey='4t0jqmbiio9yuhkttljns4bgklv2e5783neoz12pg40tqje8'
+                     onInit={(evt, editor) => {
+                        editorRef.current = editor
+                     }}
+                     initialValue={item.text}
+                     init={{
+                        language: 'he_IL',
+                        directionality: 'rtl',
+                        menubar: false,
+                        skin: 'oxide',
+                        content_css: '/src/assets/style/cmps/_tox.scss',
+                        toolbar:
+                           'fontsize | forecolor backcolor | removeformat',
+                        branding: false,
+                        resize: false,
+                     }}
+                     onBlur={(value, editor, itemId) =>
+                        handleChangeItem(value, editor, item.id)
+                     }
+                     editorRef={editorRef}
+                  />
+                  {/* <textarea className='textarea' type="text" id={item.id} name='text' value={item.text} onChange={handleChangeItem} placeholder={t('item')} /> */}
+                  <button
+                     className='add-btn'
+                     type='button'
+                     onClick={() => handleRemoveItem(item.id)}>
+                     {t('remove item')}
+                  </button>
+               </div>
+            ))}
          </div>
-         <div className="training-edit-footer">
-            <button className='add-btn' type="button" onClick={() => handleAddItem()}>{t('add item')}</button>
-            <button className='add-btn' type="submit">{t('save')}</button>
+         <div className='training-edit-footer'>
+            <button
+               className='add-btn'
+               type='button'
+               onClick={() => handleAddItem()}>
+               {t('add item')}
+            </button>
+            <button className='add-btn' type='submit'>
+               {t('save')}
+            </button>
          </div>
       </form>
    )

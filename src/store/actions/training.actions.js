@@ -68,7 +68,7 @@ export async function updateTraining(training) {
 }
 
 export async function setFilter(filterBy) {
-   store.dispatch({ type: SET_FILTER, filterBy })
+   return store.dispatch({ type: SET_FILTER, filterBy })
 }
 
 // Command Creators:

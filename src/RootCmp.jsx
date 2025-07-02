@@ -19,6 +19,7 @@ import { TemplateIndex } from './pages/TemplateIndex.jsx'
 import { TrainingIndex } from './pages/TrainingIndex.jsx'
 import { TrainingEdit } from './pages/TrainingEdit.jsx'
 import { TrainingDetails } from './pages/TrainingDetails.jsx'
+import { ScriptEdit } from './pages/ScriptEdit.jsx'
 
 export function RootCmp() {
 
@@ -31,6 +32,8 @@ export function RootCmp() {
             <Routes>
                <Route path='/' element={<HomePage />} />
                <Route path='/script' element={<ScriptIndex />} />
+               <Route path='/script/edit' element={<ScriptEdit />} />
+               <Route path='/script/edit/:id' element={<ScriptEdit />} />
                <Route path='/objection' element={<ObjectionIndex />} />
                <Route
                   path='/objection/details/:id'

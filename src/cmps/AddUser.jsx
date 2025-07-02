@@ -27,24 +27,27 @@ export function AddUser({ setIsOpenAddUser }) {
     }
     
     return (
-        <form className='add-user edit-user'>
+        <form className='add-user edit-user' onSubmit={handleSave}>
             <input type="text"
                 name="fullname"
                 placeholder={t('Fullname')}
                 value={user.fullname}
                 onChange={handleChange}
+                required
             />
             <input type="text"
                 name="username"
                 placeholder={t('Username')}
                 value={user.username}
                 onChange={handleChange}
+                required
             />
             <input type="text"
                 name="password"
                 placeholder={t('Password')}
                 value={user.password}
                 onChange={handleChange}
+                required
             />
             
             {/* שדה בחירת מגדר */}
@@ -56,13 +59,15 @@ export function AddUser({ setIsOpenAddUser }) {
                     value={user.gender}
                     onChange={handleChange}
                     className="gender-select"
+                    required
                 >
+                    <option value="">{t('Select Gender')}</option>
                     <option value="male">{t('Male')}</option>
                     <option value="female">{t('Female')}</option>
                 </select>
             </div>
             
-            <button className='save-btn btn3' onClick={handleSave}>{t('Save')}</button>
+            <button type="submit" className='save-btn btn3'>{t('Save')}</button>
             <button type="button" className='close-btn' onClick={() => setIsOpenAddUser(false)}>
                 <MdClose />
             </button>

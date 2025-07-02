@@ -8,9 +8,10 @@ import { t } from 'i18next'
 export function TrainingIndex() {
    const trainings = useSelector(state => state.trainingModule.trainings)
    const user = useSelector(state => state.userModule.user)
-
+   const filterBy = useSelector(state => state.trainingModule.filterBy)
    useEffect(() => {
-      loadTrainings()
+      const initialFilter = { ...filterBy, gender: user?.gender }
+      loadTrainings(initialFilter)
    }, [])
 
   async function onRemove(e, trainingId) {
@@ -25,7 +26,7 @@ export function TrainingIndex() {
    if (!trainings) return <div>Loading...</div>
    return (
       <section className='training-index'>
-         {isAuthorized && <Link to='/training/edit' className='add-training add-btn'>{t('addTraining')}</Link>}
+         {isAuthorized && <Link to='/training/edit' className='add-training add-btn'>{t('Add Training')}</Link>}
          <TrainingList trainings={trainings} onRemove={onRemove} isAuthorized={isAuthorized} />
       </section>
    )

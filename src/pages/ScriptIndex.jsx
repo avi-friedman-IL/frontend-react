@@ -4,10 +4,11 @@ import { loadScripts, removeScript } from '../store/actions/script.actions'
 import { t } from 'i18next'
 
 import { ScriptList } from '../cmps/ScriptList.jsx'
-import { AddScript } from '../cmps/AddScript.jsx'
+import { Link } from 'react-router-dom'
 
 export function ScriptIndex() {
    const scripts = useSelector(state => state.scriptModule.scripts)
+   const filterBy = useSelector(state => state.scriptModule.filterBy)
    const [isOpen, setIsOpen] = useState(false)
    const user = useSelector(state => state.userModule.user)
 
@@ -17,7 +18,8 @@ export function ScriptIndex() {
 
    async function load() {
       try {
-         await loadScripts()
+         const initialFilter = { ...filterBy, gender: user?.gender }
+         await loadScripts(initialFilter)
       } catch (err) {
          console.log('Cannot load scripts', err)
       }
@@ -25,7 +27,9 @@ export function ScriptIndex() {
 
    async function onRemove(ev, scriptId) {
       ev.stopPropagation()
-      const isConfirmed = window.confirm(t('Are you sure you want to delete this script?'))
+      const isConfirmed = window.confirm(
+         t('Are you sure you want to delete this script?')
+      )
       if (!isConfirmed) return
       try {
          await removeScript(scriptId)
@@ -37,11 +41,12 @@ export function ScriptIndex() {
    if (!scripts) return <div>{t('loading')}</div>
    return (
       <section className='script-index'>
-         {user?.isAdmin && <button onClick={() => setIsOpen(true)} className='add-btn btn1'>
-            {t('Add Script')}
-         </button>}
+         {user?.isAdmin && (
+            <Link className='add-btn btn1' to='/script/edit'>
+               {t('Add Script')}
+            </Link>
+         )}
          <ScriptList scripts={scripts} onRemove={onRemove} user={user} />
-         {isOpen && <AddScript setIsOpen={setIsOpen} />}
       </section>
    )
 }
