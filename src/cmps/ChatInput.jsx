@@ -173,10 +173,10 @@ export function ChatInput({ toUserId, toGroupId, user }) {
    return (
       <div className='chat-input'>
          <div className='chat-input-actions'>
-            <AttachFile
+            {/* <AttachFile
                handleFileChange={handleFileChange}
                fileInputRef={fileInputRef}
-            />
+            /> */}
             {filePreview && (
                <FilePreview
                   selectedFile={selectedFile}
