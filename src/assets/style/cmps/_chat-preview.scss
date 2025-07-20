@@ -1,167 +1,65 @@
 @use '../base/vars' as *;
 
-.chat-preview,
-.chat-preview-from-me {
-    align-self: start;
+.chat-preview {
     display: grid;
-    gap: .3rem;
-
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1rem;
+    background-color: transparent;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    cursor: pointer;
     position: relative;
 
-    width: max-content;
-    max-width: 300px;
-    overflow-wrap: break-word;
-    padding: .5rem;
-    padding-inline: 1rem;
-    border-radius: 0 .5rem .5rem .5rem;
-
-    background-color: $bg-color-chat-preview;
-
-    .msg {
+    .info {
+        grid-column: 1 / 3;
         display: grid;
-        color: #aaa;
-        font-size: 1.2rem;
-    }
+        grid-auto-flow: column;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
 
-    .msg-info {
-        font-size: .65rem;
-
-        span {
-            color: $color-text;
+        .last-msg-date {
+            font-weight: 400;
         }
     }
 
-    &::after {
-        content: '';
-        position: absolute;
-        left: -10px;
-        top: 9.5px;
-        transform: translateY(-50%);
-        width: 0;
-        height: 0;
-
-    }
-
-    .file-display {
-        margin-top: 6px;
-        margin-bottom: 6px;
-        padding: 10px;
-        border-radius: 8px;
-        background-color: rgba(0, 0, 0, 0.05);
+    .last-msg {
+        grid-column: 1 / 3;
+        display: grid;
+        grid-template-columns: 1fr auto;
         width: 100%;
 
-        .pdf-preview,
-        .file-preview {
-            .file-name {
-                font-size: 14px;
-                margin-bottom: 8px;
-                color: #555;
-                word-break: break-word;
-            }
+        p {
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-weight: 400;
         }
 
-        .file-actions {
-            display: flex;
-            gap: 12px;
-            margin-top: 12px;
-            margin-bottom: 4px;
-
-            a.view-btn,
-            a.download-btn {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 5px;
-                padding: 8px 14px;
-                border-radius: 6px;
-                font-size: 14px;
-                text-decoration: none;
-                min-width: 80px;
-                font-weight: 600;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-                position: relative;
-                /* הוספת position כדי שה-z-index יעבוד */
-                cursor: pointer;
-                transition: all 0.2s ease;
-
-                svg {
-                    font-size: 18px;
-                }
-            }
-
-            a.view-btn {
-                background-color: #f0f0f0;
-                color: #444;
-                border: 1px solid #ddd;
-                z-index: 100;
-
-                &:hover {
-                    background-color: #e0e0e0;
-                    transform: translateY(-1px);
-                }
-
-                &:active {
-                    transform: translateY(1px);
-                }
-            }
-
-            a.download-btn {
-                background-color: #2196f3;
-                color: white;
-                border: 1px solid #1976d2;
-                z-index: 100;
-
-                &:hover {
-                    background-color: #1976d2;
-                    transform: translateY(-1px);
-                }
-
-                &:active {
-                    transform: translateY(1px);
-                }
-            }
-        }
-
-        .chat-image {
-            border-radius: 4px;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            max-width: 200px;
-            height: auto;
+        .unread-msgs-badge {
+            background-color: $color-primary;
+            color: #fff;
+            border-radius: 50%;
+            padding: 0.2rem 0.5rem;
+            font-size: 0.8rem;
         }
     }
-}
 
-.chat-preview-from-me {
-    justify-self: end;
-    border-radius: .5rem 0 .5rem .5rem;
-    background-color: $bg-color-chat-preview-2;
+    .btns {
+        display: none;
+        position: absolute;
+        left: 0rem;
+        top: 0rem;
+    }
 
-    // התאמת צבעים לכפתורים בהודעות שלי
-    .file-display {
+    &:hover {
+        background: $bg-color-hover;
 
-        .pdf-preview,
-        .file-preview {
-            .file-actions {
-                a.view-btn {
-                    background-color: rgba(255, 255, 255, 0.3);
-                    color: #fff;
-                    border: 1px solid rgba(255, 255, 255, 0.4);
-
-                    &:hover {
-                        background-color: rgba(255, 255, 255, 0.4);
-                    }
-                }
-
-                a.download-btn {
-                    background-color: #1565c0;
-                    color: white;
-                    border: 1px solid #0d47a1;
-
-                    &:hover {
-                        background-color: #0d47a1;
-                    }
-                }
-            }
+        .btns {
+            display: grid;
         }
     }
 }

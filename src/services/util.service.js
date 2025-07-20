@@ -1,4 +1,6 @@
 import i18n from '../i18n.js'
+import { format, isToday, isYesterday, isThisWeek } from 'date-fns'
+import { he } from 'date-fns/locale'
 
 export function makeId(length = 6) {
    var txt = ''
@@ -10,6 +12,20 @@ export function makeId(length = 6) {
    }
 
    return txt
+}
+
+export function formatChatDate(date) {
+   const chatDate = new Date(date)
+   
+   if (isToday(chatDate)) {
+      return `${i18n.t('Today')} ${format(chatDate, 'HH:mm')}`
+   } else if (isYesterday(chatDate)) {
+      return `${i18n.t('Yesterday')} ${format(chatDate, 'HH:mm')}`
+   } else if (isThisWeek(chatDate)) {
+      return `${format(chatDate, 'EEEE', { locale: he })} at ${format(chatDate, 'HH:mm')}`
+   } else {
+      return format(chatDate, 'dd/MM/yyyy HH:mm', { locale: he })
+   }
 }
 export function getDayOrDate(dateNumber) {
    const givenDate = new Date(dateNumber)

@@ -1,142 +1,66 @@
-import { formatTime, getDayOrDate } from '../services/util.service'
-import { ChatAction } from './ChatAction'
-import { ChatIcons } from './ChatIcons'
-import { MdVisibility } from 'react-icons/md' 
-import { FiDownload } from 'react-icons/fi'
+import { formatChatDate } from '../services/util.service.js'
+import { t } from 'i18next'
 
-export function ChatPreview({ chat, user, users, onRemove, onUpdate }) {
-   
+export function ChatPreview({ chat, onRemoveChat, loggedinUser }) {
+   const isGroup = chat.name
+   const lastMsg = chat.msgs[chat.msgs.length - 1] || null
+   const lastMsgDate = lastMsg ? formatChatDate(lastMsg?.createdAt) : ''
+   const unreadMsgs = chat.msgs?.filter(
+      msg => msg.fromId !== loggedinUser._id && !msg.isRead
+   )?.length
 
-   const date = getDayOrDate(chat.createdAt)
-   const time = formatTime(chat.createdAt)
+   const unreadMsgsBadge = unreadMsgs ? (
+      <span className='unread-msgs-badge'>{unreadMsgs}</span>
+   ) : null
 
-   const isImage = chat.file && (
-      (chat.file.type && chat.file.type.startsWith('image/')) || 
-      chat.file.type === 'image'
-   )
-   
-   const isPDF = chat.file && (
-      (chat.file.type && chat.file.type === 'application/pdf') || 
-      (chat.file.name && chat.file.name.toLowerCase().endsWith('.pdf'))
-   )
-   
-   const getDownloadUrl = (url) => {
-      if (!url) return '';
-      if (url.includes('fl_attachment')) return url;
-      // Add additional parameters to ensure proper file download
-      return url.replace('/upload/', '/upload/fl_attachment,fl_force_download,fl_progressive/');
-   }
-   
    return (
-      <section
-         className={
-            chat.fromUserId === user._id
-               ? 'chat-preview-from-me'
-               : 'chat-preview'
-         }>
-         {chat.msg && <p className='msg'>{chat.msg}</p>}
-
-         {chat.file && (
-            <div className='file-display'>
-               {isImage ? (
-                  <div>
-                     <a
-                        href={chat.file.url}
-                        className='file-link'
-                        target='_blank'
-                        rel='noopener noreferrer'>
-                        <img
-                           src={chat.file.url}
-                           alt={chat.file.name}
-                           className='chat-image'
-                           onError={e =>
-                              console.log('Image load error:', e.target.src, e)
-                           }
-                        />
-                     </a>
-                     <div className='file-actions'>
-                        {/* <a
-                           href={chat.file.url}
-                           className='view-btn'
-                           target='_blank'
-                           rel='noopener noreferrer'>
-                           <MdVisibility /> הצג
-                        </a> */}
-                        <a
-                           href={chat.file.downloadUrl || getDownloadUrl(chat.file.url)}
-                           className='download-btn'
-                           download={chat.file.name}
-                           target='_blank'
-                           rel='noopener noreferrer'>
-                           {/* <FiDownload /> */}
-                           הורד
-                        </a>
-                     </div>
-                  </div>
-               ) : isPDF ? (
-                  <div className='pdf-preview'>
-                     <div className='file-name'>
-                        {chat.file.name} ({chat.file.size ? (chat.file.size / 1024).toFixed(2) : '0'} KB)
-                     </div>
-                     <div className='file-actions'>
-                        <a
-                           href={chat.file.viewUrl || chat.file.url}
-                           className='view-btn'
-                           target='_blank'
-                           rel='noopener noreferrer'>
-                           <MdVisibility /> הצג
-                        </a>
-                        <a
-                           href={chat.file.downloadUrl || getDownloadUrl(chat.file.url)}
-                           className='download-btn'
-                           download={chat.file.name}
-                           target='_blank'
-                           rel='noopener noreferrer'>
-                           {/* <FiDownload /> */}
-                            הורד
-                        </a>
-                     </div>
-                  </div>
-               ) : (
-                  <div className='file-preview'>
-                     <div className='file-name'>
-                        {chat.file.name} ({chat.file.size ? (chat.file.size / 1024).toFixed(2) : '0'} KB)
-                     </div>
-                     <div className='file-actions'>
-                        {/* <a
-                           href={chat.file.viewUrl || chat.file.url}
-                           className='view-btn'
-                           target='_blank'
-                           rel='noopener noreferrer'>
-                           <MdVisibility /> הצג
-                        </a> */}
-                        <a
-                           href={chat.file.downloadUrl || getDownloadUrl(chat.file.url)}
-                           className='download-btn'
-                           download={chat.file.name}
-                           target='_blank'
-                           rel='noopener noreferrer'>
-                           {/* <FiDownload />  */}
-                           הורד
-                        </a>
-                     </div>
-                  </div>
-               )}
-            </div>
-         )}
-         <div className='msg-info'>
-            <span className='date'>{date}, </span>
-            <span className='time'>{time}</span>
+      <article className='chat-preview'>
+         <div className='info'>
+            {loggedinUser._id === chat.ownerId ? (
+               <h3>{chat.to || chat.name}</h3>
+            ) : (
+               <h3>{chat.name || chat.owner}</h3>
+            )}
+            <p className='last-msg-date'>{lastMsgDate}</p>
          </div>
-
-         <ChatIcons chat={chat} users={users} user={user} onUpdate={onUpdate} />
-
-         <ChatAction
-            chat={chat}
-            user={user}
-            onRemove={onRemove}
-            onUpdate={onUpdate}
-         />
-      </section>
+         <div className='last-msg'>
+            {!isGroup && (
+               <p>
+                  {lastMsg?.fromId === loggedinUser._id
+                     ? t('You') + ': '
+                     : ''}
+                  {lastMsg?.txt}
+                  {!lastMsg?.txt && (
+                     <span className='start-chat-with'>
+                        {t('Start chat')}
+                     </span>
+                  )}
+               </p>
+            )}
+            {isGroup && (
+               <p>
+                  {lastMsg?.fromId === loggedinUser._id
+                     ? t('You') + ': '
+                     : lastMsg?.from ? lastMsg?.from + ': ' : ''}
+                  {lastMsg?.txt}
+                  {!lastMsg?.txt && (
+                     <span className='start-chat-with'>
+                        {t('Start chat with')} {chat.name}
+                     </span>
+                  )}
+               </p>
+            )}
+            {unreadMsgsBadge}
+         </div>
+         <div className='btns'>
+            {loggedinUser._id === chat.ownerId && (
+               <button
+                  className='delete-btn'
+                  onClick={() => onRemoveChat(chat._id)}>
+                  {t('Delete')}
+               </button>
+            )}
+         </div>
+      </article>
    )
 }

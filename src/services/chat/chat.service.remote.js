@@ -1,30 +1,31 @@
-import { httpService } from '../http.service'
+import { httpService } from '../http.service.js'
+
 export const chatService = {
-  query,
-  getById,
-  save,
-  remove,
+    query,
+    getById,
+    add,
+    update,
+    remove,
 }
-const CLOUD_KEY = '929267318661154'
-const CLOUD_SECRET = 'F488b_zzRLS3Sh2Efrfr-8_oHLI'
 
 async function query(filterBy = {}) {
-  return httpService.get(`chat`, filterBy)
+    return httpService.get('chat', filterBy)
 }
 
-function getById(chatId) {
-  return httpService.get(`chat/${chatId}`)
+async function getById(chatId) {
+    return httpService.get(`chat/${chatId}`)
+}
+
+async function add(chat) {
+    return httpService.post('chat', chat)
+}
+
+async function update(chat) {
+    return httpService.put(`chat/${chat._id}`, chat)
 }
 
 async function remove(chatId) {
-  return httpService.delete(`chat/${chatId}`)
+    return httpService.delete(`chat/${chatId}`)
 }
-async function save(chat) {
-  var savedChat
-  if (chat._id) {
-    savedChat = await httpService.put(`chat/${chat._id}`, chat)
-  } else {
-    savedChat = await httpService.post('chat', chat)
-  }
-  return savedChat
-}
+
+

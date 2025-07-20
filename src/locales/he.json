@@ -15,7 +15,6 @@
    "daysOfWeek": ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"],
    "today": "היום",
    "typing...": "מקליד...",
-   "Type a message...": "הקלד הודעה...",
    "logout": "התנתקות",
    "save": "שמור",
    "name of group": "שם הקבוצה",
@@ -209,5 +208,19 @@
    "remove item": "הסר פריט",
    "Add Training": "הוסף הדרכה",
    "Training": "הדרכה",
-   "trainings": "הדרכות"
+   "trainings": "הדרכות",
+   "New Chat": "צ'אט חדש",
+   "New Group": "קבוצה חדשה",
+   "Group Name": "שם הקבוצה",
+   "Select a user": "בחר משתמש",
+   "Create Group": "צור קבוצה",
+   "Start chat with": "התחל צ'אט עם",
+   "You": "אתה",
+   "Today": "היום",
+   "Yesterday": "אתמול",
+   "Type a message...": "הקלד הודעה...",
+   "Start chat": "התחל שיחה",
+   "Quote": "ציטוט",
+   "Are you sure you want to delete this chat?": "האם אתה בטוח שברצונך למחוק את הצ'אט?",
+   "Are you sure you want to delete this message?": "האם אתה בטוח שברצונך למחוק את ההודעה?"
 }

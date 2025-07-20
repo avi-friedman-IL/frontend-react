@@ -1,100 +1,41 @@
 @use '../base/vars' as *;
 
 .chat-list {
-    position: relative;
-
-    grid-area: chat-list;
-    display: grid;
-    align-content: start;
-
-    padding: 1rem;
-    height: calc(100vh - 80.36px);
+    grid-area: chat;
+    height: 100%;
     overflow-y: auto;
-    scrollbar-width: none;
+    backdrop-filter: blur(15px);
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 
-    .logo {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        animation: logo-spring 2.5s infinite;
-    }
-
-    .chat-container,
-    .chat-container-from-me {
+    ul {
         display: grid;
-        justify-self: end;
-        grid-auto-flow: column;
-        gap: .7rem;
-        padding: 1rem;
+        align-content: start;
+        height: 100%;
+        overflow-y: auto;
+        background: $bg-color-glass;
 
-        &:hover {
-            .actions {
-                opacity: 1;
-            }
-        }
-
-        .actions {
-            opacity: 0;
+        li {
             display: grid;
-            grid-auto-flow: column;
-            position: absolute;
-            left: auto;
-            right: -2.5rem;
-            top: 50%;
-            transform: translateY(-50%);
+            background-color: $bg-color-glass;
 
-            padding: .2rem;
-            border-radius: 3rem;
-            background-color: white;
-            box-shadow: 0 0 0 1px $bg-color-chat-preview;
-            transition: .5s;
+            &.selected {
+                background: transparent;
+                background-image: $bg-color-primary;
 
-            body[dir="ltr"] & {
-                right: auto;
-                left: -2.5rem;
-            }
+                p,
+                h3,
+                span {
+                    color: #fff;
+                }
 
-            svg {
-                display: grid;
-                height: 1rem;
-                width: 1rem;
+                &:hover {
+                    background: transparent;
+                    background-image: $bg-color-primary;
+
+                }
+
             }
         }
-    }
-
-    .chat-container-from-me {
-        justify-self: start;
-
-        .actions {
-            right: auto;
-            left: -4.5rem;
-
-            body[dir="ltr"] & {
-                left: auto;
-                right: -4.5rem;
-            }
-        }
-    }
-}
-
-@keyframes logo-spring {
-    0% {
-        transform: translate(-50%, -50%)
-    }
-
-    20% {
-        transform: translate(-50%, -60%)
-    }
-
-    40% {
-        transform: translate(-50%, -40%)
-    }
-
-    80% {
-        transform: translate(-50%, -50%)
-    }
-    100% {
-        transform: translate(-50%, -50%)
     }
 }

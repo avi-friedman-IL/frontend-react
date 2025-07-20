@@ -1,0 +1,89 @@
+@use '../base/vars' as *;
+
+.new-chat-container {
+    grid-area: new-chat;
+    display: grid;
+    align-items: start;
+    background-color: $bg-color-glass;
+    padding: 1rem;
+    position: relative;
+
+    .new-chat-form {
+        position: absolute;
+        top: 75%;
+        left: 1rem;
+        right: 1rem;
+
+        display: grid;
+        gap: .5rem;
+        padding: 1rem;
+        background-image: $bg-color-primary;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+        z-index: 1000;
+
+        h3 {
+            padding: 1rem;
+            color: #fff;
+            text-align: center;
+        }
+
+        .radio-container {
+            display: grid;
+            background-color: $bg-color-glass;
+            height: 200px;
+            overflow-y: auto;
+
+
+            .user-radio {
+                display: grid;
+                padding: 0.5rem;
+
+                label {
+                    display: grid;
+                    align-items: center;
+                    color: #fff;
+                }
+
+                &:hover {
+                    background-color: $bg-color-glass;
+                }
+            }
+        }
+
+        .new-group-checkbox {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            align-items: center;
+            gap: 0.5rem;
+
+            label {
+                color: #fff;
+            }
+        }
+        .new-group-container {
+
+            background-color: $bg-color-glass;
+            .checkbox-container {
+                display: grid;
+                height: 200px;
+                overflow-y: auto;
+
+                .user-checkbox {
+                    display: grid;
+                    grid-template-columns: auto 1fr;
+                    align-items: center;
+                    gap: 0.5rem;
+                    padding: 0.5rem;
+
+                    label {
+                        color: #fff;
+                    }
+
+                    &:hover {
+                        background-color: $bg-color-glass;
+                    }
+                }
+            }
+        }
+    }
+}

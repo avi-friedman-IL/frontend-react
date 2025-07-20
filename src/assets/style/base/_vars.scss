@@ -39,3 +39,21 @@ $blue:#0b57d0;
 
 $google-text-color-email-preview: #202124;
 $google-text-color-title: #444746;
+
+$bg-gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+$bg-gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+$bg-gradient-dark: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+$bg-gradient-cool: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+$bg-gradient-modern: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+
+// Modern color palette
+$color-primary: #2d3748;
+$color-primary-font: #4a5568;
+$color-accent: #667eea;
+$color-accent-light: #a0aec0;
+
+// Background colors
+$bg-color-main: #f7fafc;
+$bg-color-hover: rgba(102, 126, 234, 0.1);
+$bg-color-card: rgba(255, 255, 255, 0.9);
+$bg-color-glass: rgba(255, 255, 255, 0.25);

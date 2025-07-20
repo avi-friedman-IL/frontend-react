@@ -1,115 +1,75 @@
-import { chatService } from '../../services/chat'
 import { store } from '../store'
+import { chatService } from '../../services/chat'
 import {
    ADD_CHAT,
-   REMOVE_CHAT,
-   SET_CHAT,
+   DELETE_CHAT,
+   SET_CHATS,
+   SET_FILTER_BY,
    UPDATE_CHAT,
-   SET_CHAT_FILTER,
-   SET_LOADING,
-   SET_ALL_CHATS,
+   SET_SELECTED_CHAT,
+   IS_LOADING,
 } from '../reducers/chat.reducer'
 
-export async function loadChats(filterBy = {}) {
-   store.dispatch({ type: SET_LOADING, isLoading: true })
+export async function getChats(filterBy = {}) {
    try {
       const chats = await chatService.query(filterBy)
-      store.dispatch(getCmdSetChat(chats))
+      store.dispatch({ type: SET_CHATS, chats })
       return chats
    } catch (err) {
-      console.log('Cannot load chats', err)
+      console.error('Failed to get chats', err)
       throw err
-   } finally {
-      store.dispatch({ type: SET_LOADING, isLoading: false })
    }
 }
 
-export async function loadAllChats() {
-   store.dispatch({ type: SET_LOADING, isLoading: true })
+export async function getChatById(chatId) {
    try {
-      const allChats = await chatService.query()
-      store.dispatch({ type: SET_ALL_CHATS, allChats })
-      return allChats
+      const chat = await chatService.getById(chatId)
+      return chat
    } catch (err) {
-      console.log('Cannot load all chats', err)
-      throw err
-   } finally {
-      store.dispatch({ type: SET_LOADING, isLoading: false })
-   }
-}
-
-export async function removeChat(chatId) {
-   try {
-      await chatService.remove(chatId)
-      store.dispatch(getCmdRemoveChat(chatId))
-   } catch (err) {
-      console.log('Cannot remove chat', err)
+      console.error('Failed to get chat by id', err)
       throw err
    }
 }
 
 export async function addChat(chat) {
-   store.dispatch({ type: SET_LOADING, isLoading: true })
    try {
-      const savedChat = await chatService.save(chat)
-      store.dispatch(getCmdAddChat(savedChat))
-      return savedChat
+      const addedChat = await chatService.add(chat)
+      store.dispatch({ type: ADD_CHAT, chat: addedChat })
+      return addedChat
    } catch (err) {
-      console.log('Cannot add chat', err)
+      console.error('Failed to add chat', err)
       throw err
-   } finally {
-      store.dispatch({ type: SET_LOADING, isLoading: false })
    }
 }
 
 export async function updateChat(chat) {
    try {
-      const savedChat = await chatService.save(chat)
-      store.dispatch(getCmdUpdateChat(savedChat))
+      store.dispatch({ type: IS_LOADING, isLoading: true })
+      const updatedChat = await chatService.update(chat)
+      store.dispatch({ type: UPDATE_CHAT, chat: chat })
+      return updatedChat
    } catch (err) {
-      console.log('Cannot save chat', err)
+      console.error('Failed to update chat', err)
+      throw err
+   } finally {
+      store.dispatch({ type: IS_LOADING, isLoading: false })
+   }
+}
+
+export async function deleteChat(chatId) {
+   try {
+      await chatService.remove(chatId)
+      store.dispatch({ type: DELETE_CHAT, chatId })
+   } catch (err) {
+      console.error('Failed to delete chat', err)
       throw err
    }
 }
 
-export async function setChatFilter(filterBy) {
-   return store.dispatch({ type: SET_CHAT_FILTER, filterBy })
+export async function setFilterBy(filterBy) {
+   store.dispatch({ type: SET_FILTER_BY, filterBy })
 }
 
-// Command Creators:
-function getCmdSetChat(chats) {
-   return {
-      type: SET_CHAT,
-      chats,
-   }
-}
-function getCmdRemoveChat(chatId) {
-   return {
-      type: REMOVE_CHAT,
-      chatId,
-   }
-}
-function getCmdAddChat(chat) {
-   return {
-      type: ADD_CHAT,
-      chat,
-   }
-}
-function getCmdUpdateChat(chat) {
-   return {
-      type: UPDATE_CHAT,
-      chat,
-   }
-}
-
-// unitTestActions()
-async function unitTestActions() {
-   await loadChats()
-   await addChat(chatService.getEmptyChat())
-   await updateChat({
-      _id: 'm1oC7',
-      title: 'Chat-Good',
-   })
-   await removeChat('m1oC7')
-   // TODO unit test addChatMsg
+export async function setSelectedChat(chatId) {
+   store.dispatch({ type: SET_SELECTED_CHAT, chatId })
 }
