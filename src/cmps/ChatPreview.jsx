@@ -56,7 +56,7 @@ export function ChatPreview({ chat, onRemoveChat, loggedinUser }) {
             {loggedinUser._id === chat.ownerId && (
                <button
                   className='delete-btn'
-                  onClick={() => onRemoveChat(chat._id)}>
+                  onClick={(ev) => onRemoveChat(ev, chat._id)}>
                   {t('Delete')}
                </button>
             )}

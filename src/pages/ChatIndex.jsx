@@ -91,13 +91,15 @@ export function ChatIndex() {
       }
    }
 
-   async function onRemoveChat(chatId) {
+   async function onRemoveChat(ev, chatId) {
+      ev.stopPropagation()
       const confirm = window.confirm(
          t('Are you sure you want to delete this chat?')
       )
       if (!confirm) return
       try {
          await deleteChat(chatId)
+         if (selectedChatId === chatId) setSelectedChatId(null)
       } catch (err) {
          console.log('err:', err)
       }
@@ -113,7 +115,8 @@ export function ChatIndex() {
             owner: user.fullname,
             msgs: [],
          }
-         await addChat(chatToAdd)
+         const newChat = await addChat(chatToAdd)
+         setSelectedChatId(newChat._id)
          setIsNewChatOpen(false)
       } catch (err) {
          console.log('err:', err)
