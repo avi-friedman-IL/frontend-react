@@ -132,7 +132,8 @@ export function ChatIndex() {
          msgs: [],
       }
       try {
-         await addChat(groupToAdd)
+         const newChat = await addChat(groupToAdd)
+         setSelectedChatId(newChat._id)
          setIsNewChatOpen(false)
       } catch (err) {
          console.log('err:', err)
@@ -173,7 +174,8 @@ export function ChatIndex() {
       setQuoteMsg(msg)
    }
 
-   const isAuthorized = selectedChat?.ownerId === user._id || !selectedChat?.groupUsers
+   const isAuthorized =
+      selectedChat?.ownerId === user._id || !selectedChat?.groupUsers
    if (!user || !users || !chats) return
    return (
       <section className='chat-index'>
