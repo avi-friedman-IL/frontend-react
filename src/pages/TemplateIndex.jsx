@@ -9,6 +9,7 @@ import { t } from 'i18next'
 import { Link } from 'react-router-dom'
 import { TemplateList } from '../cmps/TemplateList.jsx'
 import { TemplateMsg } from '../cmps/TemplateMsg.jsx'
+import { addMsg } from '../store/actions/msg.actions.js'
 export function TemplateIndex() {
    const user = useSelector(state => state.userModule.user)
    const templates = useSelector(state => state.templateModule.templates)
@@ -46,6 +47,14 @@ export function TemplateIndex() {
       }
    }
 
+   async function onAddMsg(newMsg) {
+      try {
+         await addMsg(newMsg)
+      } catch (err) {
+         console.log('Cannot add msg', err)
+      }
+   }
+
    if (!templates?.length) return <div className='loading'>Loading...</div>
    return (
       <section className='template-index'>
@@ -72,7 +81,7 @@ export function TemplateIndex() {
             </button>
          )}
          {template && (
-            <TemplateMsg template={template} setTemplate={setTemplate} />
+            <TemplateMsg template={template} setTemplate={setTemplate} onAddMsg={onAddMsg} />
          )}
       </section>
    )

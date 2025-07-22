@@ -1,7 +1,5 @@
 import { useState } from 'react'
 import { updateChat } from '../store/actions/chat.actions'
-import { updateUser } from '../store/actions/user.actions'
-import { userService } from '../services/user'
 import { makeId } from '../services/util.service'
 import { t } from 'i18next'
 
@@ -29,23 +27,6 @@ export function ChatForm({ selectedChat, loggedinUser, isLoading, quoteMsg, setQ
          await updateChat(chatToSave)
       } catch (err) {
          console.error('Failed to save chat', err)
-      }
-   }
-
-   async function _updateUserWithUnreadChat(toId) {
-      const userToUpdate = await userService.getById(toId)
-      const unreadChats = [
-         ...(userToUpdate.unreadChats || []),
-         { fromId: loggedinUser._id, toId: toId },
-      ]
-      const updatedUser = {
-         ...userToUpdate,
-         unreadChats: unreadChats,
-      }
-      try {
-         await updateUser(updatedUser)
-      } catch (err) {
-         console.error('Failed to update user', err)
       }
    }
 

@@ -1,5 +1,5 @@
 import { MsgPreview } from './MsgPreview.jsx'
-export function MsgList({ msgs, users, onRemoveMsg, onUpdateMsg, showMsgId, setShowMsgId, loggedInUser }) {
+export function MsgList({ msgs, users, onRemoveMsg, onUpdateMsg, showMsgId, setShowMsgId, loggedInUser, onUpdateUser }) {
    return (
       <ul className='msg-list grid'>
          {msgs.map((msg, idx) => (
@@ -12,6 +12,7 @@ export function MsgList({ msgs, users, onRemoveMsg, onUpdateMsg, showMsgId, setS
                   showMsgId={showMsgId}
                   setShowMsgId={setShowMsgId}
                   loggedInUser={loggedInUser}
+                  onUpdateUser={onUpdateUser}
                />
             </li>
          ))}

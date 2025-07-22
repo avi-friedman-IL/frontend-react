@@ -1,12 +1,18 @@
 import io from 'socket.io-client'
 import { userService } from './user'
 
+export const SOCKET_EMIT_LOGIN = 'set-user-socket'
+export const SOCKET_EMIT_LOGOUT = 'unset-user-socket'
+
 export const SOCKET_EVENT_CHAT_ADDED = 'chat-added'
 export const SOCKET_EVENT_CHAT_REMOVED = 'chat-removed'
 export const SOCKET_EVENT_CHAT_UPDATED = 'chat-updated'
+
+export const SOCKET_EVENT_MSG_ADDED = 'msg-added'
+export const SOCKET_EVENT_MSG_REMOVED = 'msg-removed'
+export const SOCKET_EVENT_MSG_UPDATED = 'msg-updated'
+
 export const SOCKET_EVENT_USER_UPDATED = 'user-updated'
-export const SOCKET_EMIT_LOGIN = 'set-user-socket'
-export const SOCKET_EMIT_LOGOUT = 'unset-user-socket'
 
 const baseUrl = (process.env.NODE_ENV === 'production') ? '' : '//localhost:3030'
 

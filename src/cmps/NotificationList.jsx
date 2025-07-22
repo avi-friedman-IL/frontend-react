@@ -1,22 +1,23 @@
 import { t } from 'i18next'
 import { NotificationPreview } from './NotificationPreview.jsx'
-import { socketService } from '../services/socket.service.js'
 import { useEffect, useState } from 'react'
 import { showErrorMsg } from '../services/event-bus.service.js'
-export function NotificationList({ users, user }) {
-   const [notifications, setNotifications] = useState(null)
+export function NotificationList({ notifications, users, user, onUpdateUser }) {
+   // const [notifications, setNotifications] = useState(null)
 
    useEffect(() => {
       if (!user) return
       const userToUpdate = users.find(currUser => currUser._id === user._id)
-      setNotifications(userToUpdate.notifications)
+      // setNotifications(userToUpdate.notifications)
    }, [user, users])
 
-   async function onClear() {
+   async function onClear(ev) {
+      ev.preventDefault()
+      ev.stopPropagation()
       const userToUpdate = users.find(currUser => currUser._id === user._id)
       const updatedUser = { ...userToUpdate, notifications: [] }
       try {
-         socketService.emit('user-update', updatedUser)
+         await onUpdateUser(updatedUser)
       } catch (err) {
          showErrorMsg(t('Cannot update user'))
          console.log('NotificationList: err in onClear', err)

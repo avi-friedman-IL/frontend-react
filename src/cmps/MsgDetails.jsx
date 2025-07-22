@@ -9,6 +9,8 @@ export function MsgDetails({
    showMsgId,
    isOpenResponse,
    setIsOpenResponse,
+   onUpdateMsg,
+   onUpdateUser,
    date,
    time,
    loggedInUser,
@@ -69,6 +71,8 @@ export function MsgDetails({
                setIsOpenResponse={setIsOpenResponse}
                msg={msg}
                users={users}
+               onUpdateMsg={onUpdateMsg}
+               onUpdateUser={onUpdateUser}
             />
          )}
       </div>

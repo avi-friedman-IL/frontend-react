@@ -8,6 +8,8 @@ export function ResponseForm({
    setIsOpenResponse,
    msg,
    users,
+   onUpdateMsg,
+   onUpdateUser,
    //  loggedInUser
 }) {
    const loggedInUser = useSelector(state => state.userModule.user)
@@ -32,7 +34,7 @@ export function ResponseForm({
          ...msg,
          responses: msg.responses ? [...msg.responses, response] : [response],
       }
-      socketService.emit('msg-update', updatedMsg)
+      await onUpdateMsg(updatedMsg)
       setIsOpenResponse(false)
    }
    return (
@@ -44,6 +46,7 @@ export function ResponseForm({
             onClick={ev => ev.stopPropagation()}
             onChange={handleChange}
             placeholder='Your response here'></textarea>
+            
          <div className='form-btns pad-1 grid-col gap-1'>
             <button className='btn1' onClick={onSend}>
                {t('Send')}

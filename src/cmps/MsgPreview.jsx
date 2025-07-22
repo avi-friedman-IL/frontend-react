@@ -18,6 +18,7 @@ export function MsgPreview({
    showMsgId,
    setShowMsgId,
    loggedInUser,
+   onUpdateUser,
 }) {
    const [currMsg, setCurrMsg] = useState({ ...msg })
    const [isOpenResponse, setIsOpenResponse] = useState(false)
@@ -40,7 +41,7 @@ export function MsgPreview({
       setCurrMsg(updatedMsg)
       setIsCheckedDone(checked)
       try {
-         socketService.emit('msg-update', updatedMsg)
+         await onUpdateMsg(updatedMsg)
       } catch (err) {
          console.log('Cannot update msg', err)
          showErrorMsg(t('Cannot update msg'))
@@ -84,7 +85,7 @@ export function MsgPreview({
          }
       }
       try {
-         socketService.emit('user-update', updatedUser)
+         await onUpdateUser(updatedUser)
       } catch (err) {
          console.log('Cannot update user', err)
          showErrorMsg(t('Cannot update user'))
@@ -155,6 +156,8 @@ export function MsgPreview({
             date={date}
             time={time}
             loggedInUser={loggedInUser}
+            onUpdateMsg={onUpdateMsg}
+            onUpdateUser={onUpdateUser}
          />
       </section>
    )

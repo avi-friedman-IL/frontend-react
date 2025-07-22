@@ -1,19 +1,19 @@
 import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
-import { loadMsgs, removeMsg } from '../store/actions/msg.actions.js'
+import { addMsg, loadMsgs, removeMsg, updateMsg } from '../store/actions/msg.actions.js'
 import { MsgList } from '../cmps/MsgList.jsx'
 import { MsgSidebar } from '../cmps/MsgSidebar.jsx'
 import { MsgFilter } from '../cmps/MsgFilter.jsx'
-import { loadUsers } from '../store/actions/user.actions.js'
-import { socketService } from '../services/socket.service.js'
+import { loadUsers, updateUser } from '../store/actions/user.actions.js'
+import { SOCKET_EVENT_MSG_ADDED, SOCKET_EVENT_MSG_UPDATED, SOCKET_EVENT_USER_UPDATED, socketService } from '../services/socket.service.js'
 import { useDispatch } from 'react-redux'
-import { ADD_MSG, UPDATE_MSG } from '../store/reducers/msg.reducer.js'
 import { t } from 'i18next'
-import { UPDATE_USER } from '../store/reducers/user.reducer.js'
 import * as XLSX from 'xlsx'
 import { saveAs } from 'file-saver'
 import { BsFileEarmarkExcelFill } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
+import { ADD_MSG, UPDATE_MSG } from '../store/reducers/msg.reducer.js'
+import { UPDATE_USER } from '../store/reducers/user.reducer.js'
 
 export function MsgIndex() {
    const dispatch = useDispatch()
@@ -30,14 +30,19 @@ export function MsgIndex() {
    }, [filterBy, loggedinUser])
 
    useEffect(() => {
-      if (!socketService.isConnected()) socketService.setup()
-      socketService.on('msg-add', onAddMsg)
-      socketService.on('msg-update', onUpdateMsg)
-      socketService.on('user-update', onUpdateUser)
+      socketService.on(SOCKET_EVENT_MSG_ADDED, (msg) => {
+         dispatch({ type: ADD_MSG, msg })
+      })
+      socketService.on(SOCKET_EVENT_MSG_UPDATED, (msg) => {
+         dispatch({ type: UPDATE_MSG, msg })
+      })
+      socketService.on(SOCKET_EVENT_USER_UPDATED, (user) => {
+         dispatch({ type: UPDATE_USER, user })
+      })
       return () => {
-         socketService.off('msg-add', onAddMsg)
-         socketService.off('msg-update', onUpdateMsg)
-         socketService.off('user-update', onUpdateUser)
+         socketService.off(SOCKET_EVENT_MSG_ADDED)
+         socketService.off(SOCKET_EVENT_MSG_UPDATED)
+         socketService.off(SOCKET_EVENT_USER_UPDATED)
       }
    }, [])
 
@@ -57,7 +62,7 @@ export function MsgIndex() {
 
    async function onAddMsg(newMsg) {
       try {
-         dispatch({ type: ADD_MSG, msg: newMsg })
+         await addMsg(newMsg)
       } catch (err) {
          console.log('Cannot add msg', err)
       }
@@ -73,7 +78,7 @@ export function MsgIndex() {
 
    async function onUpdateMsg(updatedMsg) {
       try {
-         dispatch({ type: UPDATE_MSG, msg: updatedMsg })
+         await updateMsg(updatedMsg)
       } catch {
          console.log('Cannot update msg')
       }
@@ -81,7 +86,7 @@ export function MsgIndex() {
 
    async function onUpdateUser(userToUpdate) {
       try {
-         dispatch({ type: UPDATE_USER, user: userToUpdate })
+         await updateUser(userToUpdate)
       } catch {
          console.log('Cannot update user')
       }
@@ -131,6 +136,7 @@ export function MsgIndex() {
             showMsgId={showMsgId}
             setShowMsgId={setShowMsgId}
             loggedinUser={loggedinUser}
+            onUpdateUser={onUpdateUser}
          />
 
          {loggedinUser?.isAdmin && (

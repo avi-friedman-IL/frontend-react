@@ -1,11 +1,18 @@
-import { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
 import { useTranslation } from 'react-i18next'
 
+import { updateUser } from '../store/actions/user.actions.js'
+import { UPDATE_USER } from '../store/reducers/user.reducer.js'
+import {
+   SOCKET_EVENT_USER_UPDATED,
+   socketService,
+} from '../services/socket.service.js'
 import { NotificationList } from './NotificationList.jsx'
-
+import { IoHomeOutline } from 'react-icons/io5'
+import { BiChat } from 'react-icons/bi'
 import {
    MdOutlineMailOutline,
    MdOutlineManageAccounts,
@@ -13,71 +20,37 @@ import {
    MdModelTraining,
 } from 'react-icons/md'
 
-import { IoHomeOutline } from 'react-icons/io5'
-import { BiChat } from 'react-icons/bi'
-import { Tooltip } from './Tooltip'
-
 export function AppHeader() {
    const user = useSelector(state => state.userModule.user)
    const users = useSelector(state => state.userModule.users)
+   const dispatch = useDispatch()
 
-   const [isOpenLanguage, setIsOpenLanguage] = useState(false)
    const [isOpenNotification, setIsOpenNotification] = useState(false)
-   const [isTooltipOpen, setIsTooltipOpen] = useState(false)
-   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 })
-   const [tooltipText, setTooltipText] = useState('')
 
-   const timeoutRef = useRef(null)
-   const languageRef = useRef(null)
-
-   const { t, i18n } = useTranslation()
+   const { t } = useTranslation()
 
    useEffect(() => {
-      function handleClickOutside(event) {
-         if (
-            languageRef.current &&
-            !languageRef.current.contains(event.target)
-         ) {
-            setIsOpenLanguage(false)
-         }
-      }
-
-      document.addEventListener('mousedown', handleClickOutside)
-
+      socketService.on(SOCKET_EVENT_USER_UPDATED, updatedUser => {
+         dispatch({ type: UPDATE_USER, user: updatedUser })
+      })
       return () => {
-         document.removeEventListener('mousedown', handleClickOutside)
+         socketService.off(SOCKET_EVENT_USER_UPDATED)
       }
    }, [])
 
-   function changeLanguage(lang) {
-      document.body.dir = lang === 'he' ? 'rtl' : 'ltr'
-
-      i18n.changeLanguage(lang)
-      setIsOpenLanguage(false)
-      localStorage.setItem('language', lang)
+   async function onUpdateUser(updatedUser) {
+      try {
+         await updateUser(updatedUser)
+      } catch (err) {
+         console.log('Cannot update user', err)
+      }
    }
-
-   function handleMouseEnter(ev) {
-      ev.preventDefault()
-      if (timeoutRef.current) clearTimeout(timeoutRef.current)
-      timeoutRef.current = setTimeout(() => {
-         setIsTooltipOpen(true)
-      }, 500)
-      i18n.dir() === 'rtl'
-         ? setTooltipPos({ x: ev.pageX - 80, y: ev.pageY - 10 })
-         : setTooltipPos({ x: ev.pageX + 10, y: ev.pageY - 10 })
-   }
-
-   function handleMouseLeave() {
-      clearTimeout(timeoutRef.current)
-      timeoutRef.current = setTimeout(() => {
-         setIsTooltipOpen(false)
-      }, 500)
-   }
-   // if (!users?.length || !user) return <div>Loading...</div>
+   const userImg = user?.fullname.split(' ')[0].charAt(0).toUpperCase()
+   const userName = user?.fullname.split(' ')[0]
+   const notifications = user?.notifications?.length
+   const isNotifications = user?.notifications?.length > 0 && isOpenNotification
    return (
       <section className='app-header'>
-         {isTooltipOpen && <Tooltip position={tooltipPos} text={tooltipText} />}
          {user && (
             <nav className='app-nav'>
                <NavLink to={'/'}>
@@ -112,45 +85,40 @@ export function AppHeader() {
                   </span>
                   <span>{t('trainings')}</span>
                </NavLink>
-               {user.isAdmin && <NavLink to={'/users'}>
-                  <span className='icon'>
-                     <MdOutlineManageAccounts />
-                  </span>
-                  <span>{t('users')}</span>
-               </NavLink>}
+               {user.isAdmin && (
+                  <NavLink to={'/users'}>
+                     <span className='icon'>
+                        <MdOutlineManageAccounts />
+                     </span>
+                     <span>{t('users')}</span>
+                  </NavLink>
+               )}
             </nav>
          )}
-         <div className='user-info' ref={languageRef}>
-           
+         <div className='user-info'>
             {user && (
                <div
                   className='user-btn'
                   onClick={() => setIsOpenNotification(open => !open)}>
-                  <span className='user-img' style={{ backgroundColor: user.color }}>
-                     {user.fullname.split(' ')[0].charAt(0).toUpperCase()}
+                  <span
+                     className='user-img'
+                     style={{ backgroundColor: user.color }}>
+                     {userImg}
                   </span>
-                  <span>{user.fullname.split(' ')[0]}</span>
-                  {users?.find(currUser => currUser._id === user._id)
-                     ?.notifications?.length > 0 && (
-                     <span className='notifications'>
-                        {
-                           users?.find(currUser => currUser._id === user._id)
-                              ?.notifications?.length
-                        }
-                     </span>
+                  <span>{userName}</span>
+
+                  {notifications > 0 && (
+                     <span className='notifications'>{notifications}</span>
                   )}
                </div>
             )}
-            {isOpenNotification && (
-               <NotificationList users={users} user={user} />
-            )}
-            {isOpenLanguage && (
-               <ul
-                  className='language-list'
-                  onBlur={() => setIsOpenLanguage(false)}>
-                  <li onClick={() => changeLanguage('en')}>english</li>
-                  <li onClick={() => changeLanguage('he')}>עברית</li>
-               </ul>
+            {isNotifications && (
+               <NotificationList
+                  notifications={user?.notifications}
+                  users={users}
+                  user={user}
+                  onUpdateUser={onUpdateUser}
+               />
             )}
          </div>
       </section>

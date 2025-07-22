@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router'
 export function TemplateMsg({
    template,
    setTemplate,
+   onAddMsg,
 }) {
    const [msg, setMsg] = useState({})
    const user = useSelector(storeState => storeState.userModule.user)
@@ -28,7 +29,7 @@ export function TemplateMsg({
             fromName: user.fullname,
             isDone: false,
          }
-         socketService.emit('msg-add', newMsg)
+         await onAddMsg(newMsg)
          showSuccessMsg(t('Msg sent'))
          navigate('/msg')
       } catch (err) {
