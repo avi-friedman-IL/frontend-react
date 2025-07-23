@@ -223,5 +223,15 @@
    "Quote": "ציטוט",
    "Are you sure you want to delete this chat?": "האם אתה בטוח שברצונך למחוק את הצ'אט?",
    "Are you sure you want to delete this message?": "האם אתה בטוח שברצונך למחוק את ההודעה?",
-   "Your request has been answered": "הבקשה שלך נענתה"
+   "Your request has been answered": "הבקשה שלך נענתה",
+   "Add message template": "הוסף תבנית הודעה",
+   "Select subject": "בחר נושא",
+   "fields": "שדות",
+   "Add field": "הוסף שדה",
+   "Remove field": "הסר שדה",
+   "Select type of field": "בחר סוג שדה",
+   "select type of field": "בחר סוג שדה",
+   "Type of field": "סוג שדה",
+   "Required field": "שדה נדרש",
+   "Not required field": "שדה לא נדרש"
 }

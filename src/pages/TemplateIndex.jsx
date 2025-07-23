@@ -61,7 +61,7 @@ export function TemplateIndex() {
          {user?.isAdmin && <Link to='/template/edit' className='btn1'>
             {t('Add message template')}
          </Link>}
-         {!template && <h1>{t('Select subject:')}</h1>}
+         {!template && <h1>{t('Select subject')}:</h1>}
          {!template && (
             <TemplateList
                user={user}
