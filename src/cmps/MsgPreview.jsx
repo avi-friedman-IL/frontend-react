@@ -1,11 +1,7 @@
 import { useEffect, useState } from 'react'
 import { socketService } from '../services/socket.service'
 import { t } from 'i18next'
-import {
-   MdDelete,
-   MdDoNotDisturb,
-   MdOutlineDone,
-} from 'react-icons/md'
+import { MdDelete, MdDoNotDisturb, MdOutlineDone } from 'react-icons/md'
 import { getDayOrDate, makeId } from '../services/util.service'
 import { MsgDetails } from './MsgDetails.jsx'
 import { showErrorMsg } from '../services/event-bus.service.js'
@@ -62,26 +58,18 @@ export function MsgPreview({
                ) || [],
          }
       } else {
+         const newNotification = {
+            msgId: msg._id,
+            id: makeId(),
+            subject: msg.subject,
+            text: t('Your request has been answered'),
+         }
+         
          updatedUser = {
             ...userToUpdate,
             notifications: userToUpdate?.notifications
-               ? [
-                    ...userToUpdate.notifications,
-                    {
-                       msgId: msg._id,
-                       id: makeId(),
-                       subject: msg.subject,
-                       text: `בקשתך בנושא נענתה`,
-                    },
-                 ]
-               : [
-                    {
-                       msgId: msg._id,
-                       id: makeId(),
-                       subject: msg.subject,
-                       text: `בקשתך בנושא נענתה`,
-                    },
-                 ],
+               ? [...userToUpdate.notifications, newNotification]
+               : [newNotification],
          }
       }
       try {
