@@ -16,13 +16,16 @@ export function makeId(length = 6) {
 
 export function formatChatDate(date) {
    const chatDate = new Date(date)
-   
+
    if (isToday(chatDate)) {
       return `${i18n.t('Today')} ${format(chatDate, 'HH:mm')}`
    } else if (isYesterday(chatDate)) {
       return `${i18n.t('Yesterday')} ${format(chatDate, 'HH:mm')}`
    } else if (isThisWeek(chatDate)) {
-      return `${format(chatDate, 'EEEE', { locale: he })} at ${format(chatDate, 'HH:mm')}`
+      return `${format(chatDate, 'EEEE', { locale: he })} ${format(
+         chatDate,
+         'HH:mm'
+      )}`
    } else {
       return format(chatDate, 'dd/MM/yyyy HH:mm', { locale: he })
    }
