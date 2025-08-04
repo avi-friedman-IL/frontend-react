@@ -27,7 +27,7 @@ export function UserAdd({ setIsOpenAddUser }) {
     }
     
     return (
-        <form className='user-add' onSubmit={handleSave}>
+        <form className='user-add user-edit' onSubmit={handleSave}>
             <input type="text"
                 name="fullname"
                 placeholder={t('Fullname')}
