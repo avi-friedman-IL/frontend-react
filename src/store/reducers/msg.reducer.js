@@ -1,5 +1,3 @@
-import { msgService } from "../../services/msg"
-import { userService } from "../../services/user"
 
 export const SET_MSG = 'SET_MSG'
 export const REMOVE_MSG = 'REMOVE_MSG'
@@ -7,11 +5,9 @@ export const ADD_MSG = 'ADD_MSG'
 export const UPDATE_MSG = 'UPDATE_MSG'
 export const SET_FILTER = 'SET_FILTER'
 export const SET_LOADING = 'SET_LOADING'
-export const SET_ALL_MSGS = 'SET_ALL_MSGS'
 
 const initialState = {
    msgs: [],
-   allMsgs: [],
    filterBy: {
       txt: '',
       userId: null,
@@ -49,9 +45,6 @@ export function msgReducer(state = initialState, action) {
          break
       case SET_LOADING:
          newState = { ...state, isLoading: action.isLoading }
-         break
-      case SET_ALL_MSGS:
-         newState = { ...state, allMsgs: action.allMsgs }
          break
       default:
          state

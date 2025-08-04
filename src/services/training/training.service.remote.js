@@ -2,10 +2,10 @@ import { httpService } from '../http.service'
 export const trainingService = {
    query,
    getById,
-   save,
+   add,
+   update,
    remove,
 }
-
 
 async function query(filterBy = {}) {
    return httpService.get(`training`, filterBy)
@@ -18,15 +18,11 @@ function getById(trainingId) {
 async function remove(trainingId) {
    return httpService.delete(`training/${trainingId}`)
 }
-async function save(training) {
-   var savedTraining
-   if (training._id) {
-      savedTraining = await httpService.put(
-         `training/${training._id}`,
-         training
-      )
-   } else {
-      savedTraining = await httpService.post('training', training)
-   }
-   return savedTraining
+
+async function add(training) {
+   return await httpService.post('training', training)
+}
+
+async function update(training) {
+   return await httpService.put(`training/${training._id}`, training)
 }

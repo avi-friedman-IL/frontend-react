@@ -41,7 +41,7 @@ export async function removeScript(scriptId) {
 
 export async function addScript(script) {
    try {
-      const savedScript = await scriptService.save(script)
+      const savedScript = await scriptService.add(script)
       store.dispatch(getCmdAddScript(savedScript))
       return savedScript
    } catch (err) {
@@ -52,7 +52,7 @@ export async function addScript(script) {
 
 export async function updateScript(script) {
    try {
-      const savedScript = await scriptService.save(script)
+      const savedScript = await scriptService.update(script)
       store.dispatch(getCmdUpdateScript(savedScript))
    } catch (err) {
       console.log('Cannot save script', err)

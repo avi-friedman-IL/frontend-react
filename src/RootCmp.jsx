@@ -20,6 +20,7 @@ import { TrainingIndex } from './pages/TrainingIndex.jsx'
 import { TrainingEdit } from './pages/TrainingEdit.jsx'
 import { TrainingDetails } from './pages/TrainingDetails.jsx'
 import { ScriptEdit } from './pages/ScriptEdit.jsx'
+import { ObjectionEdit } from './pages/ObjectionEdit.jsx'
 
 export function RootCmp() {
    return (
@@ -38,6 +39,8 @@ export function RootCmp() {
                   path='/objection/details/:id'
                   element={<ObjectionDetails />}
                />
+               <Route path='/objection/edit' element={<ObjectionEdit />} />
+               <Route path='/objection/edit/:id' element={<ObjectionEdit />} />
                <Route
                   path='/objection/details/:id/:itemId'
                   element={<ObjectionDetails />}

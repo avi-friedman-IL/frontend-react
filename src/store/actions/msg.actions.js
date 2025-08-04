@@ -7,7 +7,6 @@ import {
    UPDATE_MSG,
    SET_FILTER,
    SET_LOADING,
-   SET_ALL_MSGS,
 } from '../reducers/msg.reducer'
 
 export async function loadMsgs(filterBy = {}) {
@@ -18,20 +17,6 @@ export async function loadMsgs(filterBy = {}) {
       return msgs
    } catch (err) {
       console.log('Cannot load msgs', err)
-      throw err
-   } finally {
-      store.dispatch({ type: SET_LOADING, isLoading: false })
-   }
-}
-
-export async function loadAllMsgs() {
-   store.dispatch({ type: SET_LOADING, isLoading: true })
-   try {
-      const allMsgs = await msgService.query()
-      store.dispatch({ type: SET_ALL_MSGS, allMsgs })
-      return allMsgs
-   } catch (err) {
-      console.log('Cannot load all msgs', err)
       throw err
    } finally {
       store.dispatch({ type: SET_LOADING, isLoading: false })
@@ -51,7 +36,7 @@ export async function removeMsg(msgId) {
 export async function addMsg(msg) {
    store.dispatch({ type: SET_LOADING, isLoading: true })
    try {
-      const savedMsg = await msgService.save(msg)
+      const savedMsg = await msgService.add(msg)
       store.dispatch(getCmdAddMsg(savedMsg))
       return savedMsg
    } catch (err) {
@@ -64,7 +49,7 @@ export async function addMsg(msg) {
 
 export async function updateMsg(msg) {
    try {
-      const savedMsg = await msgService.save(msg)
+      const savedMsg = await msgService.update(msg)
       store.dispatch(getCmdUpdateMsg(savedMsg))
    } catch (err) {
       console.log('Cannot save msg', err)
@@ -100,16 +85,4 @@ function getCmdUpdateMsg(msg) {
       type: UPDATE_MSG,
       msg,
    }
-}
-
-// unitTestActions()
-async function unitTestActions() {
-   await loadMsgs()
-   await addMsg(msgService.getEmptyMsg())
-   await updateMsg({
-      _id: 'm1oC7',
-      title: 'Msg-Good',
-   })
-   await removeMsg('m1oC7')
-   // TODO unit test addMsgMsg
 }

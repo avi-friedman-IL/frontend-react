@@ -119,6 +119,7 @@ export function NewChat({
             </button>
          )}
          <button
+            type='button'
             className='new-chat-btn'
             onClick={() => setIsNewChatOpen(false)}>
             {t('Close')}

@@ -1,5 +1,3 @@
-import { templateService } from "../../services/template"
-import { userService } from "../../services/user"
 
 export const SET_TEMPLATE = 'SET_TEMPLATE'
 export const REMOVE_TEMPLATE = 'REMOVE_TEMPLATE'
@@ -7,11 +5,9 @@ export const ADD_TEMPLATE = 'ADD_TEMPLATE'
 export const UPDATE_TEMPLATE = 'UPDATE_TEMPLATE'
 export const SET_FILTER = 'SET_FILTER'
 export const SET_LOADING = 'SET_LOADING'
-export const SET_ALL_TEMPLATES = 'SET_ALL_TEMPLATES'
 
 const initialState = {
    templates: [],
-   allTemplates: [],
    filterBy: {
       txt: '',
       userId: null,
@@ -49,9 +45,6 @@ export function templateReducer(state = initialState, action) {
          break
       case SET_LOADING:
          newState = { ...state, isLoading: action.isLoading }
-         break
-      case SET_ALL_TEMPLATES:
-         newState = { ...state, allTemplates: action.allTemplates }
          break
       default:
          state

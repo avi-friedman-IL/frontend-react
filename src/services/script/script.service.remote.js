@@ -3,7 +3,8 @@ import { httpService } from "../http.service"
 export const scriptService = {
     query,
     getById,
-    save,
+    add,
+    update,
     remove,
 
 }
@@ -20,12 +21,10 @@ async function remove(scriptId) {
     return httpService.delete(`script/${scriptId}`)
 }
 
-async function save(script) {
-    var savedScript
-    if (script._id) {
-        savedScript = await httpService.put(`script/${script._id}`, script)
-    } else {
-        savedScript = await httpService.post('script', script)
-    }
-    return savedScript
+async function add(script) {
+    return await httpService.post('script', script)
+}
+
+async function update(script) {
+    return await httpService.put(`script/${script._id}`, script)
 }

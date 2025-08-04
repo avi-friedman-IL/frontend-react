@@ -46,7 +46,7 @@ export async function removeTraining(trainingId) {
 export async function addTraining(training) {
    store.dispatch({ type: SET_LOADING, isLoading: true })
    try {
-      const savedTraining = await trainingService.save(training)
+      const savedTraining = await trainingService.add(training)
       store.dispatch(getCmdAddTraining(savedTraining))
       return savedTraining
    } catch (err) {
@@ -59,7 +59,7 @@ export async function addTraining(training) {
 
 export async function updateTraining(training) {
    try {
-      const savedTraining = await trainingService.save(training)
+      const savedTraining = await trainingService.update(training)
       store.dispatch(getCmdUpdateTraining(savedTraining))
    } catch (err) {
       console.log('Cannot save training', err)
@@ -97,14 +97,3 @@ function getCmdUpdateTraining(training) {
    }
 }
 
-// unitTestActions()
-async function unitTestActions() {
-   await loadTrainings()
-   await addTraining(trainingService.getEmptyTraining())
-   await updateTraining({
-      _id: 'm1oC7',
-      title: 'Training-Good',
-   })
-   await removeTraining('m1oC7')
-   // TODO unit test addTrainingTraining
-}

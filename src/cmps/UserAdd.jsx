@@ -5,7 +5,7 @@ import { showSuccessMsg, showErrorMsg } from "../services/event-bus.service"
 import { t } from "i18next"
 import { MdClose } from "react-icons/md"
 
-export function AddUser({ setIsOpenAddUser }) {
+export function UserAdd({ setIsOpenAddUser }) {
     const [user, setUser] = useState(userService.getEmptyUser())
     
     function handleChange(ev) {
@@ -27,7 +27,7 @@ export function AddUser({ setIsOpenAddUser }) {
     }
     
     return (
-        <form className='add-user edit-user' onSubmit={handleSave}>
+        <form className='user-add' onSubmit={handleSave}>
             <input type="text"
                 name="fullname"
                 placeholder={t('Fullname')}

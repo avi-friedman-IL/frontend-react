@@ -3,7 +3,8 @@ import { httpService } from "../http.service"
 export const objectionService = {
     query,
     getById,
-    save,
+    add,
+    update,
     remove,
 
 }
@@ -20,12 +21,10 @@ async function remove(objectionId) {
     return httpService.delete(`objection/${objectionId}`)
 }
 
-async function save(objection) {
-    var savedObjection
-    if (objection._id) {
-        savedObjection = await httpService.put(`objection/${objection._id}`, objection)
-    } else {
-        savedObjection = await httpService.post('objection', objection)
-    }
-    return savedObjection
+async function add(objection) {
+    return await httpService.post('objection', objection)
+}
+
+async function update(objection) {
+    return await httpService.put(`objection/${objection._id}`, objection)
 }

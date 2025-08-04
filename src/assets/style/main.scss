@@ -8,72 +8,74 @@
 
 /* pages */
 @use 'pages/home-page';
+
 @use 'pages/objection-index';
 @use 'pages/objection-details';
+@use 'pages/objection-edit';
 @use 'pages/chat-index';
-@use 'pages/members-index';
+
 @use 'pages/script-index';
 @use 'pages/script-details';
+@use 'pages/script-edit';
+
 @use 'pages/tips-index';
+
 @use 'pages/msg-index';
+
 @use 'pages/user-index';
+
 @use 'pages/template-index';
 @use 'pages/template-edit';
+
 @use 'pages/training-index';
 @use 'pages/training-edit';
 @use 'pages/training-details';
-@use 'pages/script-edit';
 
 /* components */
-@use 'cmps/add-item-form';
-@use 'cmps/add-objection';
-@use 'cmps/objection-style';
-@use 'cmps/item-edit';
 @use 'cmps/user-msg';
+
 @use 'cmps/app-header';
-@use 'cmps/login-with-google';
-@use 'cmps/tooltip';
+
 @use 'cmps/objection-list';
 @use 'cmps/objection-preview';
-@use 'cmps/contacts-index';
-@use 'cmps/contacts-list';
-@use 'cmps/contacts-preview';
-@use 'cmps/create-group';
+
 @use 'cmps/chat-list';
 @use 'cmps/chat-preview';
-@use 'cmps/chat-icons'; 
-@use 'cmps/chat-action';
-@use 'cmps/chat-input';
-@use 'cmps/members-list';
-@use 'cmps/members-preview';
-@use 'cmps/icon-picker';  
-@use 'cmps/icons-details';  
-@use 'cmps/text-editor';
-@use 'cmps/script-list';
-@use 'cmps/script-preview';
-@use 'cmps/tips-list';
-@use 'cmps/tips-preview';
-@use 'cmps/tips-edit';
-@use 'cmps/msg-list';
-@use 'cmps/msg-preview';
-@use 'cmps/msg-filter';
-@use 'cmps/response-form';
-@use 'cmps/notification-list';
-@use 'cmps/notification-preview';
-@use 'cmps/login-form';
-@use 'cmps/respect-btn';
-@use 'cmps/new-msg-form';
-@use 'cmps/msg-sidebar';
-@use 'cmps/edit-user';
-@use 'cmps/user-preview';
-@use 'cmps/permissions-edit';
-@use 'cmps/user-list';
-@use 'cmps/user-filter';
-@use 'cmps/template-list';
-@use 'cmps/template-preview';
-@use 'cmps/training-list';
-@use 'cmps/training-preview.scss';
-@use 'cmps/tox';
 @use 'cmps/new-chat';
 @use 'cmps/chat-form';
 @use 'cmps/chat-msgs';
+
+@use 'cmps/script-list';
+@use 'cmps/script-preview';
+
+@use 'cmps/tips-list';
+@use 'cmps/tips-preview';
+@use 'cmps/tips-edit';
+
+@use 'cmps/msg-list';
+@use 'cmps/msg-preview';
+@use 'cmps/msg-filter';
+@use 'cmps/msg-sidebar';
+@use 'cmps/response-form';
+
+@use 'cmps/notification-list';
+@use 'cmps/notification-preview';
+
+@use 'cmps/login-form';
+
+@use 'cmps/user-edit';
+@use 'cmps/user-preview';
+@use 'cmps/user-permissions-edit';
+@use 'cmps/user-list';
+@use 'cmps/user-filter';
+
+@use 'cmps/template-list';
+@use 'cmps/template-preview';
+
+@use 'cmps/training-list';
+@use 'cmps/training-preview';
+
+@use 'cmps/tox';
+
+@use 'cmps/respect-btn';
+

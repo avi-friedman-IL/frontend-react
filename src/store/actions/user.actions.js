@@ -18,7 +18,7 @@ import { socketService } from '../../services/socket.service'
 export async function loadUsers(filterBy = {}) {
    try {
       // store.dispatch({ type: LOADING_START })
-      const users = await userService.getUsers(filterBy)
+      const users = await userService.query(filterBy)
       store.dispatch({ type: SET_USERS, users })
    } catch (err) {
       console.log('UserActions: err in loadUsers', err)
@@ -29,7 +29,7 @@ export async function loadUsers(filterBy = {}) {
 
 export async function addUser(user) {
    try {
-      const newUser = await userService.save(user)
+      const newUser = await userService.add(user)
       store.dispatch({ type: ADD_USER, user: newUser })
       return newUser
    } catch (err) {
@@ -42,15 +42,6 @@ export async function removeUser(userId) {
       store.dispatch({ type: REMOVE_USER, userId })
    } catch (err) {
       console.log('UserActions: err in removeUser', err)
-   }
-}
-
-export async function updateLoggedUser(user) {
-   try {
-      userService.update(user)
-      store.dispatch({ type: SET_USER, user })
-   } catch (err) {
-      console.log('UserActions: err in updateLoggedUser', err)
    }
 }
 
@@ -136,12 +127,4 @@ export async function loadUser(userId) {
 
 export async function setUserFilter(filterBy) {
    return store.dispatch({ type: SET_USER_FILTER, filterBy })
-}
-
-export function reconnectSocketIfUserExists() {
-   const loggedinUser = userService.getLoggedinUser()
-   if (loggedinUser) {
-      store.dispatch({ type: SET_USER, user: loggedinUser }) // עדכון Redux עם היוזר
-      socketService.login(loggedinUser._id) // התחברות לסוקט
-   }
 }

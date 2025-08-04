@@ -1,7 +1,7 @@
 import { t } from 'i18next'
 import { useState } from 'react'
 import { MdClose } from 'react-icons/md'
-export function PermissionsEdit({ user, onUpdateUser, setIsOpenPermissions }) {
+export function UserPermissionsEdit({ user, onUpdateUser, setIsOpenPermissions }) {
    const [currUser, setCurrUser] = useState({ ...user })
    function handleChange(ev) {
       const field = ev.target.name
@@ -14,7 +14,7 @@ export function PermissionsEdit({ user, onUpdateUser, setIsOpenPermissions }) {
       await onUpdateUser(currUser)
    }
    return (
-      <form className='permissions-edit'>
+      <form className='user-permissions-edit'>
          <h2>{currUser.fullname}</h2>
          <div className='permissions-edit-row'>
             <input

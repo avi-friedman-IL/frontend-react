@@ -5,7 +5,7 @@ import { getRandomIntInclusive, makeId } from '../util.service'
 import { chatService as local } from './chat.service.local'
 import { chatService as remote } from './chat.service.remote'
 
-const service = VITE_LOCAL === 'true' ? local : remote
+const service = VITE_LOCAL ? local : remote
 // const service = local 
 // console.log(VITE_LOCAL)
 export const chatService = { ...service }

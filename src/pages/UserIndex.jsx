@@ -7,7 +7,7 @@ import {
    removeUser,
    updateUser,
 } from '../store/actions/user.actions.js'
-import { AddUser } from '../cmps/AddUser.jsx'
+import { UserAdd } from '../cmps/UserAdd.jsx'
 import { t } from 'i18next'
 import { UserFilter } from '../cmps/UserFilter.jsx'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
@@ -56,7 +56,7 @@ export function UserIndex() {
             onRemoveUser={onRemoveUser}
             onUpdateUser={onUpdateUser}
          />
-         {isOpenAddUser && <AddUser setIsOpenAddUser={setIsOpenAddUser} />}
+         {isOpenAddUser && <UserAdd setIsOpenAddUser={setIsOpenAddUser} />}
       </section>
    )
 }

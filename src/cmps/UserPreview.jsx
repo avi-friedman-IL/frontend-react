@@ -1,7 +1,7 @@
 import { t } from 'i18next'
 import { useState } from 'react'
-import { PermissionsEdit } from './PermissionsEdit.jsx'
-import { EditUser } from './EditUser.jsx'
+import { UserPermissionsEdit } from './UserPermissionsEdit.jsx'
+import { UserEdit } from './UserEdit.jsx'
 
 export function UserPreview({ user, onRemoveUser, onUpdateUser }) {
    const [isOpenPermissions, setIsOpenPermissions] = useState(false)
@@ -45,14 +45,14 @@ export function UserPreview({ user, onRemoveUser, onUpdateUser }) {
             </button>
          </section>
          {isOpenPermissions && (
-            <PermissionsEdit
+            <UserPermissionsEdit
                user={user}
                onUpdateUser={onUpdateUser}
                setIsOpenPermissions={setIsOpenPermissions}
             />
          )}
          {isOpenEditUser && (
-            <EditUser
+            <UserEdit
                user={user}
                onUpdateUser={onUpdateUser}
                setIsOpenEditUser={setIsOpenEditUser}

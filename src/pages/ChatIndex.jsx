@@ -44,13 +44,11 @@ export function ChatIndex() {
 
    useEffect(() => {
       loadCmp()
-      console.log('loading chats...')
    }, [])
 
    useEffect(() => {
       setSelectedChat(selectedChatId)
       setQuoteMsg(null)
-      console.log('loading chat...')
    }, [selectedChatId, selectedChat?.msgs?.length])
 
    useEffect(() => {

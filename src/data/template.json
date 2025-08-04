@@ -1,0 +1,259 @@
+[
+   {
+      "_id": "temp1",
+      "title": "טלפון שכבר דברו איתו",
+      "fields": [
+         {
+            "id": "field_tz0DA2_1",
+            "name": "collection",
+            "label": "שם המגבית",
+            "type": "text",
+            "required": true
+         },
+         {
+            "id": "field_tz0DA2_2",
+            "name": "phone",
+            "label": "מס הטלפון",
+            "type": "tel",
+            "required": true
+         },
+         {
+            "id": "field_tz0DA2_3",
+            "name": "hisStatus",
+            "label": "מה היה הסטטוס שלו(ניתן לראות בצפיה באירועים)",
+            "type": "select",
+            "required": true
+         },
+         {
+            "id": "field_tz0DA2_4",
+            "name": "nowStatus",
+            "label": "מה אמר כעת",
+            "type": "textarea",
+            "required": true
+         }
+      ]
+   },
+   {
+      "_id": "temp2",
+      "title": "הערה למשכורות",
+      "fields": [
+         {
+            "id": "field_tz0DA3_1",
+            "name": "collection",
+            "label": "שם המגבית",
+            "type": "text",
+            "required": true
+         },
+         {
+            "id": "field_tz0DA3_2",
+            "name": "note",
+            "label": "נא פרט לצורך הבנה מדויקת",
+            "type": "textarea",
+            "required": true
+         }
+      ]
+   },
+   {
+      "_id": "temp3",
+      "title": "שינוי שם לתורם",
+      "fields": [
+         {
+            "id": "field_tz0DA4_1",
+            "name": "collection",
+            "label": "שם המגבית",
+            "type": "text",
+            "required": true
+         },
+         {
+            "id": "field_tz0DA4_2",
+            "name": "phone",
+            "label": "מס טלפון",
+            "type": "tel",
+            "required": true
+         },
+         {
+            "id": "field_tz0DA4_3",
+            "name": "nowName",
+            "label": "השם שרשום כעת",
+            "type": "text",
+            "required": true
+         },
+         {
+            "id": "field_tz0DA4_4",
+            "name": "realName",
+            "label": "השם האמיתי",
+            "type": "text",
+            "required": true
+         }
+      ]
+   },
+   {
+      "_id": "temp4",
+      "title": "שינוי טלפון לתורם",
+      "fields": [
+         {
+            "id": "field_tz0DA5_1",
+            "name": "collection",
+            "label": "שם המגבית",
+            "type": "text",
+            "required": true
+         },
+         {
+            "id": "field_tz0DA5_2",
+            "name": "phone",
+            "label": "מס הטלפון שרשום כעת כטלפון ראשי",
+            "type": "tel",
+            "required": true
+         },
+         {
+            "id": "field_tz0DA5_3",
+            "name": "realPhone",
+            "label": "מס הטלפון האמיתי",
+            "type": "tel",
+            "required": true
+         },
+         {
+            "id": "field_tz0DA5_4",
+            "name": "reason",
+            "label": "סיבת השינוי(כגון - עד היום היה טל של האשה)",
+            "type": "textarea",
+            "required": true
+         }
+      ]
+   },
+   {
+      "_id": "temp5",
+      "title": "בעיה טכנית/ציוד חסר",
+      "fields": [
+         {
+            "id": "field_tz0DA6_1",
+            "name": "collection",
+            "label": "שם המגבית",
+            "type": "text",
+            "required": true
+         },
+         {
+            "id": "field_tz0DA6_2",
+            "name": "stand",
+            "label": "מס עמדה",
+            "type": "number",
+            "required": false
+         },
+         {
+            "id": "field_tz0DA6_3",
+            "name": "problem",
+            "label": "פרוט הבעיה לצורך הבנה מדויקת",
+            "type": "textarea",
+            "required": true
+         }
+      ]
+   },
+   {
+      "_id": "temp6",
+      "title": "ברור אם יש ללקוח הו\"ק",
+      "fields": [
+         {
+            "id": "field_tz0DA7_1",
+            "name": "collection",
+            "label": "שם המגבית",
+            "type": "text",
+            "required": true
+         },
+         {
+            "id": "field_tz0DA7_1.1",
+            "name": "customer name",
+            "label": "שם הלקוח",
+            "type": "text",
+            "required": true
+         },
+         {
+            "id": "field_tz0DA7_2",
+            "name": "phone",
+            "label": "מס הטלפון",
+            "type": "tel",
+            "required": true
+         },
+         {
+            "id": "field_tz0DA7_3",
+            "name": "comment",
+            "label": "מה התורם אמר",
+            "type": "textarea",
+            "required": true
+         }
+      ]
+   },
+   {
+      "_id": "temp7",
+      "title": "שיחה לא מזוהה",
+      "type": "complex",
+      "statuses": [
+         {
+            "name": "סירוב",
+            "fields": null
+         },
+         {
+            "name": "לא עניתי",
+            "fields": null
+         },
+         {
+            "name": "תרומה",
+            "fields": [
+               {
+                  "id": "field_tz0DA9_3",
+                  "name": "amount",
+                  "label": "סכום",
+                  "type": "number",
+                  "required": true
+               },
+               {
+                  "id": "field_tz0DA9_4",
+                  "name": "credit",
+                  "label": "מס אשראי",
+                  "type": "number",
+                  "required": true
+               },
+               {
+                  "id": "field_tz0DA9_5",
+                  "name": "expiry",
+                  "label": "תוקף",
+                  "type": "expiry",
+                  "required": true
+               },
+               {
+                  "id": "field_tz0DA9_6",
+                  "name": "security",
+                  "label": "3 ספרות",
+                  "type": "number",
+                  "required": true
+               },
+               {
+                  "id": "field_tz0DA9_7",
+                  "name": "ID",
+                  "label": "מס זהות",
+                  "type": "number",
+                  "required": false
+               }
+            ]
+         },
+         {
+            "name": "המשך טיפול",
+            "fields": [
+               {
+                  "id": "field_tz0DA9_1",
+                  "name": "reason",
+                  "label": "מה סיבת הדחיה",
+                  "type": "textarea",
+                  "required": true
+               },
+               {
+                  "id": "field_tz0DA9_2",
+                  "name": "status",
+                  "label": "האם להשאיר לך או להעביר לנציג המשכים",
+                  "type": "select",
+                  "required": true
+               }
+            ]
+         }
+      ]
+   }
+]

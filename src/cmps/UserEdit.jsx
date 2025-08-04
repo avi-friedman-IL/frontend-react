@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { t } from 'i18next'
 import { MdClose } from 'react-icons/md'
 
-export function EditUser({ user, onUpdateUser, setIsOpenEditUser }) {
+export function UserEdit({ user, onUpdateUser, setIsOpenEditUser }) {
    const [currUser, setCurrUser] = useState({ 
       ...user, 
       gender: user.gender || 'male'
@@ -20,7 +20,7 @@ export function EditUser({ user, onUpdateUser, setIsOpenEditUser }) {
    }
 
    return (
-      <form className='edit-user'>
+      <form className='user-edit'>
          <label htmlFor='fullname'>{t('fullname')}</label>
          <input
             type='text'

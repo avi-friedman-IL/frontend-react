@@ -40,7 +40,7 @@ export async function removeObjection(objectionId) {
 
 export async function addObjection(objection) {
    try {
-      const savedObjection = await objectionService.save(objection)
+      const savedObjection = await objectionService.add(objection)
       store.dispatch(getCmdAddObjection(savedObjection))
       return savedObjection
    } catch (err) {
@@ -51,7 +51,7 @@ export async function addObjection(objection) {
 
 export async function updateObjection(objection) {
    try {
-      const savedObjection = await objectionService.save(objection)
+      const savedObjection = await objectionService.update(objection)
       store.dispatch(getCmdUpdateObjection(savedObjection))
    } catch (err) {
       console.log('Cannot save objection', err)

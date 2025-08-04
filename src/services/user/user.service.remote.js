@@ -6,16 +6,16 @@ export const userService = {
    login,
    logout,
    signup,
-   getUsers,
+   query,
    getById,
-   save,
+   add,
    remove,
    update,
    getLoggedinUser,
    saveLoggedinUser,
 }
 
-export async function getUsers(filterBy = {}) {
+export async function query(filterBy = {}) {
    return httpService.get(`user`, filterBy)
 }
 
@@ -24,7 +24,7 @@ async function getById(userId) {
    return user
 }
 
-async function save(user) {
+async function add(user) {
    return httpService.post(`user`, user)
 }
 
@@ -35,8 +35,7 @@ function remove(userId) {
 async function update(user) {
    const updatedUser = await httpService.put(`user/${user._id}`, user)
 
-   // When admin updates other user's details, do not update loggedinUser
-   const loggedinUser = getLoggedinUser() // Might not work because its defined in the main service???
+   const loggedinUser = getLoggedinUser()
    if (loggedinUser._id === updatedUser._id) saveLoggedinUser(updatedUser)
 
    return updatedUser

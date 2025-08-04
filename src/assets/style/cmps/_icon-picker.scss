@@ -1,9 +1,0 @@
-@use '../base/vars' as *;
-
-.icon-picker {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 1rem);
-    gap: .5rem;
-    
-}
-

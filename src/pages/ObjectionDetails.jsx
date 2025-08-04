@@ -1,17 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { useSelector } from 'react-redux'
-import { BiEdit } from 'react-icons/bi'
 import { TfiBackRight } from 'react-icons/tfi'
 import { IoCloseOutline } from 'react-icons/io5'
 
 import { objectionService } from '../services/objection'
 import { loadObjections } from '../store/actions/objection.actions'
-import { ItemEdit } from '../cmps/ItemEdit.jsx'
-import { ObjectionStyle } from '../cmps/ObjectionStyle.jsx'
-import { AddItem } from '../cmps/AddItem.jsx'
 import { t } from 'i18next'
-import { AiOutlineEdit } from 'react-icons/ai'
+import { Link } from 'react-router-dom'
 
 export function ObjectionDetails() {
    const navigate = useNavigate()
@@ -23,12 +19,11 @@ export function ObjectionDetails() {
    const [currObjection, setCurrObjection] = useState(null)
    const [openItemId, setOpenItemId] = useState(null)
    const [selectedItemId, setSelectedItemId] = useState(params.itemId)
-   const [isOpenAddItem, setIsOpenAddItem] = useState(false)
 
    const openItemRef = useRef(null)
    useEffect(() => {
       loadObjection()
-   }, [params.id, objections.length, openItemId, isOpenAddItem])
+   }, [params.id, objections.length, openItemId])
 
    useEffect(() => {
       document.addEventListener('keydown', event => {
@@ -72,26 +67,14 @@ export function ObjectionDetails() {
          <h1>{currObjection?.category}</h1>
 
          <div className='actions'>
-            {/* <ObjectionStyle
-               currObjection={currObjection}
-               setCurrObjection={setCurrObjection}
-            /> */}
             {user?.isAdmin && (
-               <button
-                  className='add-btn btn2'
-                  onClick={() => setIsOpenAddItem(true)}>
-                  {t('add item')}
-               </button>
+               <Link
+                  className='edit-btn'
+                  to={`/objection/edit/${currObjection?._id}`}>
+                  {t('Edit')}
+               </Link>
             )}
          </div>
-
-         {isOpenAddItem && (
-            <AddItem
-               currObjection={currObjection}
-               setCurrObjection={setCurrObjection}
-               setIsOpenAddItem={setIsOpenAddItem}
-            />
-         )}
 
          <ul className='objection-details-main'>
             {currObjection?.items?.map(item => (
@@ -104,53 +87,32 @@ export function ObjectionDetails() {
                      className={`item-content ${
                         selectedItemId === item.id ? 'selected' : ''
                      }`}>
-                     {openItemId !== item.id && (
-                        <div
-                           className='details-item-btns'
-                           style={{
-                              display:
-                                 selectedItemId === item.id ? 'grid' : 'none',
+                     <div
+                        className='details-item-btns'
+                        style={{
+                           display:
+                              selectedItemId === item.id ? 'grid' : 'none',
+                        }}>
+                        <button
+                           className='btn2'
+                           onClick={ev => {
+                              ev.stopPropagation()
+                              setSelectedItemId(null)
                            }}>
-                           <button
-                              className='btn2'
-                              onClick={ev => {
-                                 ev.stopPropagation()
-                                 setSelectedItemId(null)
-                              }}>
-                              <IoCloseOutline />
-                           </button>
-                           {user?.isAdmin && (
-                              <button
-                                 className='btn3'
-                                 onClick={() => setOpenItemId(item.id)}>
-                                 <span>{t('Edit')}</span>
-                                 <AiOutlineEdit />
-                              </button>
-                           )}
-                        </div>
-                     )}
+                           <IoCloseOutline />
+                        </button>
+                     </div>
 
-                     {openItemId === item.id && (
-                        <ItemEdit
-                           item={item}
-                           setOpenItemId={setOpenItemId}
-                           currObjection={currObjection}
-                        />
-                     )}
+                     <h2
+                        className='item-title'
+                        style={{
+                           color: item.style?.color || 'black',
+                        }}>
+                        {t(item.title)}
+                     </h2>
 
-                     {openItemId !== item.id && (
-                        <h2
-                           className='item-title'
-                           style={{
-                              color: item.style?.color || 'black',
-                           }}>
-                           {t(item.title)}
-                        </h2>
-                     )}
+                     <p dangerouslySetInnerHTML={{ __html: item.content }} />
 
-                     {openItemId !== item.id && (
-                        <p dangerouslySetInnerHTML={{ __html: item.content }} />
-                     )}
                      {selectedItemId === item.id && (
                         <button
                            className='back-btn btn2'

@@ -7,7 +7,6 @@ import {
    UPDATE_TEMPLATE,
    SET_FILTER,
    SET_LOADING,
-   SET_ALL_TEMPLATES,
 } from '../reducers/template.reducer'
 
 export async function loadTemplates(filterBy = {}) {
@@ -18,20 +17,6 @@ export async function loadTemplates(filterBy = {}) {
       return templates
    } catch (err) {
       console.log('Cannot load templates', err)
-      throw err
-   } finally {
-      store.dispatch({ type: SET_LOADING, isLoading: false })
-   }
-}
-
-export async function loadAllTemplates() {
-   store.dispatch({ type: SET_LOADING, isLoading: true })
-   try {
-      const allTemplates = await templateService.query()
-      store.dispatch({ type: SET_ALL_TEMPLATES, allTemplates })
-      return allTemplates
-   } catch (err) {
-      console.log('Cannot load all templates', err)
       throw err
    } finally {
       store.dispatch({ type: SET_LOADING, isLoading: false })
@@ -51,7 +36,7 @@ export async function removeTemplate(templateId) {
 export async function addTemplate(template) {
    store.dispatch({ type: SET_LOADING, isLoading: true })
    try {
-      const savedTemplate = await templateService.save(template)
+      const savedTemplate = await templateService.add(template)
       store.dispatch(getCmdAddTemplate(savedTemplate))
       return savedTemplate
    } catch (err) {
@@ -64,7 +49,7 @@ export async function addTemplate(template) {
 
 export async function updateTemplate(template) {
    try {
-      const savedTemplate = await templateService.save(template)
+      const savedTemplate = await templateService.update(template)
       store.dispatch(getCmdUpdateTemplate(savedTemplate))
    } catch (err) {
       console.log('Cannot save template', err)
@@ -100,16 +85,4 @@ function getCmdUpdateTemplate(template) {
       type: UPDATE_TEMPLATE,
       template,
    }
-}
-
-// unitTestActions()
-async function unitTestActions() {
-   await loadTemplates()
-   await addTemplate(templateService.getEmptyTemplate())
-   await updateTemplate({
-      _id: 'm1oC7',
-      title: 'Template-Good',
-   })
-   await removeTemplate('m1oC7')
-   // TODO unit test addTemplateTemplate
 }
