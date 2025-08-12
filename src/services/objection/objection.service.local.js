@@ -1,6 +1,6 @@
 
 import { storageService } from '../async-storage.service'
-import objectionData from '../../data/objection.json'
+import objectionData from '../../data/objection'
 
 const STORAGE_KEY = 'objection'
 

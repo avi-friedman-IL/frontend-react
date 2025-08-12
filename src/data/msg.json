@@ -1,0 +1,65 @@
+[
+  {
+    "_id": "msg1",
+    "subject": "שינוי שם לתורם",
+    "collection": "לב פתוח",
+    "phone": "050-1234567",
+    "nowName": "יוסי כהן",
+    "realName": "יוסף כהן",
+    "createdAt": 1704067200000,
+    "from": "user1",
+    "fromName": "משתמש ראשון",
+    "isDone": false,
+    "responses": []
+  },
+  {
+    "_id": "msg2",
+    "subject": "שינוי טלפון לתורם",
+    "collection": "לב אחד",
+    "phone": "052-1111111",
+    "realPhone": "054-2222222",
+    "reason": "עד היום היה טל של האשה",
+    "createdAt": 1704153600000,
+    "from": "user2",
+    "fromName": "משתמש שני",
+    "isDone": false,
+    "responses": []
+  },
+  {
+    "_id": "msg3",
+    "subject": "בעיה טכנית/ציוד חסר",
+    "collection": "לב פתוח",
+    "stand": 3,
+    "problem": "המחשב לא מגיב לחיצות בעמדה 3.",
+    "createdAt": 1704240000000,
+    "from": "user3",
+    "fromName": "משתמש שלישי",
+    "isDone": false,
+    "responses": []
+  },
+  {
+    "_id": "msg4",
+    "subject": "ברור אם יש ללקוח הו\"ק",
+    "collection": "לב אחד",
+    "phone": "050-3333333",
+    "comment": "התורם אמר שיש לו הו\"ק קיים.",
+    "createdAt": 1704326400000,
+    "from": "user1",
+    "fromName": "משתמש ראשון",
+    "isDone": false,
+    "responses": []
+  },
+  {
+    "_id": "msg5",
+    "subject": "אחר",
+    "collection": "לב פתוח",
+    "theme": "בירור תרומה",
+    "phone": "050-5555555",
+    "comment": "רוצה לדעת אם התרומה התקבלה.",
+    "createdAt": 1704412800000,
+    "from": "user2",
+    "fromName": "משתמש שני",
+    "isDone": false,
+    "responses": []
+  }
+]

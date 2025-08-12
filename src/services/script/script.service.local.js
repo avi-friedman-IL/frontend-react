@@ -1,5 +1,6 @@
 
 import { storageService } from '../async-storage.service'
+import scriptData from '../../data/script'
 
 const STORAGE_KEY = 'script'
 
@@ -12,7 +13,9 @@ export const scriptService = {
 }
 
 async function query(filterBy = {}) {
-   return await storageService.query(STORAGE_KEY)
+   var scripts = await storageService.query(STORAGE_KEY)
+   if (!scripts || scripts.length === 0) scripts = _getScripts()
+   return scripts
 }
 
 async function getById(chatId) {
@@ -29,4 +32,10 @@ async function add(chat) {
 
 async function update(chat) {
    return await storageService.put(STORAGE_KEY, chat)
+}
+
+async function _getScripts() {
+   const scripts = scriptData
+   await storageService.saveToStorage(STORAGE_KEY, scripts)
+   return scripts
 }

@@ -71,11 +71,11 @@ export function LoginForm() {
             <button className='btn2' type='submit'>
                {isSignup ? t('Signup') : t('Login')}
             </button>
-            {/* {!isSignup && (
+            {!isSignup && (
                <button className='btn2' onClick={() => setIsSignup(true)}>
                   {t('New user? Signup')}
                </button>
-            )} */}
+            )}
 
             {isSignup && (
                <button className='btn2' onClick={() => setIsSignup(false)}>
